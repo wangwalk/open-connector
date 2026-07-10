@@ -43,8 +43,7 @@ const dateRangeInput = {
 };
 
 const dateRangeRequired = ["websiteId", "startAt", "endAt", "timezone"];
-const rawObjectSchema = s.looseObject("Raw Umami response payload.");
-const rawArraySchema = s.array("Raw Umami response array.", s.unknown("Raw Umami array item."));
+const analyticsObjectSchema = s.looseObject("Sanitized Umami analytics payload.");
 
 const userSchema = s.looseObject("Umami user profile.", {
   id: s.string("User ID."),
@@ -58,13 +57,6 @@ const websiteSchema = s.looseObject("Umami website.", {
   name: s.string("Website name."),
   domain: s.string("Website domain."),
   shareId: s.nullableString("Public share ID when sharing is enabled."),
-});
-
-const paginatedWebsitesSchema = s.looseObject("Paginated Umami websites response.", {
-  data: s.array("Websites returned by Umami.", websiteSchema),
-  count: s.nonNegativeInteger("Total number of websites matching the query."),
-  page: s.positiveInteger("Current page number."),
-  pageSize: s.positiveInteger("Page size used by Umami."),
 });
 
 const statsSchema = s.looseObject("Umami website statistics.", {
@@ -97,7 +89,6 @@ export const umamiActions: ProviderActionDefinition[] = [
     outputSchema: s.actionOutput(
       {
         user: userSchema,
-        raw: rawObjectSchema,
       },
       "Current Umami user response.",
     ),
@@ -120,7 +111,6 @@ export const umamiActions: ProviderActionDefinition[] = [
         count: s.nonNegativeInteger("Total number of websites matching the query."),
         page: s.positiveInteger("Current page number."),
         pageSize: s.positiveInteger("Page size used by Umami."),
-        raw: paginatedWebsitesSchema,
       },
       "Umami website list response.",
     ),
@@ -136,7 +126,6 @@ export const umamiActions: ProviderActionDefinition[] = [
     outputSchema: s.actionOutput(
       {
         website: websiteSchema,
-        raw: rawObjectSchema,
       },
       "Umami website response.",
     ),
@@ -152,7 +141,6 @@ export const umamiActions: ProviderActionDefinition[] = [
     outputSchema: s.actionOutput(
       {
         stats: statsSchema,
-        raw: rawObjectSchema,
       },
       "Umami website statistics response.",
     ),
@@ -170,8 +158,7 @@ export const umamiActions: ProviderActionDefinition[] = [
     ),
     outputSchema: s.actionOutput(
       {
-        pageviews: rawObjectSchema,
-        raw: rawObjectSchema,
+        pageviews: analyticsObjectSchema,
       },
       "Umami pageview timeseries response.",
     ),
@@ -191,7 +178,6 @@ export const umamiActions: ProviderActionDefinition[] = [
     outputSchema: s.actionOutput(
       {
         metrics: s.array("Metric rows returned by Umami.", metricRowSchema),
-        raw: rawArraySchema,
       },
       "Umami website metrics response.",
     ),
@@ -206,8 +192,7 @@ export const umamiActions: ProviderActionDefinition[] = [
     ),
     outputSchema: s.actionOutput(
       {
-        realtime: rawObjectSchema,
-        raw: rawObjectSchema,
+        realtime: analyticsObjectSchema,
       },
       "Umami realtime response.",
     ),
@@ -231,7 +216,6 @@ export const umamiActions: ProviderActionDefinition[] = [
         count: s.nonNegativeInteger("Total number of events matching the query."),
         page: s.positiveInteger("Current page number."),
         pageSize: s.positiveInteger("Page size used by Umami."),
-        raw: s.looseObject("Raw Umami event list response."),
       },
       "Umami event list response.",
     ),
