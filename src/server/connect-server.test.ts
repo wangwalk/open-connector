@@ -771,7 +771,7 @@ describe("ConnectServer", () => {
   });
 
   it("returns one authenticated admin snapshot without secrets", async () => {
-    const app = createTestServer([apiKeyProvider, oauthProvider], {
+    const app = createTestServer([{ ...apiKeyProvider, actions: [echoAction] }, oauthProvider], {
       auth: { adminToken: "local-token" },
     }).createApp();
 
@@ -807,7 +807,7 @@ describe("ConnectServer", () => {
         adminAuthConfigured: true,
         authenticated: true,
       },
-      providers: [{ service: "example" }, { service: "oauth_example" }],
+      providers: [{ service: "example", actions: [{ id: "example.echo" }] }, { service: "oauth_example" }],
       connections: [],
       oauthConfigs: [{ service: "oauth_example", clientId: "client-id", configured: true }],
       runtimeTokens: [{ name: "Craft Remote" }],
@@ -818,6 +818,8 @@ describe("ConnectServer", () => {
     expect(serialized).not.toContain(createdTokenBody.token);
     expect(serialized).not.toContain("client-secret");
     expect(serialized).not.toContain("local-token");
+    expect(serialized).not.toContain("inputSchema");
+    expect(serialized).not.toContain("outputSchema");
   });
 
   it("reports local admin auth session state", async () => {

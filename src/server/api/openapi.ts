@@ -103,7 +103,7 @@ export function createOpenApiDocument(
           authSession: { $ref: "#/components/schemas/LocalAuthSession" },
           providers: {
             type: "array",
-            items: { $ref: "#/components/schemas/ProviderDefinition" },
+            items: { $ref: "#/components/schemas/AdminProviderSummary" },
           },
           connections: {
             type: "array",
@@ -221,6 +221,9 @@ export function createOpenApiDocument(
     components: {
       schemas: {
         ActionDefinition: jsonSchema.unknownObject("Public action catalog definition with runtime execution status."),
+        AdminProviderSummary: jsonSchema.unknownObject(
+          "Provider catalog summary whose actions omit inputSchema and outputSchema; fetch one action by id for full schemas.",
+        ),
         LocalAuthSession: jsonSchema.object(
           {
             adminAuthConfigured: jsonSchema.boolean({

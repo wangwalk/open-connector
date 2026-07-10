@@ -1,6 +1,5 @@
-import type { CatalogStore } from "../../catalog-store.ts";
+import type { CatalogStore, RuntimeActionDefinition, RuntimeProviderDefinition } from "../../catalog-store.ts";
 import type { ConnectionService, ConnectionSummary } from "../../connection-service.ts";
-import type { ProviderDefinition } from "../../core/types.ts";
 import type { OAuthClientConfigService, OAuthClientConfigSummary } from "../../oauth/oauth-client-config-service.ts";
 import type { ActionRunner } from "../actions/action-runner.ts";
 import type { RunLogPage } from "../storage/runtime-store.ts";
@@ -10,10 +9,16 @@ import type { Context } from "hono";
 
 import { readLocalAuthSession } from "./auth.ts";
 
+export type AdminActionSummary = Omit<RuntimeActionDefinition, "inputSchema" | "outputSchema">;
+
+export type AdminProviderSummary = Omit<RuntimeProviderDefinition, "actions"> & {
+  actions: AdminActionSummary[];
+};
+
 /** Data required to render the local administration overview in one request. */
 export interface AdminSnapshot {
   authSession: LocalAuthSession;
-  providers: ProviderDefinition[];
+  providers: AdminProviderSummary[];
   connections: ConnectionSummary[];
   oauthConfigs: OAuthClientConfigSummary[];
   runtimeTokens: RuntimeTokenSummary[];
@@ -45,11 +50,18 @@ export async function createAdminSnapshot(
 
   return {
     authSession,
-    providers: options.catalog.providers,
+    providers: options.catalog.providers.map(toAdminProviderSummary),
     connections,
     oauthConfigs,
     runtimeTokens,
     runs,
     healthOk: true,
+  };
+}
+
+function toAdminProviderSummary(provider: RuntimeProviderDefinition): AdminProviderSummary {
+  return {
+    ...provider,
+    actions: provider.actions.map(({ inputSchema: _inputSchema, outputSchema: _outputSchema, ...action }) => action),
   };
 }
