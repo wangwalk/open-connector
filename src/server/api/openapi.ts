@@ -94,6 +94,35 @@ export function createOpenApiDocument(
 
   const paths: Record<string, unknown> = {
     "/health": getOperation("System", "Runtime health check.", { ok: jsonSchema.boolean() }),
+    "/api/admin/snapshot": getOperation(
+      "System",
+      "Read the data required to render the local administration overview in one request.",
+      {
+        type: "object",
+        properties: {
+          authSession: { $ref: "#/components/schemas/LocalAuthSession" },
+          providers: {
+            type: "array",
+            items: { $ref: "#/components/schemas/ProviderDefinition" },
+          },
+          connections: {
+            type: "array",
+            items: { $ref: "#/components/schemas/ConnectionSummary" },
+          },
+          oauthConfigs: {
+            type: "array",
+            items: { $ref: "#/components/schemas/OAuthClientConfigSummary" },
+          },
+          runtimeTokens: {
+            type: "array",
+            items: { $ref: "#/components/schemas/RuntimeTokenSummary" },
+          },
+          runs: { $ref: "#/components/schemas/RunLogPage" },
+          healthOk: jsonSchema.boolean(),
+        },
+        required: ["authSession", "providers", "connections", "oauthConfigs", "runtimeTokens", "runs", "healthOk"],
+      },
+    ),
     "/api/auth/session": getOperation("System", "Read local admin auth session state.", {
       $ref: "#/components/schemas/LocalAuthSession",
     }),

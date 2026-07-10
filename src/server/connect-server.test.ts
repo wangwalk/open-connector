@@ -770,6 +770,56 @@ describe("ConnectServer", () => {
     }
   });
 
+  it("returns one authenticated admin snapshot without secrets", async () => {
+    const app = createTestServer([apiKeyProvider, oauthProvider], {
+      auth: { adminToken: "local-token" },
+    }).createApp();
+
+    expect((await app.request("/api/admin/snapshot")).status).toBe(401);
+
+    const createdToken = await app.request("/api/runtime-tokens", {
+      method: "POST",
+      headers: {
+        authorization: "Bearer local-token",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ name: "Craft Remote" }),
+    });
+    const createdTokenBody = (await createdToken.json()) as { token: string };
+
+    const configuredOAuth = await app.request("/api/oauth/configs/oauth_example", {
+      method: "PUT",
+      headers: {
+        authorization: "Bearer local-token",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ clientId: "client-id", clientSecret: "client-secret" }),
+    });
+    expect(configuredOAuth.status).toBe(200);
+
+    const response = await app.request("/api/admin/snapshot", {
+      headers: { authorization: "Bearer local-token" },
+    });
+    expect(response.status).toBe(200);
+    const snapshot = await response.json();
+    expect(snapshot).toMatchObject({
+      authSession: {
+        adminAuthConfigured: true,
+        authenticated: true,
+      },
+      providers: [{ service: "example" }, { service: "oauth_example" }],
+      connections: [],
+      oauthConfigs: [{ service: "oauth_example", clientId: "client-id", configured: true }],
+      runtimeTokens: [{ name: "Craft Remote" }],
+      runs: { items: [] },
+      healthOk: true,
+    });
+    const serialized = JSON.stringify(snapshot);
+    expect(serialized).not.toContain(createdTokenBody.token);
+    expect(serialized).not.toContain("client-secret");
+    expect(serialized).not.toContain("local-token");
+  });
+
   it("reports local admin auth session state", async () => {
     const app = createTestServer([apiKeyProvider], {
       auth: { adminToken: "local-token" },
