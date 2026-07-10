@@ -4,6 +4,7 @@ import { credentialValidators, executors } from "./executors.ts";
 import { normalizePlausibleBaseUrl, plausibleAnalyticsActionHandlers } from "./runtime.ts";
 
 afterEach(() => {
+  vi.useRealTimers();
   vi.unstubAllGlobals();
 });
 
@@ -146,6 +147,27 @@ describe("Plausible read-only Agent analytics provider", () => {
       order_by: [["visitors", "desc"]],
       include: { total_rows: true },
       pagination: { limit: 20, offset: 0 },
+    });
+  });
+
+  it("translates the CE-rejected 24h preset into an explicit ISO range", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-10T17:12:00.000Z"));
+    const fetcher = vi.fn(
+      async (_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> => statsResponse([[2]], []),
+    );
+    vi.stubGlobal("fetch", fetcher);
+
+    const result = await executors["plausible_analytics.query_stats"]?.(
+      { date_range: "24h", metrics: ["pageviews"] },
+      {
+        getCredential: async () => apiKeyCredential("secret", { siteId: "example.com" }),
+      },
+    );
+
+    expect(result).toMatchObject({ ok: true, output: { date_range: "24h" } });
+    expect(JSON.parse(String(fetcher.mock.calls[0]![1]?.body))).toMatchObject({
+      date_range: ["2026-07-09T17:12:00.000Z", "2026-07-10T17:12:00.000Z"],
     });
   });
 

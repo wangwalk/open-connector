@@ -338,7 +338,7 @@ async function requestPlausibleStats(
 function statsRequestBody(request: PlausibleStatsRequest): Record<string, unknown> {
   const body: Record<string, unknown> = {
     site_id: request.siteId,
-    date_range: request.dateRange,
+    date_range: toProviderDateRange(request.dateRange),
     metrics: request.metrics,
   };
   if (request.dimensions.length > 0) body.dimensions = request.dimensions;
@@ -517,6 +517,13 @@ function readOrders(value: unknown, metrics: PlausibleMetric[], dimensions: Plau
     ) as PlausibleOrderDirection;
     return { field: field as PlausibleMetric | PlausibleDimension, direction };
   });
+}
+
+function toProviderDateRange(value: PlausibleDateRange): PlausibleDateRange {
+  if (value !== "24h") return value;
+  const to = new Date();
+  const from = new Date(to.getTime() - 24 * 60 * 60 * 1000);
+  return [from.toISOString(), to.toISOString()];
 }
 
 function readDateRange(value: unknown, fieldName: string): PlausibleDateRange {
