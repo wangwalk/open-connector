@@ -30,7 +30,6 @@ import {
 } from "./actions/action-idempotency.ts";
 import { ActionRunner } from "./actions/action-runner.ts";
 import { renderActionMarkdown } from "./api/action-markdown.ts";
-import { createAdminSnapshot } from "./api/admin-snapshot.ts";
 import { clearLocalAuthCookie, createLocalAuthMiddleware, readLocalAuthSession } from "./api/auth.ts";
 import { getResponseCachePolicy } from "./api/cache-policy.ts";
 import { HttpRequestError, internalError, jsonError, notFound, readJsonBody } from "./api/http-utils.ts";
@@ -150,18 +149,6 @@ export class ConnectServer {
       }),
     );
 
-    app.get("/api/admin/snapshot", async (context) =>
-      context.json(
-        await createAdminSnapshot(context, {
-          catalog: this.options.catalog,
-          connections: this.options.connections,
-          oauthClientConfigs: this.options.oauthClientConfigs,
-          runtimeTokens: this.options.runtimeTokens,
-          actions: this.options.actions,
-          auth,
-        }),
-      ),
-    );
     app.get("/api/providers", (context) => context.json(this.options.catalog.providers));
     app.get("/api/providers/:service", (context) => this.getProvider(context, context.req.param("service")));
 
