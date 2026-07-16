@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { MicrosoftClarityActionName } from "./actions.ts";
 
 import { compactObject, objectArray, optionalString, requiredRecord, requiredString } from "../../core/cast.ts";
 import { providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -18,7 +17,7 @@ type MicrosoftClarityActionHandler = (
 
 const validationCache = new Map<string, number>();
 
-export const microsoftClarityActionHandlers: Record<MicrosoftClarityActionName, MicrosoftClarityActionHandler> = {
+export const microsoftClarityActionHandlers: Record<string, MicrosoftClarityActionHandler> = {
   export_live_insights(input, context) {
     return exportLiveInsights(input, context);
   },

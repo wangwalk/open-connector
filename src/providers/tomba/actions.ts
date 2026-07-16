@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -29,7 +29,7 @@ export type TombaActionName =
   | "enrich"
   | "search_companies";
 
-export const tombaActions: Array<ProviderActionDefinition<TombaActionName>> = [
+export const tombaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account",
     description: "Retrieve information about the authenticated Tomba account.",

@@ -1,6 +1,6 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ProviderFetch } from "../provider-runtime.ts";
-import type { AgentMailActionName, AgentMailOperationDefinition } from "./actions.ts";
+import type { AgentMailOperationDefinition } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import { providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -22,9 +22,9 @@ export const agentMailActionHandlers = Object.fromEntries(
   Object.keys(agentMailOperationByActionName).map((actionName) => [
     actionName,
     (input: Record<string, unknown>, context: AgentMailActionContext) =>
-      executeAgentMailOperation(input, context, agentMailOperationByActionName[actionName as AgentMailActionName]),
+      executeAgentMailOperation(input, context, agentMailOperationByActionName[actionName as string]),
   ]),
-) as Record<AgentMailActionName, AgentMailActionHandler>;
+) as Record<string, AgentMailActionHandler>;
 
 export async function validateAgentMailCredential(
   apiKey: string,

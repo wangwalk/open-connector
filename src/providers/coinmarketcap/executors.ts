@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { CoinmarketcapActionName } from "./actions.ts";
 
 import { optionalBoolean, optionalNumber, optionalRecord, optionalString, requiredRecord } from "../../core/cast.ts";
 import { queryParams } from "../../core/request.ts";
@@ -17,7 +16,7 @@ interface CoinmarketcapStatusPayload {
   error_message?: unknown;
 }
 
-export const coinmarketcapActionHandlers: Record<CoinmarketcapActionName, CoinmarketcapActionHandler> = {
+export const coinmarketcapActionHandlers: Record<string, CoinmarketcapActionHandler> = {
   get_key_info(_input, context) {
     return coinmarketcapGet("/v1/key/info", {}, context, "execute");
   },

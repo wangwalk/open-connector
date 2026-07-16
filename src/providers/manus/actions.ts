@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -281,7 +280,7 @@ const sendMessageInputSchema = {
   anyOf: [{ required: ["message"] }, { required: ["content"] }],
 } satisfies JsonSchema;
 
-export const manusActions: ProviderActionDefinition<ManusActionName>[] = [
+export const manusActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "create_task",
     description:

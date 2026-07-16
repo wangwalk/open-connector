@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -54,7 +54,7 @@ const companyLookupInputSchema = s.object(
   { optional: ["domain", "professional_network_url", "professional_network_id"] },
 );
 
-export const fullenrichActions: Array<ProviderActionDefinition<FullenrichActionName>> = [
+export const fullenrichActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_credit_balance",
     description: "Get the current FullEnrich credit balance for the workspace.",

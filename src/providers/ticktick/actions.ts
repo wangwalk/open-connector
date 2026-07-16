@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -166,7 +166,7 @@ export type TicktickActionName =
   | "create_or_update_habit_checkin"
   | "list_habit_checkins";
 
-export const ticktickActions: Array<ProviderActionDefinition<TicktickActionName>> = [
+export const ticktickActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_user_project",
     description: "List the projects available to the connected TickTick account.",

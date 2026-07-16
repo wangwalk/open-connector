@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -134,7 +134,7 @@ const generatedFileSchema = s.actionOutput(
 
 export type ElevenreaderActionName = "get_user_info" | "get_models" | "search_voices" | "get_voice" | "read_text";
 
-export const elevenreaderActions: ProviderActionDefinition<ElevenreaderActionName>[] = [
+export const elevenreaderActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_user_info",
     description: "Get the current ElevenReader user profile and subscription snapshot.",

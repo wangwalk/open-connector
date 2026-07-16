@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -74,7 +74,7 @@ const returnDetailsSchema = s.object("A normalized Loop Returns return detail re
   raw: rawObjectSchema,
 });
 
-export const loopReturnsActions: Array<ProviderActionDefinition<LoopReturnsActionName>> = [
+export const loopReturnsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_returns",
     description: "List Loop Returns returns created or updated within an optional timeframe.",

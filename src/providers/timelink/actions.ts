@@ -438,7 +438,7 @@ export const timelinkActions: ProviderActionDefinition[] = [
       token: tokenSchema,
     }),
   }),
-] satisfies ProviderActionDefinition[];
+];
 
 export type TimelinkActionName =
   | "list_clients"

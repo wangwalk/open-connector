@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -27,7 +27,7 @@ const fairingResponseSchema = s.looseObject("A Fairing response object.", {
   response_provided_at: s.nullableString("The ISO 8601 timestamp when the customer provided the response."),
 });
 
-export const fairingActions: Array<ProviderActionDefinition<FairingActionName>> = [
+export const fairingActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_responses",
     description: "List paginated Fairing survey responses with optional time, cursor, and question filters.",

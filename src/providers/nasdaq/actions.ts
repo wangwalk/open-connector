@@ -145,7 +145,7 @@ export type NasdaqActionName =
   | "get_end_of_day_quote"
   | "get_real_time_quote";
 
-export const nasdaqActions: Array<ActionDefinition & { name: NasdaqActionName }> = [
+export const nasdaqActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_datatable_metadata",
     description: "Retrieve schema, filter, refresh, and premium metadata for a Nasdaq Data Link datatable.",

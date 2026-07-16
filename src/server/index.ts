@@ -3,8 +3,9 @@ import { access, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { loadCatalog } from "../catalog-store.ts";
 import { ActionPolicyService, parseActionPolicyList } from "../core/action-policy.ts";
+import { parsePrivateNetworkAccessFlag, setPrivateNetworkAccessAllowed } from "../core/request.ts";
 import { ProviderLoader } from "../providers/provider-loader.ts";
-import { executableActionIds } from "../providers/registry.generated.ts";
+import { executableActionIds, executorModules } from "../providers/registry.generated.ts";
 import { registerStaticRoutes } from "./api/static-routes.ts";
 import { createConnectApp } from "./connect-app.ts";
 import { TransitFileService } from "./files/transit-files.ts";
@@ -27,13 +28,14 @@ const actionPolicy = new ActionPolicyService({
   allowedProxies: parseActionPolicyList(process.env.OOMOL_CONNECT_ALLOWED_PROXIES),
   blockedProxies: parseActionPolicyList(process.env.OOMOL_CONNECT_BLOCKED_PROXIES),
 });
+setPrivateNetworkAccessAllowed(parsePrivateNetworkAccessFlag(process.env.OOMOL_CONNECT_ALLOW_PRIVATE_NETWORK));
 const builtRoot = join(process.cwd(), "dist/web");
 const staticRoot = await resolveStaticRoot(builtRoot);
 await mkdir(dataDir, { recursive: true });
 const catalog = await loadCatalog(undefined, {
   executableActionIds: Object.values(executableActionIds).flat(),
 });
-const providerLoader = new ProviderLoader();
+const providerLoader = new ProviderLoader(executorModules);
 const runtimeDatabase = new SqliteRuntimeDatabase(join(dataDir, "connect.sqlite"), {
   secretCodec,
 });
@@ -86,7 +88,7 @@ serve(
     }
     if (!secretCodec.encrypted) {
       logger.warn(
-        "local credential encryption is disabled; set OOMOL_CONNECT_ENCRYPTION_KEY to encrypt stored credentials",
+        "local data encryption is disabled; set OOMOL_CONNECT_ENCRYPTION_KEY to encrypt stored credentials, OAuth client configuration, and completed idempotent action responses",
       );
     }
     if (!staticRoot) {

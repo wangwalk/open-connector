@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -100,7 +99,7 @@ export type Dida365ActionName =
   | "create_or_update_habit_checkin"
   | "list_habit_checkins";
 
-export const dida365Actions: Array<ProviderActionDefinition<Dida365ActionName>> = [
+export const dida365Actions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_user_project",
     description: "List the projects available to the connected Dida365 account.",

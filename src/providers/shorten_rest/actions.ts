@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -159,7 +158,7 @@ export type ShortenRestActionName =
   | "list_aliases"
   | "list_clicks";
 
-export const shortenRestActions: ProviderActionDefinition<ShortenRestActionName>[] = [
+export const shortenRestActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "create_alias",
     description: "Create a Shorten.REST alias for one or more destination URLs.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -124,7 +124,7 @@ export type MeetGeekActionName =
   | "get_insights"
   | "list_teams";
 
-export const meetGeekActions: ProviderActionDefinition<MeetGeekActionName>[] = [
+export const meetGeekActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_meetings",
     description: "List paginated past meetings from MeetGeek.",

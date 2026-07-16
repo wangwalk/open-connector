@@ -5,7 +5,6 @@ import type {
   ProviderExecutors,
   ProviderProxyExecutor,
 } from "../../core/types.ts";
-import type { AwsActionName } from "./actions.ts";
 
 import { createHash, createHmac } from "node:crypto";
 import { isIP } from "node:net";
@@ -14,6 +13,7 @@ import {
   createProviderProxyUrl,
   defineProviderExecutors,
   normalizeProviderProxyHeaders,
+  providerFetch,
   ProviderRequestError,
   providerUserAgent,
   readProviderProxyResponse,
@@ -85,7 +85,7 @@ const maxSourceBytes = 20 * 1024 * 1024;
 const awsServiceName = "s3";
 const service = "aws_s3";
 
-export const awsActionHandlers: Record<AwsActionName, AwsActionHandler> = {
+export const awsActionHandlers: Record<string, AwsActionHandler> = {
   list_buckets(input, context) {
     return awsListBuckets(input, context);
   },
@@ -135,7 +135,7 @@ export const proxy: ProviderProxyExecutor = async (input, context) => {
       {
         values: credential.values,
         metadata: credential.metadata,
-        fetcher: fetch,
+        fetcher: providerFetch,
         signal: context.signal,
       },
     );
@@ -162,7 +162,7 @@ export const proxy: ProviderProxyExecutor = async (input, context) => {
         secretAccessKey: requireAwsField(credential.values.secretAccessKey, "secretAccessKey"),
         sessionToken: optionalString(credential.values.sessionToken)?.trim(),
         region,
-        fetcher: fetch,
+        fetcher: providerFetch,
       }),
       {
         method,
@@ -173,7 +173,7 @@ export const proxy: ProviderProxyExecutor = async (input, context) => {
     );
     signedRequest.headers.set("user-agent", providerUserAgent);
 
-    const response = await fetch(url.toString(), {
+    const response = await providerFetch(url.toString(), {
       method,
       headers: signedRequest.headers,
       ...(body === undefined ? {} : { body }),

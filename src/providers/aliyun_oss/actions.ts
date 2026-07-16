@@ -213,5 +213,3 @@ export const aliyunOssActions: ActionDefinition[] = [
     }),
   }),
 ];
-
-export type AliyunOssActionName = (typeof aliyunOssActions)[number]["name"];

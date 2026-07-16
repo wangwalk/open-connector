@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { AeroleadsActionName } from "./actions.ts";
 
 import { optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -21,7 +20,7 @@ interface AeroleadsActionContext {
 
 type AeroleadsActionHandler = (input: Record<string, unknown>, context: AeroleadsActionContext) => Promise<unknown>;
 
-export const aeroleadsActionHandlers: Record<AeroleadsActionName, AeroleadsActionHandler> = {
+export const aeroleadsActionHandlers: Record<string, AeroleadsActionHandler> = {
   get_details_from_linkedin_url(input, context) {
     return getDetailsFromLinkedinUrl(input, context);
   },

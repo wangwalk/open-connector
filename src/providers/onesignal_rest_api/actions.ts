@@ -225,7 +225,7 @@ export type OnesignalRestApiActionName =
   | "get_message"
   | "cancel_message";
 
-export const onesignalRestApiActions: Array<ActionDefinition & { name: OnesignalRestApiActionName }> = [
+export const onesignalRestApiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "create_push_notification",
     description: "Create a push notification for the connected OneSignal app using one official targeting method.",

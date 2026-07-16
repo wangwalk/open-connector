@@ -1,5 +1,4 @@
 import type { ApiKeyProviderContext, ProviderFetch, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { TwitterApiIoActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { ProviderRequestError, providerUserAgent } from "../provider-runtime.ts";
@@ -8,7 +7,7 @@ const twitterapiIoApiBaseUrl = "https://api.twitterapi.io";
 
 type TwitterApiIoActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-export const twitterapiIoActionHandlers: Record<TwitterApiIoActionName, TwitterApiIoActionHandler> = {
+export const twitterapiIoActionHandlers: Record<string, TwitterApiIoActionHandler> = {
   get_account_info(_input, context) {
     return requestTwitterApiIo({
       path: "/oapi/my/info",

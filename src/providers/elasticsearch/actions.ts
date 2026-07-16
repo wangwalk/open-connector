@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -98,7 +98,7 @@ const searchHitSchema = s.looseObject(
 
 export type ElasticsearchActionName = "ping_cluster" | "list_indices" | "get_index_schema" | "query_index";
 
-export const elasticsearchActions: ProviderActionDefinition<ElasticsearchActionName>[] = [
+export const elasticsearchActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "ping_cluster",
     description: "Check whether the Elasticsearch cluster is reachable and return its health status.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -155,7 +155,7 @@ export type LumaActionName =
   | "list_event_guests"
   | "get_event_guest";
 
-export const lumaActions: ProviderActionDefinition<LumaActionName>[] = [
+export const lumaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_self",
     description: "Get the Luma user profile for the current API key.",

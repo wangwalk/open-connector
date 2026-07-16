@@ -76,7 +76,7 @@ export type NeedleActionName =
   | "add_files_to_collection"
   | "search_collection";
 
-export const needleActions: Array<ActionDefinition & { name: NeedleActionName }> = [
+export const needleActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_collections",
     description: "List the Needle collections that the API key can access.",

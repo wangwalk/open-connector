@@ -414,7 +414,7 @@ export const tidbActions: ProviderActionDefinition[] = [
     ),
     outputSchema: branchSchema,
   }),
-] satisfies ProviderActionDefinition[];
+];
 
 export type TiDBActionName =
   | "list_api_keys"

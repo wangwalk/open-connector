@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { NtfyActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalNumber, optionalRecord, optionalString } from "../../core/cast.ts";
 import { defineApiKeyProviderExecutors, providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -12,7 +11,7 @@ const ntfyAccountPath = "/v1/account";
 type NtfyRequestPhase = "validate" | "execute";
 type NtfyActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const ntfyActionHandlers: Record<NtfyActionName, NtfyActionHandler> = {
+export const ntfyActionHandlers: Record<string, NtfyActionHandler> = {
   async get_account(_input, context) {
     const payload = await requestNtfyJson({
       path: ntfyAccountPath,

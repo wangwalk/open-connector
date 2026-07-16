@@ -348,4 +348,4 @@ export const simplesatActions: ActionDefinition[] = [
   getCustomerAction,
   createOrUpdateCustomerAction,
   sendSurveyEmailAction,
-] satisfies ActionDefinition[];
+];

@@ -465,7 +465,7 @@ export const tencentDocsActions: ActionDefinition[] = [
       file: tencentDocsFileSchema,
     }),
   }),
-] satisfies ActionDefinition[];
+];
 
 export type TencentDocsActionName =
   | "get_current_user"

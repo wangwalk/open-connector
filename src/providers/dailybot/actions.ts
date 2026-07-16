@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -49,7 +48,7 @@ export type DailybotActionName =
   | "send_email"
   | "open_conversation";
 
-export const dailybotActions: Array<ProviderActionDefinition<DailybotActionName>> = [
+export const dailybotActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_me",
     description: "Get the authenticated Dailybot user context and linked organization.",

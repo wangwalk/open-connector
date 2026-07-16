@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { MetasoActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { assertPublicHttpUrl } from "../../core/request.ts";
@@ -14,7 +13,7 @@ type MetasoPhase = "validate" | "execute";
 type MetasoChatStreamChunk = Record<string, unknown>;
 type MetasoReaderFormat = "markdown" | "json";
 
-export const metasoActionHandlers: Record<MetasoActionName, MetasoActionHandler> = {
+export const metasoActionHandlers: Record<string, MetasoActionHandler> = {
   search(input, context) {
     return requestMetasoJson("/search", buildSearchBody(input), context, "execute");
   },

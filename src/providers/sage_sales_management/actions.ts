@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -235,7 +235,7 @@ export type SageSalesManagementActionName =
   | "update_opportunity"
   | "delete_opportunity";
 
-export const sageSalesManagementActions: ProviderActionDefinition<SageSalesManagementActionName>[] = [
+export const sageSalesManagementActions: ActionDefinition[] = [
   getAccountsSchemaAction,
   listAccountsAction,
   getAccountAction,

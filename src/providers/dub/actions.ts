@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -523,7 +522,7 @@ function defineDubAction<TName extends string>(input: DubActionInput<TName>) {
   });
 }
 
-export const dubActions: readonly ProviderActionDefinition<DubActionName>[] = [
+export const dubActions: readonly ActionDefinition[] = [
   defineDubAction({
     name: "create_link",
     description: "Create a short link in the authenticated Dub workspace.",

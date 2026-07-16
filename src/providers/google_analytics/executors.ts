@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { OAuthProviderContext } from "../provider-runtime.ts";
-import type { GoogleAnalyticsActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -28,7 +27,7 @@ type GoogleAnalyticsActionHandler = (
   context: GoogleAnalyticsRuntimeDeps,
 ) => Promise<unknown>;
 
-export const googleAnalyticsActionHandlers: Record<GoogleAnalyticsActionName, GoogleAnalyticsActionHandler> = {
+export const googleAnalyticsActionHandlers: Record<string, GoogleAnalyticsActionHandler> = {
   list_account_summaries: listAccountSummaries,
   list_properties: listProperties,
   get_metadata: getMetadata,

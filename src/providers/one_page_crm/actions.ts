@@ -149,7 +149,7 @@ export type OnePageCrmActionName =
   | "get_deal"
   | "create_deal";
 
-export const onePageCrmActions: Array<ActionDefinition & { name: OnePageCrmActionName }> = [
+export const onePageCrmActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_contacts",
     description: "List OnePageCRM contacts with pagination, search, ownership, tag, and sorting filters.",

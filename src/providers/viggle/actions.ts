@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -234,7 +234,7 @@ export type ViggleActionName =
   | "create_render_job"
   | "get_render_job_status";
 
-export const viggleActions: ProviderActionDefinition<ViggleActionName>[] = [
+export const viggleActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_credit_balance",
     description: "Get the current Viggle credit balance for the authenticated account.",

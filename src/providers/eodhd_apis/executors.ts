@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { EodhdApisActionName } from "./actions.ts";
 
 import { compactObject, nullableInteger, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -18,7 +17,7 @@ const service = "eodhd_apis";
 const eodhdApisApiBaseUrl = "https://eodhd.com/api";
 const eodhdApisDefaultRequestTimeoutMs = 30_000;
 
-const eodhdApisActionHandlers: Record<EodhdApisActionName, EodhdApisActionHandler> = {
+const eodhdApisActionHandlers: Record<string, EodhdApisActionHandler> = {
   search_instruments(input, context) {
     return searchInstruments(input, context);
   },

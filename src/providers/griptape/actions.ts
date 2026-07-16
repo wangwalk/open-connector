@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -130,7 +130,7 @@ const assistantRunInputProperties = {
   additional_tool_ids: idArraySchema("Additional tool IDs for this run."),
 };
 
-export const griptapeActions: ProviderActionDefinition<GriptapeActionName>[] = [
+export const griptapeActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_organizations",
     description: "List Griptape Cloud organizations accessible to the API key.",

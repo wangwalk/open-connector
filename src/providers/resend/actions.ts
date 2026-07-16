@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -21,7 +20,7 @@ const sendEmailInputSchema: JsonSchema = {
 
 export type ResendActionName = "send_email";
 
-export const resendActions: ProviderActionDefinition<ResendActionName>[] = [
+export const resendActions: ActionDefinition[] = [
   defineProviderAction("resend", {
     name: "send_email",
     description: "Send an email with Resend.",

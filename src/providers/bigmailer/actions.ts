@@ -166,7 +166,7 @@ const idResultSchema = s.object(
   { description: "The BigMailer ID result returned by the mutation." },
 );
 
-export const bigmailerActions: Array<ActionDefinition & { name: BigmailerActionName }> = [
+export const bigmailerActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_brands",
     description: "List brands in the BigMailer account.",

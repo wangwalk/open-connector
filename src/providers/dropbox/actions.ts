@@ -895,6 +895,4 @@ export const dropboxActions: ActionDefinition[] = [
     inputSchema: getTagsInputSchema,
     outputSchema: getTagsOutputSchema,
   }),
-] satisfies ActionDefinition[];
-
-export type DropboxActionName = (typeof dropboxActions)[number]["name"];
+];

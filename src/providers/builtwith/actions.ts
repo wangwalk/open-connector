@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -216,7 +216,7 @@ const builtwithRecommendationResultSchema = s.object(
   },
 );
 
-export const builtwithActions: ProviderActionDefinition<BuiltwithActionName>[] = [
+export const builtwithActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "lookup_domain_profile",
     description:

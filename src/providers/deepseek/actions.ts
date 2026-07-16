@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -172,7 +171,7 @@ export type DeepseekActionName =
   | "create_chat_completion"
   | "create_anthropic_message";
 
-export const deepseekActions: Array<ProviderActionDefinition<DeepseekActionName>> = [
+export const deepseekActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_models",
     description: "List the available DeepSeek models.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -275,7 +275,7 @@ const updateUserInputSchema = s.object(
 const userIdInputSchema = s.actionInput({ user_id: clerkUserIdSchema }, ["user_id"], "Input for a Clerk user ID.");
 const userOutputSchema = s.actionOutput({ user: clerkUserSchema }, "Output returned with a Clerk user.");
 
-export const clerkActions: ProviderActionDefinition<ClerkActionName>[] = [
+export const clerkActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_users",
     description: "List Clerk users with optional filtering and pagination.",

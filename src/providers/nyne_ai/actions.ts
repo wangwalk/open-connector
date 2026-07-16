@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -181,7 +180,7 @@ const companyIdentifierInputSchema = withAnyOfRequired(
   ["domain", "email", "phone", "socialMediaUrl"],
 );
 
-export const nyneAiActions: ProviderActionDefinition<NyneAiActionName>[] = [
+export const nyneAiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_usage",
     description: "Get Nyne.ai credit usage, monthly allocation, remaining balance, and per-API breakdown.",

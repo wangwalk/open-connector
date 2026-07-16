@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -111,7 +111,7 @@ export type TicketmasterActionName =
   | "get_section_map_image"
   | "execute_season_ticketing_command";
 
-export const ticketmasterActions: Array<ProviderActionDefinition<TicketmasterActionName>> = [
+export const ticketmasterActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_events",
     description: "Search Discovery API events with Ticketmaster filters.",

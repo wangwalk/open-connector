@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -54,7 +54,7 @@ const paginationSchema = s.object("Confluence pagination metadata.", {
   nextCursor: s.nullable(s.string("Cursor for the next Confluence page, or null when no next page is available.")),
 });
 
-export const confluenceActions: Array<ProviderActionDefinition<ConfluenceActionName>> = [
+export const confluenceActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "search_content",
     description: "Search Confluence content with CQL and return normalized result metadata plus pagination.",

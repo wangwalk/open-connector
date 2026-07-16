@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { BrexActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { createProviderTimeout, providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -23,7 +22,7 @@ interface BrexRequestInput {
   query?: URLSearchParams;
 }
 
-export const brexActionHandlers: Record<BrexActionName, BrexActionHandler> = {
+export const brexActionHandlers: Record<string, BrexActionHandler> = {
   async get_current_user(_input, context) {
     const user = await requestBrexJson({
       path: "/v2/users/me",

@@ -1,5 +1,4 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
-import type { DeckCoActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { defineApiKeyProviderExecutors, providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -17,7 +16,7 @@ interface DeckCoContext {
 
 type DeckCoActionHandler = (input: Record<string, unknown>, context: DeckCoContext) => Promise<unknown>;
 
-const deckCoActionHandlers: Record<DeckCoActionName, DeckCoActionHandler> = {
+const deckCoActionHandlers: Record<string, DeckCoActionHandler> = {
   test_api_key(_input, context) {
     return deckCoGetJson("/test", {}, context, "execute");
   },

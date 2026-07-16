@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ProviderFetch, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { GorgiasActionName } from "./actions.ts";
 
 import { Buffer } from "node:buffer";
 import { optionalBoolean, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
@@ -33,7 +32,7 @@ interface GorgiasRequestInput {
 
 type GorgiasActionHandler = ProviderRuntimeHandler<GorgiasActionContext>;
 
-export const gorgiasActionHandlers: Record<GorgiasActionName, GorgiasActionHandler> = {
+export const gorgiasActionHandlers: Record<string, GorgiasActionHandler> = {
   async get_account(_input, context) {
     return {
       account: normalizeAccount(

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -115,7 +115,7 @@ const docTableInputSchema = (
     { optional },
   );
 
-export const gristActions: ProviderActionDefinition<GristActionName>[] = [
+export const gristActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_workspaces",
     description:

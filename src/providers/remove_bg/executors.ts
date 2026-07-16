@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { RemoveBgActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -21,7 +20,7 @@ const removeBgSupportedResultMimeTypes = new Set(["image/png", "image/jpeg", "im
 
 type RemoveBgActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const removeBgActionHandlers: Record<RemoveBgActionName, RemoveBgActionHandler> = {
+export const removeBgActionHandlers: Record<string, RemoveBgActionHandler> = {
   remove_background(input, context) {
     return removeBgRemoveBackground(input, context);
   },

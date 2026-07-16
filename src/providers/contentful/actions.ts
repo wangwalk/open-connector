@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -21,7 +21,7 @@ const contentfulEnvironmentSchema = s.looseObject("Contentful environment payloa
 const contentfulContentTypeSchema = s.looseObject("Contentful content type payload.");
 const contentfulEntrySchema = s.looseObject("Contentful entry payload.");
 
-export const contentfulActions: Array<ProviderActionDefinition<ContentfulActionName>> = [
+export const contentfulActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the authenticated Contentful user profile for the current personal access token.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -37,7 +37,7 @@ const userSchema = s.object("A normalized Kandji directory user record.", {
   raw: s.looseObject("The raw user object returned by Kandji."),
 });
 
-export const kandjiActions: Array<ProviderActionDefinition<KandjiActionName>> = [
+export const kandjiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_blueprints",
     description: "List Kandji blueprints with optional ID, name, and pagination filters.",

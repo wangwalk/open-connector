@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ProviderFetch } from "../provider-runtime.ts";
-import type { MetatextaiActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -23,7 +22,7 @@ export interface MetatextaiActionContext {
   signal?: AbortSignal;
 }
 
-export const metatextaiActionHandlers: Record<MetatextaiActionName, MetatextaiActionHandler> = {
+export const metatextaiActionHandlers: Record<string, MetatextaiActionHandler> = {
   async list_policies(_input, context) {
     return {
       policies: await metatextaiRequestJson({

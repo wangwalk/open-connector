@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { BotpressActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -33,7 +32,7 @@ const botpressRequestBaseUrl = "https://api.botpress.cloud/v1/admin/";
 const botpressValidationPath = "/bots";
 const botpressDefaultTimeoutMs = 30_000;
 
-export const botpressActionHandlers: Record<BotpressActionName, ProviderRuntimeHandler<BotpressContext>> = {
+export const botpressActionHandlers: Record<string, ProviderRuntimeHandler<BotpressContext>> = {
   async list_workspaces(input, context) {
     return botpressRequest({
       apiKey: context.apiKey,

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -12,7 +12,7 @@ const optionalQueryStringSchema = (description: string) => s.string(description,
 
 export type WiseActionName = "list_profiles" | "list_currencies" | "get_rates";
 
-export const wiseActions: Array<ProviderActionDefinition<WiseActionName>> = [
+export const wiseActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_profiles",
     description: "List Wise personal and business profiles available to the authenticated personal API token.",

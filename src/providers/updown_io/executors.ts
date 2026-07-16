@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { UpdownIoActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { defineApiKeyProviderExecutors, ProviderRequestError, providerUserAgent } from "../provider-runtime.ts";
@@ -11,7 +10,7 @@ const updownIoApiBaseUrl = "https://updown.io";
 type UpdownRequestPhase = "validate" | "execute";
 type UpdownIoActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const updownIoActionHandlers: Record<UpdownIoActionName, UpdownIoActionHandler> = {
+export const updownIoActionHandlers: Record<string, UpdownIoActionHandler> = {
   async list_checks(_input, context) {
     return requestUpdownJson({ context, path: "/api/checks", phase: "execute" });
   },

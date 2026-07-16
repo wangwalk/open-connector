@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -268,7 +267,7 @@ export type HarvestActionName =
   | "stop_time_entry"
   | "delete_time_entry";
 
-export const harvestActions: Array<ProviderActionDefinition<HarvestActionName>> = [
+export const harvestActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current authenticated Harvest user.",

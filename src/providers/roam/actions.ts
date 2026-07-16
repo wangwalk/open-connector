@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -97,7 +97,7 @@ const getMagicastInputSchema = s.actionInput(
 
 export type RoamActionName = "list_groups" | "send_message" | "list_recordings" | "list_magicasts" | "get_magicast";
 
-export const roamActions: ProviderActionDefinition<RoamActionName>[] = [
+export const roamActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_groups",
     description: "List public, non-archived groups in the authenticated Roam HQ organization.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -43,7 +43,7 @@ const listOutputSchema = (description: string, itemDescription: string) =>
     },
   );
 
-export const buildiumActions: ProviderActionDefinition<BuildiumActionName>[] = [
+export const buildiumActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_properties",
     description: "List Buildium rental properties.",

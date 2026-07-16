@@ -5,7 +5,6 @@ import type {
   ProviderProxyExecutor,
 } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { WeatherbitActionName } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalNumber, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -22,7 +21,7 @@ type WeatherbitPhase = "validate" | "execute";
 type WeatherbitQueryValue = string | number | boolean | undefined;
 type WeatherbitActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-const weatherbitActionHandlers: Record<WeatherbitActionName, WeatherbitActionHandler> = {
+const weatherbitActionHandlers: Record<string, WeatherbitActionHandler> = {
   get_current_weather(input, context): Promise<unknown> {
     return executeCurrentWeather(input, context, "execute");
   },

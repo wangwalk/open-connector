@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -112,7 +112,7 @@ export type ShopifyActionName =
   | "count_articles"
   | "list_article_tags";
 
-export const shopifyActions: ProviderActionDefinition<ShopifyActionName>[] = [
+export const shopifyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_shop",
     description: "Retrieve the connected Shopify REST Admin shop configuration.",

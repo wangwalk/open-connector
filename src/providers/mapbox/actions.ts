@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -96,7 +95,7 @@ const stringArray = (description: string): JsonSchema =>
 const indexArray = (description: string): JsonSchema =>
   s.array(description, s.nonNegativeInteger("One zero-based coordinate index."), { minItems: 1 });
 
-export const mapboxActions: ProviderActionDefinition<MapboxActionName>[] = [
+export const mapboxActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "forward_geocode",
     description: "Convert free-form text into geographic features with Mapbox Geocoding v6.",

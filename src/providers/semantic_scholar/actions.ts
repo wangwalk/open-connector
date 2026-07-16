@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -443,7 +443,7 @@ export type SemanticScholarActionName =
   | "recommend_for_paper"
   | "recommend_papers";
 
-export const semanticScholarActions: ProviderActionDefinition<SemanticScholarActionName>[] = [
+export const semanticScholarActions: ActionDefinition[] = [
   getPaperAction,
   getPapersAction,
   searchPapersAction,

@@ -198,4 +198,4 @@ export const adobeCommerceActions: readonly ActionDefinition[] = [
       category: categorySchema,
     }),
   }),
-] as const satisfies readonly ActionDefinition[];
+];

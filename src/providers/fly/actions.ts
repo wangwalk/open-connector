@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -202,7 +202,7 @@ const waitForMachineOutputSchema = s.looseObject("Result returned after waiting 
   version: s.string("The Machine version observed by Fly."),
 });
 
-export const flyActions: Array<ProviderActionDefinition<FlyActionName>> = [
+export const flyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_apps",
     description: "List Fly Apps for an organization through the Machines API.",

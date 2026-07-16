@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -53,7 +53,7 @@ const templateSummarySchema = s.object("A compact Documenso template summary.", 
   directLinkEnabled: s.nullable(s.boolean("Whether direct links are enabled for the template.")),
 });
 
-export const documensoActions: ProviderActionDefinition<DocumensoActionName>[] = [
+export const documensoActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_envelopes",
     description: "Find Documenso envelopes by query, status, type, source, template, folder, and pagination filters.",

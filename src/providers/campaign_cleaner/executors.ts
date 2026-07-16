@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderTransitFile } from "../provider-runtime.ts";
-import type { CampaignCleanerActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { readBoundedResponseBytes } from "../../core/request.ts";
@@ -12,7 +11,7 @@ const campaignCleanerCreditsPath = "/v1/get_credits";
 
 type CampaignCleanerHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const campaignCleanerActionHandlers: Record<CampaignCleanerActionName, CampaignCleanerHandler> = {
+export const campaignCleanerActionHandlers: Record<string, CampaignCleanerHandler> = {
   send_campaign(input, context) {
     return sendCampaign(input, context);
   },

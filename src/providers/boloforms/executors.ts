@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { BoloformsActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -21,7 +20,7 @@ const boloformsValidationPath = "/signature/get-documents";
 type BoloformsRequestPhase = "validate" | "execute";
 type BoloformsActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const boloformsActionHandlers: Record<BoloformsActionName, BoloformsActionHandler> = {
+export const boloformsActionHandlers: Record<string, BoloformsActionHandler> = {
   list_documents(input, context) {
     return listDocuments(input, context);
   },

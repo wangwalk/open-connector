@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { EspocrmActionName } from "./actions.ts";
 
 import { compactObject, nullableInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import { assertPublicHttpUrl } from "../../core/request.ts";
@@ -33,7 +32,7 @@ interface EspocrmRequestOptions extends EspocrmActionContext {
 
 type EspocrmActionHandler = (input: Record<string, unknown>, context: EspocrmActionContext) => Promise<unknown>;
 
-const espocrmActionHandlers: Record<EspocrmActionName, EspocrmActionHandler> = {
+const espocrmActionHandlers: Record<string, EspocrmActionHandler> = {
   async get_app_user(_input, context) {
     const payload = await requestEspocrm({
       ...context,

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -248,7 +248,7 @@ export type ShipdayActionName =
   | "list_carriers"
   | "get_order_progress";
 
-export const shipdayActions: ProviderActionDefinition<ShipdayActionName>[] = [
+export const shipdayActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_active_orders",
     description: "Retrieve active delivery orders from Shipday.",

@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -272,7 +271,7 @@ export type ClockifyActionName =
   | "list_time_entries"
   | "create_time_entry";
 
-export const clockifyActions: ProviderActionDefinition<ClockifyActionName>[] = [
+export const clockifyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the currently authenticated Clockify user.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -213,7 +213,7 @@ export type RoamScimActionName =
   | "update_group_members"
   | "delete_group";
 
-export const roamScimActions: ProviderActionDefinition<RoamScimActionName>[] = [
+export const roamScimActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_service_provider_config",
     description: "Get the Roam SCIM service provider configuration.",

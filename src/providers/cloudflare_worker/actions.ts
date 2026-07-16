@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -297,7 +296,7 @@ export type CloudflareWorkerActionName =
   | "delete_worker_script_secret"
   | "delete_worker_script";
 
-export const cloudflareWorkerActions: ProviderActionDefinition<CloudflareWorkerActionName>[] = [
+export const cloudflareWorkerActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_accounts",
     description: "List Cloudflare accounts visible to the current credential.",

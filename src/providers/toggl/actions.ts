@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -99,7 +98,7 @@ export type TogglActionName =
   | "stop_time_entry"
   | "delete_time_entry";
 
-export const togglActions: Array<ProviderActionDefinition<TogglActionName>> = [
+export const togglActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current Toggl Track user profile.",

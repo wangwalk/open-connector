@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -91,7 +90,7 @@ export type RosetteTextAnalyticsActionName =
   | "identify_categories"
   | "identify_tokens";
 
-export const rosetteTextAnalyticsActions: ProviderActionDefinition<RosetteTextAnalyticsActionName>[] = [
+export const rosetteTextAnalyticsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "identify_language",
     description: "Identify the language or languages of a text document with Rosette Text Analytics.",

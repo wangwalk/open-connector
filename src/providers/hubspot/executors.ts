@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { OAuthProviderContext } from "../provider-runtime.ts";
-import type { HubspotActionName } from "./actions.ts";
 
 import { defineOAuthProviderExecutors } from "../provider-runtime.ts";
 import { executeHubspotAction, fetchHubspotCurrentAccount, mapHubspotMcpDetailsToConnectorScopes } from "./runtime.ts";
@@ -9,7 +8,7 @@ const service = "hubspot";
 
 type HubspotActionHandler = (input: Record<string, unknown>, context: OAuthProviderContext) => Promise<unknown>;
 
-export const hubspotActionHandlers: Record<HubspotActionName, HubspotActionHandler> = {
+export const hubspotActionHandlers: Record<string, HubspotActionHandler> = {
   search_crm_objects(input, context) {
     return executeHubspotAction(
       { actionName: "search_crm_objects", input, accessToken: context.accessToken },

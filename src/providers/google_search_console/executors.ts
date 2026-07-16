@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { OAuthProviderContext } from "../provider-runtime.ts";
-import type { GoogleSearchConsoleActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -37,7 +36,7 @@ type UrlInspectionPayload = {
   inspectionResult?: unknown;
 };
 
-export const googleSearchConsoleActionHandlers: Record<GoogleSearchConsoleActionName, ActionHandler> = {
+export const googleSearchConsoleActionHandlers: Record<string, ActionHandler> = {
   list_sites(input, deps) {
     return listSites(input, deps);
   },

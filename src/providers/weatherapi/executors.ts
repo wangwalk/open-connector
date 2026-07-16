@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { WeatherapiActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -17,7 +16,7 @@ const weatherapiValidationQuery = "London";
 
 type WeatherapiActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-const weatherapiActionHandlers: Record<WeatherapiActionName, WeatherapiActionHandler> = {
+const weatherapiActionHandlers: Record<string, WeatherapiActionHandler> = {
   async search_locations(input, context): Promise<unknown> {
     const payload = await weatherapiRequestJson(
       "search.json",

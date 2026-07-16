@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -52,7 +51,7 @@ export type DevtoActionName =
   | "create_article"
   | "update_article";
 
-export const devtoActions: Array<ProviderActionDefinition<DevtoActionName>> = [
+export const devtoActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_articles",
     description: "List published Dev.to articles with query filters.",

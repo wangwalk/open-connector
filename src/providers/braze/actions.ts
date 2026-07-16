@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -189,7 +189,7 @@ const getCanvasDetailsOutputSchema = s.object(
   { optional: ["message"] },
 );
 
-export const brazeActions: ProviderActionDefinition<BrazeActionName>[] = [
+export const brazeActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_campaigns",
     description: "List Braze campaigns with optional archived, sort, page, and last-edited filters.",

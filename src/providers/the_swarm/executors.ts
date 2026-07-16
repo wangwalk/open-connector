@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { TheSwarmActionName } from "./actions.ts";
 
 import { createHash } from "node:crypto";
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
@@ -14,7 +13,7 @@ type TheSwarmRequestMode = "validate" | "execute";
 type TheSwarmRequestMethod = "GET" | "POST";
 type TheSwarmActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const theSwarmActionHandlers: Record<TheSwarmActionName, TheSwarmActionHandler> = {
+export const theSwarmActionHandlers: Record<string, TheSwarmActionHandler> = {
   async get_credit_usage(_input, context) {
     return getCreditUsage(context, "execute");
   },

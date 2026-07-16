@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -53,7 +53,7 @@ const zhidaChoiceSchema = s.looseObject("A Zhida completion choice.", {
   finish_reason: s.string("The reason the choice finished."),
 });
 
-export const zhihuActions: ProviderActionDefinition<ZhihuActionName>[] = [
+export const zhihuActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "zhihu_search",
     description: "Search Zhihu content and return matching questions, answers, and articles.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -343,7 +343,7 @@ export type StoryblokActionName =
   | "list_datasource_entries"
   | "list_tags";
 
-export const storyblokActions: Array<ProviderActionDefinition<StoryblokActionName>> = [
+export const storyblokActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_space",
     description: "Retrieve metadata for the Storyblok space associated with the access token.",

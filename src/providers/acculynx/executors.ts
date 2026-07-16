@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { AcculynxActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -29,7 +28,7 @@ interface AcculynxActionContext {
 
 type AcculynxActionHandler = (input: Record<string, unknown>, context: AcculynxActionContext) => Promise<unknown>;
 
-export const acculynxActionHandlers: Record<AcculynxActionName, AcculynxActionHandler> = {
+export const acculynxActionHandlers: Record<string, AcculynxActionHandler> = {
   get_company_settings: async (_input, context) => {
     const payload = await acculynxRequestJson({
       path: companySettingsPath,

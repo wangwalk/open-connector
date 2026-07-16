@@ -1,7 +1,6 @@
 import type { QueryValue } from "../../core/request.ts";
 import type { CredentialValidationResult, CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { ChattermillActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { compactJson, queryParams } from "../../core/request.ts";
@@ -21,7 +20,7 @@ const families = {
   tag: ["tags", "tags", "tag"],
 } as const;
 
-export const chattermillActionHandlers: Record<ChattermillActionName, Handler> = {
+export const chattermillActionHandlers: Record<string, Handler> = {
   async list_projects(_input, context) {
     const raw = await getJson("/projects", context);
     return { projects: extractArray(raw, "projects"), raw };

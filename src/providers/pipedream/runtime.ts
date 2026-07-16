@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { PipedreamActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -17,7 +16,7 @@ const pipedreamApiBaseUrl = "https://api.pipedream.com/v1";
 type PipedreamActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 type PipedreamQueryValue = string | number | undefined;
 
-export const pipedreamActionHandlers: Record<PipedreamActionName, PipedreamActionHandler> = {
+export const pipedreamActionHandlers: Record<string, PipedreamActionHandler> = {
   async get_current_user(_input, context) {
     return { user: normalizeUser(await pipedreamGet("/users/me", {}, context, "execute")) };
   },

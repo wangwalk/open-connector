@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { AvomaActionName } from "./actions.ts";
 
 import { optionalBoolean, optionalInteger, optionalNumber, optionalRecord, optionalString } from "../../core/cast.ts";
 import { encodePathSegment } from "../../core/request.ts";
@@ -19,7 +18,7 @@ interface AvomaRequestContext {
   signal?: AbortSignal;
 }
 
-export const avomaActionHandlers: Record<AvomaActionName, AvomaActionHandler> = {
+export const avomaActionHandlers: Record<string, AvomaActionHandler> = {
   list_meetings(input, context) {
     return listAvomaMeetings(input, context);
   },

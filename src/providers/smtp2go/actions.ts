@@ -326,4 +326,4 @@ export const smtp2goActions: ActionDefinition[] = [
     inputSchema: getEmailTemplateInputSchema,
     outputSchema: getEmailTemplateOutputSchema,
   }),
-] satisfies ActionDefinition[];
+];

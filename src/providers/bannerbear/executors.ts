@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { BannerbearActionName } from "./actions.ts";
 
 import { createHash } from "node:crypto";
 import {
@@ -25,7 +24,7 @@ const bannerbearSyncApiBaseUrl = "https://sync.api.bannerbear.com";
 
 type BannerbearActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const bannerbearActionHandlers: Record<BannerbearActionName, BannerbearActionHandler> = {
+export const bannerbearActionHandlers: Record<string, BannerbearActionHandler> = {
   get_auth(input, context) {
     return getBannerbearAuth(input, context);
   },

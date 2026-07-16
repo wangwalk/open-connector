@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -64,7 +64,7 @@ export type TeamcampActionName =
   | "list_company_users"
   | "list_customers";
 
-export const teamcampActions: ProviderActionDefinition<TeamcampActionName>[] = [
+export const teamcampActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_projects",
     description: "List all projects in the Teamcamp workspace.",

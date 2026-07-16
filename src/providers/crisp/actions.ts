@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -90,7 +90,7 @@ export type CrispActionName =
   | "list_conversation_messages"
   | "send_text_message";
 
-export const crispActions: Array<ProviderActionDefinition<CrispActionName>> = [
+export const crispActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_website",
     description: "Retrieve the Crisp website connected to the configured token.",

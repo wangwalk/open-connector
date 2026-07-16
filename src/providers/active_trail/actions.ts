@@ -359,7 +359,7 @@ export const activeTrailActions: readonly ActionDefinition[] = [
     inputSchema: removeGroupMemberInputSchema,
     outputSchema: deleteOutputSchema,
   }),
-] as const satisfies readonly ActionDefinition[];
+];
 
 function requireEmailOrSms(schema: JsonSchema): JsonSchema {
   return {

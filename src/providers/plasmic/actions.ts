@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -36,7 +36,7 @@ const rowSchema = s.looseObject("A Plasmic CMS row with stable system fields and
   draftData: s.nullable(rowDataSchema),
 });
 
-export const plasmicActions: Array<ProviderActionDefinition<PlasmicActionName>> = [
+export const plasmicActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_items",
     description: "List rows from a Plasmic CMS model with optional q query filters, draft mode, and locale selection.",

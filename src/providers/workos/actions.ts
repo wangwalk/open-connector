@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -117,7 +117,7 @@ export type WorkosActionName =
   | "deactivate_organization_membership"
   | "reactivate_organization_membership";
 
-export const workosActions: ProviderActionDefinition<WorkosActionName>[] = [
+export const workosActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_users",
     description: "List WorkOS AuthKit users with optional cursor and identity filters.",

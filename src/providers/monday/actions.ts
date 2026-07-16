@@ -944,5 +944,3 @@ export const mondayActions: ActionDefinition[] = actions.map((actionSource) =>
     outputSchema: actionSource.outputSchema,
   }),
 );
-
-export type MondayActionName = (typeof mondayActions)[number]["name"];

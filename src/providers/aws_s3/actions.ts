@@ -217,5 +217,3 @@ export const awsActions: ActionDefinition[] = [
     }),
   }),
 ];
-
-export type AwsActionName = (typeof awsActions)[number]["name"];

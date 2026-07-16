@@ -5,7 +5,6 @@ import type {
   ProviderProxyExecutor,
 } from "../../core/types.ts";
 import type { ProviderFetch } from "../provider-runtime.ts";
-import type { DopplerActionName } from "./actions.ts";
 
 import { defineProviderExecutors, defineProviderProxy, requireApiKeyCredential } from "../provider-runtime.ts";
 import { dopplerChangeRequestActionHandlers } from "./runtime.change-requests.ts";
@@ -30,10 +29,7 @@ const dopplerActionHandlers = {
   ...dopplerTokenActionHandlers,
   ...dopplerIntegrationActionHandlers,
   ...dopplerChangeRequestActionHandlers,
-} satisfies Record<
-  DopplerActionName,
-  (input: Record<string, unknown>, context: DopplerActionContext) => Promise<unknown>
->;
+} satisfies Record<string, (input: Record<string, unknown>, context: DopplerActionContext) => Promise<unknown>>;
 
 export const executors: ProviderExecutors = defineProviderExecutors<DopplerActionContext>({
   service,

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -107,7 +107,7 @@ export type ClicksendActionName =
   | "update_contact"
   | "delete_contact";
 
-export const clicksendActions: ProviderActionDefinition<ClicksendActionName>[] = [
+export const clicksendActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account",
     description: "Get the ClickSend account profile associated with the configured credentials.",

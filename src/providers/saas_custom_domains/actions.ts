@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -91,7 +91,7 @@ export type SaasCustomDomainsActionName =
   | "verify_custom_domain_dns_records"
   | "purge_custom_domain_http_cache";
 
-export const saasCustomDomainsActions: ProviderActionDefinition<SaasCustomDomainsActionName>[] = [
+export const saasCustomDomainsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_accounts",
     description: "List SaaS Custom Domains accounts available to the API token.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -41,7 +41,7 @@ export type LeigaActionName =
   | "get_issue_by_number"
   | "get_issue_schema";
 
-export const leigaActions: Array<ProviderActionDefinition<LeigaActionName>> = [
+export const leigaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_projects",
     description: "List Leiga projects using the official project list filters.",

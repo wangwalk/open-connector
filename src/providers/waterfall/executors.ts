@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { WaterfallActionName } from "./actions.ts";
 
 import { optionalNumber, optionalRecord, optionalString } from "../../core/cast.ts";
 import { compactJson } from "../../core/request.ts";
@@ -11,7 +10,7 @@ const waterfallApiBaseUrl = "https://api.waterfall.io";
 
 type WaterfallActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-const waterfallActionHandlers: Record<WaterfallActionName, WaterfallActionHandler> = {
+const waterfallActionHandlers: Record<string, WaterfallActionHandler> = {
   async verify_email(input, context): Promise<unknown> {
     const payload = await requestWaterfall({
       path: "/v1/verify/email",

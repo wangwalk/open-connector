@@ -42,6 +42,4 @@ export const coinbaseActions: ActionDefinition[] = [
     ),
     outputSchema: getAccountOutputSchema,
   }),
-] satisfies ActionDefinition[];
-
-export type CoinbaseActionName = (typeof coinbaseActions)[number]["name"];
+];

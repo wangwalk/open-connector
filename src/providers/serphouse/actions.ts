@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -40,7 +39,7 @@ const searchWebOutputSchema = s.object("SERPHouse synchronous web SERP response.
   results: s.looseObject("Structured web SERP result sections returned by SERPHouse."),
 });
 
-export const serphouseActions: ProviderActionDefinition<SerphouseActionName>[] = [
+export const serphouseActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "account_info",
     description: "Retrieve account and credit usage information for the connected SERPHouse key.",

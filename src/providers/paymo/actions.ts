@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -241,7 +241,7 @@ export type PaymoActionName =
   | "update_task"
   | "delete_task";
 
-export const paymoActions: Array<ProviderActionDefinition<PaymoActionName>> = [
+export const paymoActions: ActionDefinition[] = [
   accountAction,
   listClientsAction,
   getClientAction,

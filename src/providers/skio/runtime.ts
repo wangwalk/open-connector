@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { SkioActionName } from "./actions.ts";
 
 import { optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -22,7 +21,7 @@ type SkioEndpoint = {
   label: string;
 };
 
-const actionEndpointByName: Record<SkioActionName, SkioEndpoint> = {
+const actionEndpointByName: Record<string, SkioEndpoint> = {
   list_orders: {
     path: "/orders",
     queryFields: [
@@ -103,7 +102,7 @@ export const skioActionHandlers = Object.fromEntries(
       return normalizePaginatedResponse(payload, endpoint.label);
     },
   ]),
-) as Record<SkioActionName, SkioActionHandler>;
+) as Record<string, SkioActionHandler>;
 
 export async function validateSkioCredential(
   apiKey: string,

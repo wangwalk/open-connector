@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -47,7 +47,7 @@ const availabilityOutputSchema = s.looseRequiredObject("ContactOut contact avail
 
 const filtersSchema = s.looseObject("Official ContactOut search filters to send in the request body.");
 
-export const contactoutActions: Array<ProviderActionDefinition<ContactoutActionName>> = [
+export const contactoutActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "enrich_linkedin_profile",
     description: "Enrich a ContactOut profile from a LinkedIn profile URL.",

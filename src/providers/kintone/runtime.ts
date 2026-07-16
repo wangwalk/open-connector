@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { KintoneActionName } from "./actions.ts";
 
 import { createHash } from "node:crypto";
 import {
@@ -30,7 +29,7 @@ interface KintoneActionContext extends ApiKeyProviderContext {
   apiBaseUrl: string;
 }
 
-export const kintoneActionHandlers: Record<KintoneActionName, KintoneActionHandler> = {
+export const kintoneActionHandlers: Record<string, KintoneActionHandler> = {
   async list_users(input, context) {
     const payload = await requestKintoneJson({
       context,

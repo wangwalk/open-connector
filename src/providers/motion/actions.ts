@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -100,7 +99,7 @@ const updateTaskInputSchema = s.actionInput(
 );
 updateTaskInputSchema.anyOf = taskMutationFieldNames.map((fieldName) => ({ required: [fieldName] }));
 
-export const motionActions: Array<ProviderActionDefinition<MotionActionName>> = [
+export const motionActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_workspaces",
     description: "List Motion workspaces available to the API key.",

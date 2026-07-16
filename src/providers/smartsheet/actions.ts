@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -137,7 +137,7 @@ const writeResultSchema = s.object("A normalized Smartsheet write result.", {
 
 export type SmartsheetActionName = "list_sheets" | "get_sheet" | "add_rows" | "update_rows" | "delete_rows";
 
-export const smartsheetActions: ProviderActionDefinition<SmartsheetActionName>[] = [
+export const smartsheetActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_sheets",
     description: "List sheets available to the authenticated Smartsheet access token.",

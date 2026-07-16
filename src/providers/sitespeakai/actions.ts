@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -10,7 +10,7 @@ const finetuneIdSchema = s.nonEmptyString("The ID of the updated answer to delet
 const rawObjectSchema = s.looseObject("A provider object returned by SiteSpeakAI.");
 const emptyObjectInputSchema = s.object("This action does not require any input fields.", {});
 
-export const sitespeakaiActions: Array<ProviderActionDefinition<SitespeakaiActionName>> = [
+export const sitespeakaiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Retrieve the connected SiteSpeakAI user account details.",

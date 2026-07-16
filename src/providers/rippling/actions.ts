@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -53,7 +53,7 @@ const resourceWithMetaSchema = (description: string) =>
     { optional: ["__meta"] },
   );
 
-export const ripplingActions: Array<ProviderActionDefinition<RipplingActionName>> = [
+export const ripplingActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_companies",
     description: "List companies available to the Rippling API token.",

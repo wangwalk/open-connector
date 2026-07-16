@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { MineruActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -27,7 +26,7 @@ interface MineruRequestInput {
   phase: MineruRequestPhase;
 }
 
-export const mineruActionHandlers: Record<MineruActionName, MineruActionHandler> = {
+export const mineruActionHandlers: Record<string, MineruActionHandler> = {
   create_extract_task(input, context) {
     return createExtractTask(input, context);
   },

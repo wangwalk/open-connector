@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -237,7 +237,7 @@ const listCandidateSourceCategoriesInputSchema = s.object(
 
 const candidateSourceCategorySchema = s.looseObject("A Freshteam candidate source category object.");
 
-export const freshteamActions: Array<ProviderActionDefinition<FreshteamActionName>> = [
+export const freshteamActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_employees",
     description: "List Freshteam employees with optional directory filters and pagination.",

@@ -34,7 +34,7 @@ export type OnePasswordActionName =
   | "get_item"
   | "list_activity";
 
-export const onePasswordActions: Array<ActionDefinition & { name: OnePasswordActionName }> = [
+export const onePasswordActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_health",
     description: "Get health details for the configured 1Password Connect Server.",

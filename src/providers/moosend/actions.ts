@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -111,7 +111,7 @@ const singleSubscriberOutputSchema = s.requiredObject("Moosend single subscriber
   Context: subscriberSchema,
 });
 
-export const moosendActions: Array<ProviderActionDefinition<MoosendActionName>> = [
+export const moosendActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_mailing_lists",
     description: "List active mailing lists in the current Moosend account.",

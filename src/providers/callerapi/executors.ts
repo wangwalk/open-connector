@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { CallerapiActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalNumber, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -16,7 +15,7 @@ const callerapiApiBaseUrl = "https://api.callerapi.com";
 type CallerapiRequestPhase = "validate" | "execute";
 type CallerapiActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-const callerapiActionHandlers: Record<CallerapiActionName, CallerapiActionHandler> = {
+const callerapiActionHandlers: Record<string, CallerapiActionHandler> = {
   get_user_information(_input, context) {
     return requestCallerapi({
       path: "/api/me",

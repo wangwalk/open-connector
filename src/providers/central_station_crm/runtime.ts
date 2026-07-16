@@ -1,5 +1,4 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
-import type { CentralStationCrmActionName } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import { createProviderTimeout, ProviderRequestError, providerUserAgent } from "../provider-runtime.ts";
@@ -23,7 +22,7 @@ interface ApiKeyProviderActionInput {
   signal?: AbortSignal;
 }
 type CentralStationCrmActionInput = ApiKeyProviderActionInput & {
-  actionName: CentralStationCrmActionName;
+  actionName: string;
 };
 type CentralStationCrmActionHandler = (input: CentralStationCrmActionInput, fetcher: typeof fetch) => Promise<unknown>;
 
@@ -39,7 +38,7 @@ interface CentralStationCrmRequestInput {
   signal?: AbortSignal;
 }
 
-export const centralStationCrmActionHandlers: Record<CentralStationCrmActionName, CentralStationCrmActionHandler> = {
+export const centralStationCrmActionHandlers: Record<string, CentralStationCrmActionHandler> = {
   async get_user(input, fetcher) {
     const payload = await requestCentralStationCrmJson({
       apiBaseUrl: readCentralStationCrmApiBaseUrl(input.providerMetadata),

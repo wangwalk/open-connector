@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -95,7 +95,7 @@ export type ZendeskActionName =
   | "list_organizations"
   | "get_organization";
 
-export const zendeskActions: ProviderActionDefinition<ZendeskActionName>[] = [
+export const zendeskActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current authenticated Zendesk user.",

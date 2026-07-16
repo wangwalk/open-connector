@@ -80,7 +80,7 @@ describe("Umami self-hosted credentials", () => {
     );
 
     expect(result).toMatchObject({ ok: true });
-    expect(vi.mocked(fetch).mock.calls[0]?.[0]).toEqual(new URL("https://api.umami.is/api/me"));
+    expect(String(vi.mocked(fetch).mock.calls[0]?.[0])).toBe("https://api.umami.is/api/me");
   });
 
   it("rejects configured URLs that contain embedded credentials or query parameters", () => {

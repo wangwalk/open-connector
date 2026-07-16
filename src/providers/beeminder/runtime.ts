@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { BeeminderActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { encodePathSegment } from "../../core/request.ts";
@@ -18,7 +17,7 @@ type BeeminderPhase = "validate" | "execute";
 type BeeminderContext = Pick<ApiKeyProviderContext, "apiKey" | "fetcher" | "signal">;
 type BeeminderActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-export const beeminderActionHandlers: Record<BeeminderActionName, BeeminderActionHandler> = {
+export const beeminderActionHandlers: Record<string, BeeminderActionHandler> = {
   async get_user(input, context) {
     const payload = await requestBeeminderJson({
       method: "GET",

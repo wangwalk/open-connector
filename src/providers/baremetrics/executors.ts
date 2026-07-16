@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { BaremetricsActionName } from "./actions.ts";
 
 import { compactObject, optionalNumber, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -16,7 +15,7 @@ const baremetricsApiBaseUrl = "https://api.baremetrics.com";
 type BaremetricsActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 type BaremetricsPhase = "validate" | "execute";
 
-export const baremetricsActionHandlers: Record<BaremetricsActionName, BaremetricsActionHandler> = {
+export const baremetricsActionHandlers: Record<string, BaremetricsActionHandler> = {
   list_sources(_input, context) {
     return listSources(context);
   },

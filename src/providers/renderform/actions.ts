@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -77,7 +77,7 @@ export type RenderformActionName =
   | "list_results"
   | "take_screenshot";
 
-export const renderformActions: ProviderActionDefinition<RenderformActionName>[] = [
+export const renderformActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_usage",
     description: "Get current RenderForm credit usage for the API key and return a normalized usage summary.",

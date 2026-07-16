@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -182,7 +181,7 @@ const downloadResourceOutputSchema = s.object("A Magnific resource download resp
   raw: rawObjectSchema,
 });
 
-export const freepikActions: Array<ProviderActionDefinition<FreepikActionName>> = [
+export const freepikActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "search_resources",
     description: "Search Magnific stock images and templates through the resources API.",

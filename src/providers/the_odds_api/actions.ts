@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -241,7 +241,7 @@ export type TheOddsApiActionName =
   | "list_event_markets"
   | "list_participants";
 
-export const theOddsApiActions: Array<ProviderActionDefinition<TheOddsApiActionName>> = [
+export const theOddsApiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_sports",
     description: "List sports supported by The Odds API.",

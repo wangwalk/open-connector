@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { ReductoActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { defineApiKeyProviderExecutors, providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -12,7 +11,7 @@ const reductoDefaultRequestTimeoutMs = 120_000;
 type ReductoPhase = "validate" | "execute";
 type ReductoActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const reductoActionHandlers: Record<ReductoActionName, ReductoActionHandler> = {
+export const reductoActionHandlers: Record<string, ReductoActionHandler> = {
   parse_document(input, context) {
     return executeParseDocument(input, context);
   },

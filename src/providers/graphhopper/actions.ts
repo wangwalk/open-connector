@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -251,7 +251,7 @@ const isochroneInputSchema = s.object(
   { optional: ["profile", "timeLimit", "distanceLimit", "buckets", "reverseFlow"] },
 );
 
-export const graphhopperActions: ProviderActionDefinition<GraphhopperActionName>[] = [
+export const graphhopperActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "calculate_route",
     description: "Calculate the best route connecting two or more coordinates with the GraphHopper Routing API.",

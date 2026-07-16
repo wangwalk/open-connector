@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -133,7 +133,7 @@ export type HeadoutActionName =
   | "list_bookings"
   | "get_booking";
 
-export const headoutActions: Array<ProviderActionDefinition<HeadoutActionName>> = [
+export const headoutActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_cities",
     description: "List active Headout cities.",

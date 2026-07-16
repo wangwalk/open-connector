@@ -470,5 +470,3 @@ export const canvaActions: ActionDefinition[] = [
 export const canvaActionByName: Map<string, ActionDefinition> = new Map(
   canvaActions.map((action) => [action.name, action] as const),
 );
-
-export type CanvaActionName = (typeof canvaActions)[number]["name"];

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -166,7 +166,7 @@ const envVarListSchema = s.object("Paginated CircleCI environment variable list.
   next_page_token: paginationOutputTokenSchema,
 });
 
-export const circleciActions: ProviderActionDefinition<CircleciActionName>[] = [
+export const circleciActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the currently authenticated CircleCI user profile.",

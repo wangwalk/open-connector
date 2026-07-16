@@ -3208,5 +3208,3 @@ export const fusionApiOperations: FusionApiOperation[] = [
     ],
   },
 ] satisfies FusionApiOperation[];
-
-export type FusionApiActionName = string;

@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors, ProviderProxyExecutor } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { BamboohrActionName } from "./actions.ts";
 
 import { Buffer } from "node:buffer";
 import { optionalInteger, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
@@ -20,7 +19,7 @@ interface BamboohrContext extends ApiKeyProviderContext {
 
 type BamboohrActionHandler = (input: Record<string, unknown>, context: BamboohrContext) => Promise<unknown>;
 
-export const bamboohrActionHandlers: Record<BamboohrActionName, BamboohrActionHandler> = {
+export const bamboohrActionHandlers: Record<string, BamboohrActionHandler> = {
   async get_company_information(_input, context) {
     const raw = await requestBamboohrJson({
       context,

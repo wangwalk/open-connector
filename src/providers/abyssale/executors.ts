@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { AbyssaleActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -29,7 +28,7 @@ interface AbyssaleActionContext {
 
 type AbyssaleActionHandler = (input: Record<string, unknown>, context: AbyssaleActionContext) => Promise<unknown>;
 
-export const abyssaleActionHandlers: Record<AbyssaleActionName, AbyssaleActionHandler> = {
+export const abyssaleActionHandlers: Record<string, AbyssaleActionHandler> = {
   list_designs(_input, context) {
     return listDesigns(context);
   },

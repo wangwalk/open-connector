@@ -17,20 +17,22 @@ export type ActionPolicyConfig = {
 
 /**
  * Local execution policy used before invoking provider executors.
+ *
+ * Action policy and proxy policy are independent: allowedActions/blockedActions
+ * decide Action execution only, and allowedProxies/blockedProxies decide
+ * provider proxies only. Neither pair reads the other.
  */
 export class ActionPolicyService {
   private readonly allowed: ActionMatcher[];
   private readonly blocked: ActionMatcher[];
   private readonly allowedProxies: ProxyMatcher[];
   private readonly blockedProxies: ProxyMatcher[];
-  private readonly restrictsActions: boolean;
 
   constructor(config: ActionPolicyConfig = {}) {
     this.allowed = (config.allowedActions ?? []).map(createMatcher);
     this.blocked = (config.blockedActions ?? []).map(createMatcher);
     this.allowedProxies = (config.allowedProxies ?? []).map(createProxyMatcher);
     this.blockedProxies = (config.blockedProxies ?? []).map(createProxyMatcher);
-    this.restrictsActions = this.allowed.length > 0 || this.blocked.length > 0;
   }
 
   evaluate(action: ActionDefinition): ActionPolicyDecision {
@@ -73,14 +75,6 @@ export class ActionPolicyService {
       };
     }
 
-    if (this.restrictsActions) {
-      return {
-        allowed: false,
-        code: "proxy_not_allowed",
-        message: `${service} proxy must be explicitly allowed when local action policy is configured.`,
-      };
-    }
-
     return { allowed: true };
   }
 }
@@ -96,6 +90,10 @@ export function parseActionPolicyList(value: string | undefined): string[] {
 }
 
 function createMatcher(pattern: string): ActionMatcher {
+  if (pattern === "*") {
+    return () => true;
+  }
+
   if (pattern.endsWith(".*")) {
     const prefix = pattern.slice(0, -1);
     return (actionId) => actionId.startsWith(prefix);

@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { AsanaActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -78,7 +77,7 @@ const defaultTaskFields = [
   "permalink_url",
 ];
 
-export const asanaActionHandlers: Record<AsanaActionName, AsanaActionHandler> = {
+export const asanaActionHandlers: Record<string, AsanaActionHandler> = {
   list_workspaces(input, context) {
     return listEntities("/workspaces", buildPaginationQuery(input, defaultWorkspaceFields), "workspaces", context);
   },

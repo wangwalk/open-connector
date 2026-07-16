@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { AxiomActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredRecord, requiredString } from "../../core/cast.ts";
 import {
@@ -18,7 +17,7 @@ type AxiomPhase = "validate" | "execute";
 type AxiomMethod = "GET" | "POST" | "DELETE";
 type AxiomActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const axiomActionHandlers: Record<AxiomActionName, AxiomActionHandler> = {
+export const axiomActionHandlers: Record<string, AxiomActionHandler> = {
   async list_datasets(_input, context) {
     return {
       datasets: await requestAxiomJson({

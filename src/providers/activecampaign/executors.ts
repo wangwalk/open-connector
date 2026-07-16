@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { ActivecampaignActionName } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -39,7 +38,7 @@ interface ActivecampaignRequestOptions {
   notFoundAsInvalidInput?: boolean;
 }
 
-export const activecampaignActionHandlers: Record<ActivecampaignActionName, ActivecampaignActionHandler> = {
+export const activecampaignActionHandlers: Record<string, ActivecampaignActionHandler> = {
   get_current_user(input, context) {
     return getCurrentUser(input, context);
   },

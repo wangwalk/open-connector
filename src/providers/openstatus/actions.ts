@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -336,7 +336,7 @@ export type OpenstatusActionName =
   | "update_http_monitor"
   | "delete_monitor";
 
-export const openstatusActions: ProviderActionDefinition<OpenstatusActionName>[] = [
+export const openstatusActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_monitors",
     description: "List OpenStatus HTTP, TCP, and DNS monitors in the authenticated workspace.",

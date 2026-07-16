@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -84,7 +83,7 @@ const documentMutationFields = {
   checkbox_groups: s.array("Checkbox groups to create on the document.", checkboxGroupInputSchema),
 };
 
-export const signwellActions: Array<ProviderActionDefinition<SignwellActionName>> = [
+export const signwellActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_me",
     description: "Get the authenticated SignWell account, workspace, and user information.",

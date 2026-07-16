@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -104,7 +104,7 @@ export type TalentlmsActionName =
   | "list_categories"
   | "get_category";
 
-export const talentlmsActions: ProviderActionDefinition<TalentlmsActionName>[] = [
+export const talentlmsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "health_check",
     description: "Check whether the configured TalentLMS API domain and API key can reach API v2.",

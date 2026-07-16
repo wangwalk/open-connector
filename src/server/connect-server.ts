@@ -4,8 +4,10 @@ import type { ActionPolicyService } from "../core/action-policy.ts";
 import type { ActionSearchIndexProvider, ActionSearchResult } from "../core/action-search.ts";
 import type { IProviderLoader } from "../providers/provider-loader.ts";
 import type { LocalAuthOptions } from "./api/auth.ts";
+import type { RuntimeActionHttpResult } from "./api/runtime-api.ts";
 import type { ITransitFileService } from "./files/transit-file-store.ts";
 import type { Logger } from "./logger.ts";
+import type { IIdempotencyStore } from "./storage/idempotency-store.ts";
 import type { RunLogListInput } from "./storage/runtime-store.ts";
 import type { RuntimeTokenService } from "./storage/runtime-token-service.ts";
 import type { Context } from "hono";
@@ -13,12 +15,19 @@ import type { Context } from "hono";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { Scalar } from "@scalar/hono-api-reference";
 import { Hono } from "hono";
-import { ConnectionError } from "../connection-service.ts";
+import { ConnectionError, defaultConnectionName } from "../connection-service.ts";
 import { DEFAULT_ACTION_SEARCH_LIMIT, createActionSearchIndexProvider, searchActions } from "../core/action-search.ts";
 import { optionalRecord, optionalString, requiredString } from "../core/cast.ts";
 import { createMcpServer, listMcpToolSummaries } from "../mcp.ts";
 import { OAuthClientConfigError, OAuthClientConfigService } from "../oauth/oauth-client-config-service.ts";
 import { OAuthFlowError, OAuthFlowService } from "../oauth/oauth-flow-service.ts";
+import {
+  ActionInputDepthError,
+  createIdempotencyExpiry,
+  hashActionRequest,
+  hashIdempotencyKey,
+  readIdempotencyKey,
+} from "./actions/action-idempotency.ts";
 import { ActionRunner } from "./actions/action-runner.ts";
 import { renderActionMarkdown } from "./api/action-markdown.ts";
 import { createAdminSnapshot } from "./api/admin-snapshot.ts";
@@ -30,10 +39,12 @@ import { createOpenApiDocument } from "./api/openapi.ts";
 import {
   mapConnectionErrorStatus,
   serializeRuntimeAction,
+  serializeRuntimeActionResult,
   serializeRuntimeActionService,
   serializeRuntimeConnectedApp,
+  serializeRuntimeFailure,
   serializeRuntimeProvider,
-  writeRuntimeActionResult,
+  writeRuntimeActionHttpResult,
   writeRuntimeFailure,
   writeRuntimeSuccess,
 } from "./api/runtime-api.ts";
@@ -52,6 +63,7 @@ export interface IConnectServerOptions {
   oauthFlow: OAuthFlowService;
   runtimeTokens: RuntimeTokenService;
   actions: ActionRunner;
+  idempotency: IIdempotencyStore;
   transitFiles: ITransitFileService;
   staticRoot?: string;
   auth?: LocalAuthOptions;
@@ -399,15 +411,100 @@ export class ConnectServer {
     }
 
     const body = await readJsonBody(context);
+    const input = body.input ?? {};
+    const connectionName = readConnectionName(context, body);
+    const idempotencyKey = readIdempotencyKey(context.req.header("idempotency-key"));
+    if (!idempotencyKey.ok) {
+      return writeRuntimeFailure(context, {
+        status: 400,
+        errorCode: "invalid_input",
+        message: idempotencyKey.message,
+        meta: { actionId },
+      });
+    }
+
+    if (!idempotencyKey.key) {
+      return writeRuntimeActionHttpResult(context, await this.executeRuntimeAction(actionId, input, connectionName));
+    }
+
+    const now = new Date();
+    const keyHash = hashIdempotencyKey(idempotencyKey.key);
+    let requestHash: string;
+    try {
+      requestHash = hashActionRequest({
+        actionId,
+        connectionName: connectionName ?? defaultConnectionName,
+        input,
+      });
+    } catch (error) {
+      if (!(error instanceof ActionInputDepthError)) {
+        throw error;
+      }
+      return writeRuntimeFailure(context, {
+        status: 400,
+        errorCode: "invalid_input",
+        message: error.message,
+        meta: { actionId },
+      });
+    }
+    const claimId = crypto.randomUUID();
+    const claim = await this.options.idempotency.claim({
+      keyHash,
+      requestHash,
+      claimId,
+      now: now.toISOString(),
+      expiresAt: createIdempotencyExpiry(now),
+    });
+
+    if (claim.kind === "conflict") {
+      return writeRuntimeFailure(context, {
+        status: 409,
+        errorCode: "idempotency_key_conflict",
+        message: "Idempotency-Key has already been used with a different request.",
+        meta: { actionId },
+      });
+    }
+    if (claim.kind === "in_progress") {
+      return writeRuntimeFailure(context, {
+        status: 409,
+        errorCode: "idempotency_request_in_progress",
+        message: "A request with this Idempotency-Key is still in progress.",
+        meta: { actionId },
+      });
+    }
+    if (claim.kind === "completed") {
+      return writeRuntimeActionHttpResult(context, claim.response);
+    }
+
+    const result = await this.executeRuntimeAction(actionId, input, connectionName);
+    const completed = await this.options.idempotency.complete({
+      keyHash,
+      requestHash,
+      claimId,
+      response: result,
+      expiresAt: createIdempotencyExpiry(new Date()),
+    });
+    if (!completed) {
+      throw new Error("Idempotency claim was replaced before completion.");
+    }
+
+    return writeRuntimeActionHttpResult(context, result);
+  }
+
+  private async executeRuntimeAction(
+    actionId: string,
+    input: unknown,
+    connectionName: string | undefined,
+  ): Promise<RuntimeActionHttpResult> {
     try {
       const run = await this.options.actions.run({
         actionId,
-        input: body.input ?? {},
+        input,
         caller: "http",
-        connectionName: readConnectionName(context, body),
+        connectionName,
       });
       if (!run) {
-        return writeRuntimeFailure(context, {
+        return serializeRuntimeFailure({
           status: 404,
           errorCode: "invalid_input",
           message: `unknown action: ${actionId}`,
@@ -415,10 +512,10 @@ export class ConnectServer {
         });
       }
 
-      return writeRuntimeActionResult(context, { actionId, executionId: run.executionId, result: run.result });
+      return serializeRuntimeActionResult({ actionId, executionId: run.executionId, result: run.result });
     } catch (error) {
       if (error instanceof ConnectionError) {
-        return writeRuntimeFailure(context, {
+        return serializeRuntimeFailure({
           status: mapConnectionErrorStatus(error),
           errorCode: error.code,
           message: error.message,
@@ -642,7 +739,7 @@ export class ConnectServer {
       );
       return context.json(authorization);
     } catch (error) {
-      if (error instanceof OAuthFlowError) {
+      if (error instanceof OAuthFlowError || error instanceof ConnectionError) {
         this.options.logger?.warn(
           {
             errorCode: error.code,
@@ -742,7 +839,7 @@ export class ConnectServer {
         "oauth callback completed",
       );
     } catch (error) {
-      if (error instanceof OAuthFlowError) {
+      if (error instanceof OAuthFlowError || error instanceof ConnectionError) {
         this.options.logger?.warn(
           {
             ...logContext,
@@ -750,7 +847,7 @@ export class ConnectServer {
           },
           "oauth callback failed",
         );
-        return jsonError(context, 400, error.code, error.message);
+        return jsonError(context, error.code === "unknown_service" ? 404 : 400, error.code, error.message);
       }
       throw error;
     }

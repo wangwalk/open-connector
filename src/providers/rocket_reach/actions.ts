@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -166,7 +165,7 @@ export type RocketReachActionName =
   | "get_company_funding"
   | "get_company_industries";
 
-export const rocketReachActions: ProviderActionDefinition<RocketReachActionName>[] = [
+export const rocketReachActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account",
     description: "Retrieve the authenticated RocketReach account profile.",

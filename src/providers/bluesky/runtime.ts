@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { BlueskyActionName } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import { createProviderTimeout, providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -37,7 +36,7 @@ interface BlueskyRequestOptions {
   signal?: AbortSignal;
 }
 
-export const blueskyActionHandlers: Record<BlueskyActionName, BlueskyActionHandler> = {
+export const blueskyActionHandlers: Record<string, BlueskyActionHandler> = {
   async get_profile(input, context) {
     const session = await createBlueskySession({
       identifier: context.handle,

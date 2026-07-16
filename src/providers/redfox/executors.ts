@@ -1,6 +1,5 @@
 import type { CredentialValidationResult, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { RedfoxActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { defineApiKeyProviderExecutors, providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -21,7 +20,7 @@ interface RedfoxEndpoint {
   successCodes?: readonly number[];
 }
 
-const redfoxEndpoints: Record<RedfoxActionName, RedfoxEndpoint> = {
+const redfoxEndpoints: Record<string, RedfoxEndpoint> = {
   search_douyin_works: { path: "/story/api/dyData/searchArticle", buildBody: buildSearchBody },
   search_douyin_users: { path: "/story/api/dyData/searchUser", buildBody: buildSearchBody },
   get_douyin_work: {
@@ -155,7 +154,7 @@ const redfoxEndpoints: Record<RedfoxActionName, RedfoxEndpoint> = {
   },
 };
 
-export const redfoxActionHandlers: Record<RedfoxActionName, RedfoxActionHandler> = Object.fromEntries(
+export const redfoxActionHandlers: Record<string, RedfoxActionHandler> = Object.fromEntries(
   Object.entries(redfoxEndpoints).map(([actionName, endpoint]) => [
     actionName,
     (input: Record<string, unknown>, context: ApiKeyProviderContext) =>
@@ -168,7 +167,7 @@ export const redfoxActionHandlers: Record<RedfoxActionName, RedfoxActionHandler>
         mode: "execute",
       }),
   ]),
-) as Record<RedfoxActionName, RedfoxActionHandler>;
+) as Record<string, RedfoxActionHandler>;
 
 export const executors: ProviderExecutors = defineApiKeyProviderExecutors(service, redfoxActionHandlers);
 

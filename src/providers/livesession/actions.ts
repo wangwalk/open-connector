@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -32,7 +32,7 @@ const pageSchema = s.object("LiveSession pagination metadata.", {
 
 export type LivesessionActionName = "list_sessions";
 
-export const livesessionActions: ProviderActionDefinition<LivesessionActionName>[] = [
+export const livesessionActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_sessions",
     description: "List LiveSession session replays with pagination and common filters.",

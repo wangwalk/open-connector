@@ -1,5 +1,4 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
-import type { TrelloActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalRecord, optionalString } from "../../core/cast.ts";
 import { ProviderRequestError, providerUserAgent } from "../provider-runtime.ts";
@@ -29,7 +28,7 @@ const defaultMemberFields = ["id", "username", "fullName"];
 const defaultBoardFields = ["name", "desc", "url", "shortUrl", "closed"];
 const defaultCardFields = ["name", "desc", "url", "shortUrl", "closed", "due", "dueComplete", "idBoard", "idList"];
 
-export const trelloActionHandlers: Record<TrelloActionName, TrelloActionHandler> = {
+export const trelloActionHandlers: Record<string, TrelloActionHandler> = {
   async get_member(input, context) {
     const memberId = readOptionalString(input.memberId) ?? "me";
     const member = await trelloRequest<Record<string, unknown>>({

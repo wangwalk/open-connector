@@ -2,6 +2,7 @@ import type { OAuth2AuthDefinition, ResolvedCredential } from "../core/types.ts"
 
 import { optionalString, requiredString } from "../core/cast.ts";
 import { readBoundedResponseBytes } from "../core/request.ts";
+import { providerFetch } from "../providers/provider-runtime.ts";
 
 const oauthTokenRequestTimeoutMs = 30_000;
 const oauthTokenResponseMaxBytes = 1024 * 1024;
@@ -85,11 +86,15 @@ async function requestToken(input: TokenRequest): Promise<Extract<ResolvedCreden
 
   let response: Response;
   try {
-    response = await fetch(input.tokenUrl, {
+    response = await providerFetch(input.tokenUrl, {
       method: "POST",
       headers,
       body,
       signal: AbortSignal.timeout(oauthTokenRequestTimeoutMs),
+      // Workers has no "error" redirect mode; "manual" surfaces any 3xx as a
+      // non-ok response, which the check below rejects. Same intent as "error"
+      // (never follow a redirect from the token endpoint), edge-compatible.
+      redirect: "manual",
     });
   } catch (error) {
     throw input.createError(

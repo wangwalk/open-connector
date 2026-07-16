@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -92,7 +92,7 @@ const usageSchema = s.looseRequiredObject("The ZenRows API usage details.", {
   ),
 });
 
-export const zenrowsActions: ProviderActionDefinition<ZenrowsActionName>[] = [
+export const zenrowsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "fetch_html",
     description: "Fetch raw HTML from one public URL with optional JavaScript rendering and proxy controls.",

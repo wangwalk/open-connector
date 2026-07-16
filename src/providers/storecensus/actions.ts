@@ -160,5 +160,3 @@ export const storecensusActions: ProviderActionDefinition[] = [
     }),
   }),
 ];
-
-export type StorecensusActionName = (typeof storecensusActions)[number]["name"];

@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -150,7 +149,7 @@ export type HarmonicAiActionName =
   | "get_company_employees"
   | "get_person";
 
-export const harmonicAiActions: Array<ProviderActionDefinition<HarmonicAiActionName>> = [
+export const harmonicAiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "enrich_company",
     description: "Enrich one company by website, social, or business profile identifier with Harmonic.",

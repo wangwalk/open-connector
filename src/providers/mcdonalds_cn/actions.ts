@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -195,7 +194,7 @@ export type McdonaldsCnActionName =
   | "get_product_detail"
   | "search_products";
 
-export const mcdonaldsCnActions: Array<ProviderActionDefinition<McdonaldsCnActionName>> = [
+export const mcdonaldsCnActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_cities",
     description: "Get McDonald's China cities that support restaurant and menu lookup.",

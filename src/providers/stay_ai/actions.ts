@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -134,7 +134,7 @@ const orderSchema = s.looseObject("Stay AI order object.", {
   lineItems: s.array("Order line items returned by Stay AI.", s.looseObject("Stay AI order line item.")),
 });
 
-export const stayAiActions: Array<ProviderActionDefinition<StayAiActionName>> = [
+export const stayAiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account_settings",
     description: "Retrieve account-level Stay AI settings for the current API key.",

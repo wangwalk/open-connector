@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -173,7 +172,7 @@ const listMeetingsInputSchema: JsonSchema = {
   },
 };
 
-export const momentumIoActions: Array<ProviderActionDefinition<MomentumIoActionName>> = [
+export const momentumIoActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_users",
     description: "List Momentum organization users with optional pagination and filters.",

@@ -4,7 +4,6 @@ import type {
   ProviderExecutors,
   ProviderProxyExecutor,
 } from "../../core/types.ts";
-import type { CentralStationCrmActionName } from "./actions.ts";
 
 import { defineProviderExecutors, defineProviderProxy, requireApiKeyCredential } from "../provider-runtime.ts";
 import {
@@ -28,7 +27,7 @@ const centralStationCrmExecutorHandlers = Object.fromEntries(
     (input: Record<string, unknown>, context: CentralStationCrmExecutorContext) =>
       handler(
         {
-          actionName: actionName as CentralStationCrmActionName,
+          actionName: actionName as string,
           apiKey: context.apiKey,
           providerMetadata: {
             apiBaseUrl: context.apiBaseUrl,

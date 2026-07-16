@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -21,7 +21,7 @@ export type ShodanActionName =
   | "resolve_hostnames"
   | "reverse_dns_lookup";
 
-export const shodanActions: ProviderActionDefinition<ShodanActionName>[] = [
+export const shodanActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_api_info",
     description: "Get API account information and remaining credits from Shodan.",

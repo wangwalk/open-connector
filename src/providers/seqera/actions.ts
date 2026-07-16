@@ -187,7 +187,7 @@ export type SeqeraActionName =
   | "get_workflow"
   | "launch_workflow";
 
-export const seqeraActions: Array<ActionDefinition & { name: SeqeraActionName }> = [
+export const seqeraActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Retrieve the current Seqera user profile and default workspace information.",

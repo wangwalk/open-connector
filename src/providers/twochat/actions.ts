@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -77,7 +77,7 @@ export type TwochatActionName =
   | "list_contacts"
   | "create_contact";
 
-export const twochatActions: ProviderActionDefinition<TwochatActionName>[] = [
+export const twochatActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "test_api_key",
     description: "Validate the connected 2Chat API key and return normalized account, limit, and usage information.",

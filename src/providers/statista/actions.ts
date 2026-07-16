@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -146,7 +146,7 @@ export type StatistaActionName =
   | "search_market_insights_indicators"
   | "search_consumer_insights";
 
-export const statistaActions: ProviderActionDefinition<StatistaActionName>[] = [
+export const statistaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "search_statistics",
     description: "Search Statista statistics using natural language or keywords.",

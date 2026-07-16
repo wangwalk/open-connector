@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -101,7 +101,7 @@ export type MarketstackActionName =
   | "list_exchanges"
   | "list_currencies";
 
-export const marketstackActions: ProviderActionDefinition<MarketstackActionName>[] = [
+export const marketstackActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_tickers",
     description: "List Marketstack tickers with optional search, exchange, and pagination filters.",

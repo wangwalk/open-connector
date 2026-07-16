@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { BenzingaActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -17,7 +16,7 @@ type BenzingaPhase = "validate" | "execute";
 type BenzingaContext = Pick<ApiKeyProviderContext, "apiKey" | "fetcher" | "signal">;
 type BenzingaActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-export const benzingaActionHandlers: Record<BenzingaActionName, BenzingaActionHandler> = {
+export const benzingaActionHandlers: Record<string, BenzingaActionHandler> = {
   async list_news_channels(_input, context) {
     const payload = await requestBenzingaJson({
       path: "/api/v2.1/news/channels",

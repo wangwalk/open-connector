@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -244,7 +244,7 @@ export type SureContactActionName =
   | "update_tag"
   | "delete_tag";
 
-export const surecontactActions: ProviderActionDefinition<SureContactActionName>[] = [
+export const surecontactActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_contacts",
     description: "List SureContact contacts with optional search, status, list, tag, and pagination filters.",

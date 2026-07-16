@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { AppveyorActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -22,7 +21,7 @@ interface AppveyorActionContext extends ApiKeyProviderContext {
 
 type AppveyorActionHandler = (input: Record<string, unknown>, context: AppveyorActionContext) => Promise<unknown>;
 
-export const appveyorActionHandlers: Record<AppveyorActionName, AppveyorActionHandler> = {
+export const appveyorActionHandlers: Record<string, AppveyorActionHandler> = {
   async get_projects(input, context) {
     const projects = await appveyorGetJson({
       context,

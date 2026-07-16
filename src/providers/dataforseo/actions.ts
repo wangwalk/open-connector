@@ -480,9 +480,7 @@ export const dataForSeoActions: readonly ProviderActionDefinition[] = [
     inputSchema: backlinksAnchorsInputSchema,
     outputSchema: dataForSeoResultOutput("Normalized DataForSEO Backlinks Anchors Live output."),
   }),
-] satisfies readonly ProviderActionDefinition[];
-
-export type DataForSeoActionName = (typeof dataForSeoActions)[number]["name"];
+];
 
 export const dataForSeoActionByName: ReadonlyMap<string, ProviderActionDefinition> = new Map(
   dataForSeoActions.map((action) => [action.name, action] as const),

@@ -4,7 +4,6 @@ import type {
   ProviderExecutors,
   ProviderProxyExecutor,
 } from "../../core/types.ts";
-import type { NovuActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { encodePathSegment } from "../../core/request.ts";
@@ -45,7 +44,7 @@ interface NovuRequestInput {
   idempotencyKey?: string;
 }
 
-export const novuActionHandlers: Record<NovuActionName, NovuActionHandler> = {
+export const novuActionHandlers: Record<string, NovuActionHandler> = {
   async search_subscribers(input, context): Promise<unknown> {
     const payload = await requestNovuJson({
       method: "GET",

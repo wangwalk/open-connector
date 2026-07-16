@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -271,7 +271,7 @@ export type BusinessmapActionName =
   | "update_card"
   | "delete_card";
 
-export const businessmapActions: ProviderActionDefinition<BusinessmapActionName>[] = [
+export const businessmapActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_workspaces",
     description: "List Businessmap workspaces visible to the connected API key.",

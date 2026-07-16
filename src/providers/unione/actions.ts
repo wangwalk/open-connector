@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -241,7 +240,7 @@ const listSuppressionsOutputSchema = s.object(
   { optional: ["cursor"] },
 );
 
-export const unioneActions: ProviderActionDefinition<UnioneActionName>[] = [
+export const unioneActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account_info",
     description: "Get UniOne user or project information for the current API key.",

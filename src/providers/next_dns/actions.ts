@@ -229,7 +229,7 @@ export const nextDnsActions: ActionDefinition[] = [
       analyticsItemSchema,
     ),
   }),
-] satisfies ActionDefinition[];
+];
 
 export type NextDnsActionName =
   | "list_profiles"

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -93,7 +93,7 @@ export type WebscrapingAiActionName =
   | "select_html"
   | "select_multiple_html";
 
-export const webscrapingAiActions: readonly ProviderActionDefinition<WebscrapingAiActionName>[] = [
+export const webscrapingAiActions: readonly ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account_info",
     description: "Retrieve WebScraping.AI account email, quota, reset, and concurrency details.",

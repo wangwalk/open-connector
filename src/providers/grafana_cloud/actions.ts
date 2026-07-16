@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -49,7 +49,7 @@ const billedUsageSchema = s.object("A normalized Grafana Cloud billed usage item
   raw: rawObjectSchema,
 });
 
-export const grafanaCloudActions: Array<ProviderActionDefinition<GrafanaCloudActionName>> = [
+export const grafanaCloudActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_regions",
     description: "List Grafana Cloud stack regions that can host Grafana Cloud stacks.",

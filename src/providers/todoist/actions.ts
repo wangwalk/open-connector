@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -254,7 +253,7 @@ export type TodoistActionName =
   | "update_comment"
   | "list_labels";
 
-export const todoistActions: Array<ProviderActionDefinition<TodoistActionName>> = [
+export const todoistActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current Todoist user profile.",

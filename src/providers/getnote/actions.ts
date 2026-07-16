@@ -502,7 +502,7 @@ export const getnoteActions: ActionDefinition[] = [
     ),
     outputSchema: genericDetailOutputSchema,
   }),
-] satisfies ActionDefinition[];
+];
 
 export type GetnoteActionName =
   | "save_note"

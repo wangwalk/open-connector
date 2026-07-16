@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { MattermostActionName } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { assertPublicHttpUrl } from "../../core/request.ts";
@@ -19,7 +18,7 @@ interface MattermostContext {
 type MattermostPhase = "validate" | "execute";
 type MattermostActionHandler = ProviderRuntimeHandler<MattermostContext>;
 
-export const mattermostActionHandlers: Record<MattermostActionName, MattermostActionHandler> = {
+export const mattermostActionHandlers: Record<string, MattermostActionHandler> = {
   async get_current_user(_input, context) {
     const payload = await requestMattermostJson({ path: validationPath, context, phase: "execute" });
     return { user: requireObject(payload, "Mattermost user"), raw: payload };

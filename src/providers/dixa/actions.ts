@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -102,7 +102,7 @@ export type DixaActionName =
   | "get_conversation"
   | "list_conversation_messages";
 
-export const dixaActions: Array<ProviderActionDefinition<DixaActionName>> = [
+export const dixaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_agents",
     description: "List Dixa agents and admins with optional email or phone filtering.",

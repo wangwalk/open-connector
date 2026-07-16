@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -73,7 +73,7 @@ const usageSchema = s.object("The current ScrapingBee usage snapshot.", {
 
 export type ScrapingbeeActionName = "fetch_html" | "extract_data" | "get_usage_stats";
 
-export const scrapingbeeActions: ProviderActionDefinition<ScrapingbeeActionName>[] = [
+export const scrapingbeeActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "fetch_html",
     description: "Fetch HTML content from one public URL with optional rendering and proxy controls.",

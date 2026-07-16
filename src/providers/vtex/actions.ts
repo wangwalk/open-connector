@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -134,7 +134,7 @@ export type VtexActionName =
   | "list_category_tree"
   | "search_products";
 
-export const vtexActions: ProviderActionDefinition<VtexActionName>[] = [
+export const vtexActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_product_and_sku_ids",
     description: "Retrieve VTEX product IDs and their SKU IDs, optionally scoped by category and product ID range.",

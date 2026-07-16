@@ -7,26 +7,26 @@ const service = "dokploy";
 export const provider: ProviderDefinition = {
   service,
   displayName: "Dokploy",
-  description: "Read-only access to self-hosted Dokploy projects, services, deployments, and runtime status.",
-  categories: ["Developer Tools", "IT & Operations"],
+  description: "Manage infrastructure, services, deployments, access, and settings on a self-hosted Dokploy instance.",
+  categories: ["Developer Tools", "Infrastructure"],
   authTypes: ["api_key"],
   auth: [
     {
       type: "api_key",
-      label: "Dokploy API/CLI Key",
-      placeholder: "dokploy_api_key",
+      label: "API Key",
+      placeholder: "Enter your Dokploy API key",
       description:
-        "Dedicated Dokploy API/CLI key sent in the x-api-key header. Use a minimally privileged user where available.",
+        "An API key created from the Dokploy dashboard under Settings > API Keys. The key is sent in the x-api-key header.",
       extraFields: [
         {
-          key: "apiBaseUrl",
-          label: "Dokploy API URL",
+          key: "baseUrl",
+          label: "Instance URL",
           inputType: "text",
           required: true,
           secret: false,
-          placeholder: "http://127.0.0.1:3000/api",
+          placeholder: "https://dokploy.example.com",
           description:
-            "Dokploy instance URL with or without the /api suffix. Prefer loopback when OpenConnector is colocated.",
+            "The HTTP or HTTPS URL of your Dokploy instance, without an API endpoint path. Public addresses work by default; private/overlay targets (RFC 1918, Tailscale, NetBird, private hostnames) require the self-hosted runtime to enable OOMOL_CONNECT_ALLOW_PRIVATE_NETWORK. Unsafe local, reserved, and cloud-metadata targets always remain blocked. See https://docs.dokploy.com/docs/core/api.",
         },
       ],
     },

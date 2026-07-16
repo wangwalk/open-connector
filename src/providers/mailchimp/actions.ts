@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -124,7 +123,7 @@ export type MailchimpActionName =
   | "update_member_tags"
   | "list_merge_fields";
 
-export const mailchimpActions: ProviderActionDefinition<MailchimpActionName>[] = [
+export const mailchimpActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_lists",
     description: "List Mailchimp audiences/lists visible to the current API key.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -191,7 +191,7 @@ export type TypeformActionName =
   | "list_workspaces"
   | "get_workspace";
 
-export const typeformActions: ProviderActionDefinition<TypeformActionName>[] = [
+export const typeformActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current Typeform user associated with the authenticated personal access token.",

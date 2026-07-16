@@ -1,5 +1,4 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
-import type { U301ActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -35,7 +34,7 @@ interface U301RequestInput {
   phase: U301RequestPhase;
 }
 
-export const u301ActionHandlers: Record<U301ActionName, U301ActionHandler> = {
+export const u301ActionHandlers: Record<string, U301ActionHandler> = {
   async shorten_link(input, context) {
     const payload = compactObject({
       url: readRequiredInputString(input.url, "url"),

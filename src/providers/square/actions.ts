@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -188,7 +188,7 @@ export type SquareActionName =
   | "update_customer"
   | "search_customers";
 
-export const squareActions: ProviderActionDefinition<SquareActionName>[] = [
+export const squareActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_locations",
     description: "List Square seller locations for the connected access token.",
@@ -231,8 +231,8 @@ export const squareActions: ProviderActionDefinition<SquareActionName>[] = [
     inputSchema: searchCustomersInputSchema,
     outputSchema: customerPageOutputSchema,
   }),
-] satisfies ProviderActionDefinition<SquareActionName>[];
+];
 
-export const squareActionByName: ReadonlyMap<SquareActionName, ProviderActionDefinition<SquareActionName>> = new Map(
+export const squareActionByName: ReadonlyMap<string, ActionDefinition> = new Map(
   squareActions.map((action) => [action.name, action]),
 );

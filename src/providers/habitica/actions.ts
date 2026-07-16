@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -172,7 +172,7 @@ export type HabiticaActionName =
   | "update_tag"
   | "delete_tag";
 
-export const habiticaActions: Array<ProviderActionDefinition<HabiticaActionName>> = [
+export const habiticaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_user_profile",
     description: "Get the authenticated Habitica user's profile with optional userFields filtering.",

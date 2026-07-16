@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -98,7 +98,7 @@ export type CurrentsApiActionName =
   | "list_available_regions"
   | "list_available_categories";
 
-export const currentsApiActions: Array<ProviderActionDefinition<CurrentsApiActionName>> = [
+export const currentsApiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_latest_news",
     description: "Retrieve the latest Currents news feed with optional language and region filters.",

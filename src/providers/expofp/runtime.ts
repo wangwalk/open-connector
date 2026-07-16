@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderRuntimeHandler } from "../provider-runtime.ts";
-import type { ExpofpActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -16,7 +15,7 @@ const expofpDefaultRequestTimeoutMs = 30_000;
 type ExpofpPhase = "validate" | "execute";
 type ExpofpActionHandler = ProviderRuntimeHandler<ApiKeyProviderContext>;
 
-export const expofpActionHandlers: Record<ExpofpActionName, ExpofpActionHandler> = {
+export const expofpActionHandlers: Record<string, ExpofpActionHandler> = {
   async list_expos(_input, context) {
     return {
       expos: normalizeExpoList(await requestExpofpJson("/list-events", {}, context, "execute")),

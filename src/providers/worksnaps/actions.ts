@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -136,7 +135,7 @@ export type WorksnapsActionName =
   | "get_project_time_entry"
   | "get_project_time_report";
 
-export const worksnapsActions: ProviderActionDefinition<WorksnapsActionName>[] = [
+export const worksnapsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Read the current Worksnaps user profile for the connected API token.",

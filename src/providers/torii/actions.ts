@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -109,7 +108,7 @@ export type ToriiActionName =
   | "list_transactions"
   | "list_workflows";
 
-export const toriiActions: ProviderActionDefinition<ToriiActionName>[] = [
+export const toriiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_organization",
     description: "Retrieve the Torii organization profile for the current API key.",

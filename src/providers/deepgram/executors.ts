@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { DeepgramActionName } from "./actions.ts";
 
 import { defineApiKeyProviderExecutors } from "../provider-runtime.ts";
 import { deepgramActionHandlers, validateDeepgramCredential } from "./runtime.ts";
@@ -12,7 +11,7 @@ const handlers = Object.fromEntries(
     name,
     (input: Record<string, unknown>, context: ApiKeyProviderContext) => handler(input, context.fetcher, context.apiKey),
   ]),
-) as Record<DeepgramActionName, (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>>;
+) as Record<string, (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>>;
 
 export const executors: ProviderExecutors = defineApiKeyProviderExecutors(service, handlers);
 

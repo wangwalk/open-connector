@@ -5,8 +5,6 @@ import { defineProviderAction } from "../../core/provider-definition.ts";
 
 const service = "gitlab";
 
-export type GitlabActionName = (typeof gitlabActions)[number]["name"];
-
 interface GitlabActionSource {
   name: string;
   description: string;

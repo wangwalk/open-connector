@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -270,7 +270,7 @@ export type ParallelActionName =
   | "retrieve_task_run"
   | "retrieve_task_run_result";
 
-export const parallelActions: Array<ProviderActionDefinition<ParallelActionName>> = [
+export const parallelActions: ActionDefinition[] = [
   searchAction,
   extractAction,
   createTaskRunAction,

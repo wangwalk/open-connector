@@ -489,8 +489,6 @@ export const slackActions: ActionDefinition[] = [
   }),
 ];
 
-export type SlackActionName = (typeof slackActions)[number]["name"];
-
 function action(input: Omit<Parameters<typeof defineProviderAction>[1], "providerPermissions">): ActionDefinition {
   return defineProviderAction(service, input);
 }

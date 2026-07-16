@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { EnigmaActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -300,7 +299,7 @@ const enigmaCreateSuggestionMutation = `
   }
 `;
 
-const enigmaActionHandlers: Record<EnigmaActionName, EnigmaActionHandler> = {
+const enigmaActionHandlers: Record<string, EnigmaActionHandler> = {
   get_account(_input, context) {
     return enigmaGetAccount(context.apiKey, context.fetcher, context.signal, "execute");
   },

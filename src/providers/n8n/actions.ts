@@ -556,7 +556,7 @@ export type N8nActionName =
   | "upsert_data_table_row"
   | "get_insights_summary";
 
-export const n8nActions: Array<ActionDefinition & { name: N8nActionName }> = [
+export const n8nActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_workflows",
     description: "List n8n workflows with optional filters and cursor pagination.",

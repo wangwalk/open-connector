@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { CoinrankingActionName } from "./actions.ts";
 
 import {
   objectArray,
@@ -20,7 +19,7 @@ const coinrankingApiBaseUrl = "https://api.coinranking.com/v2";
 type CoinrankingRequestPhase = "validate" | "execute";
 type CoinrankingActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const coinrankingActionHandlers: Record<CoinrankingActionName, CoinrankingActionHandler> = {
+export const coinrankingActionHandlers: Record<string, CoinrankingActionHandler> = {
   search_suggestions(input, context) {
     return searchSuggestions(input, context);
   },

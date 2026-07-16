@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -98,7 +98,7 @@ export type MailosaurActionName =
   | "get_usage_limits"
   | "list_usage_transactions";
 
-export const mailosaurActions: ProviderActionDefinition<MailosaurActionName>[] = [
+export const mailosaurActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_servers",
     description: "List Mailosaur inbox servers in the current account.",

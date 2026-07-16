@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -70,7 +70,7 @@ export type EagleDocActionName =
   | "list_usage_logs"
   | "get_quota";
 
-export const eagleDocActions: ProviderActionDefinition<EagleDocActionName>[] = [
+export const eagleDocActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "process_finance_document",
     description:

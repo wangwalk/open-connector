@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -302,7 +301,7 @@ export type SalesflareActionName =
   | "create_task"
   | "update_task";
 
-export const salesflareActions: ProviderActionDefinition<SalesflareActionName>[] = [
+export const salesflareActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Retrieve the current Salesflare API user.",

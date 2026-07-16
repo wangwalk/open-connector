@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -185,7 +185,7 @@ const searchArticlesOutputSchema = s.object("Elevio article search response.", {
   results: s.array("Article search results returned by Elevio.", searchResultSchema),
 });
 
-export const elevioActions: Array<ProviderActionDefinition<ElevioActionName>> = [
+export const elevioActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_categories",
     description: "List Elevio knowledge base categories.",

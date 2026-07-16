@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { StorecensusActionName } from "./actions.ts";
 
 import { optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -19,7 +18,7 @@ const storecensusDefaultRequestTimeoutMs = 30_000;
 type StorecensusPhase = "validate" | "execute";
 type StorecensusActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const storecensusActionHandlers: Record<StorecensusActionName, StorecensusActionHandler> = {
+export const storecensusActionHandlers: Record<string, StorecensusActionHandler> = {
   async get_website(input, context) {
     const payload = await requestStorecensusJson({
       context,

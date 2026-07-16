@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -207,7 +207,7 @@ const createResponseOutputSchema = s.looseRequiredObject(
   },
 );
 
-export const minimaxActions: Array<ProviderActionDefinition<MinimaxActionName>> = [
+export const minimaxActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_models",
     description: "List OpenAI-compatible MiniMax models available to the API key.",

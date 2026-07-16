@@ -294,5 +294,3 @@ export const asanaActions: ActionDefinition[] = [
     }),
   }),
 ];
-
-export type AsanaActionName = (typeof asanaActions)[number]["name"];

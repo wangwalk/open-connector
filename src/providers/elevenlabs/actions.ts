@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -425,7 +425,7 @@ export type ElevenlabsActionName =
   | "get_audio_from_history_item"
   | "delete_history_item";
 
-export const elevenlabsActions: ProviderActionDefinition<ElevenlabsActionName>[] = [
+export const elevenlabsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_user_info",
     description: "Get the current ElevenLabs user profile together with the embedded subscription snapshot.",

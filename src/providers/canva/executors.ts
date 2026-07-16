@@ -1,6 +1,5 @@
 import type { ProviderExecutors } from "../../core/types.ts";
 import type { OAuthProviderContext } from "../provider-runtime.ts";
-import type { CanvaActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString, requiredRecord, requiredString } from "../../core/cast.ts";
 import { defineOAuthProviderExecutors, ProviderRequestError } from "../provider-runtime.ts";
@@ -10,7 +9,7 @@ const canvaApiBaseUrl = "https://api.canva.com/rest";
 
 type CanvaActionHandler = (input: Record<string, unknown>, context: OAuthProviderContext) => Promise<unknown>;
 
-export const canvaActionHandlers: Record<CanvaActionName, CanvaActionHandler> = {
+export const canvaActionHandlers: Record<string, CanvaActionHandler> = {
   get_current_user(_input, context) {
     return getCurrentUser(context);
   },

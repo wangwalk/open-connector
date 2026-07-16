@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -83,7 +83,7 @@ export type LessonspaceActionName =
   | "get_session_recording_url"
   | "create_unified_space";
 
-export const lessonspaceActions: Array<ProviderActionDefinition<LessonspaceActionName>> = [
+export const lessonspaceActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_organisation_sessions",
     description: "List Lessonspace sessions for one organisation with official filter parameters.",

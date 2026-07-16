@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { BugHerdActionName } from "./actions.ts";
 
 import { Buffer } from "node:buffer";
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
@@ -20,7 +19,7 @@ type BugHerdQuery = Record<string, string | number | boolean | undefined>;
 type BugHerdActionContext = Pick<ApiKeyProviderContext, "apiKey" | "fetcher" | "signal">;
 type BugHerdActionHandler = (input: Record<string, unknown>, context: BugHerdActionContext) => Promise<unknown>;
 
-export const bugHerdActionHandlers: Record<BugHerdActionName, BugHerdActionHandler> = {
+export const bugHerdActionHandlers: Record<string, BugHerdActionHandler> = {
   show_organization(_input, context) {
     return requestBugHerdJson({
       apiKey: context.apiKey,

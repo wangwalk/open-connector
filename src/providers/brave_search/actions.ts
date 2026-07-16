@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -67,7 +67,7 @@ const nullableLooseObject = (description: string) => s.nullable(s.looseObject(de
 const looseObjectArray = (itemDescription: string, description: string) =>
   s.array(description, s.looseObject(itemDescription));
 
-export const braveSearchActions: ProviderActionDefinition<BraveSearchActionName>[] = [
+export const braveSearchActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "web_search",
     description: "Search the Brave Search web index and return the selected result families.",

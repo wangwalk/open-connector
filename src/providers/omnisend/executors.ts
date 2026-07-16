@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { OmnisendActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -49,7 +48,7 @@ interface OmnisendRequestOptions {
   body?: unknown;
 }
 
-export const omnisendActionHandlers: Record<OmnisendActionName, OmnisendActionHandler> = {
+export const omnisendActionHandlers: Record<string, OmnisendActionHandler> = {
   list_contacts(input, context) {
     return listContacts(input, context);
   },

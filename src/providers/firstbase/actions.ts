@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -196,7 +196,7 @@ const pageFields = {
   totalPages: s.integer("Total number of pages returned by Firstbase."),
 };
 
-export const firstbaseActions: Array<ProviderActionDefinition<FirstbaseActionName>> = [
+export const firstbaseActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_inventory",
     description: "List inventory items owned by the authenticated Firstbase organization.",

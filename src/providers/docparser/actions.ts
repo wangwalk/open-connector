@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -99,7 +99,7 @@ export type DocparserActionName =
   | "reparse_documents"
   | "reintegrate_documents";
 
-export const docparserActions: Array<ProviderActionDefinition<DocparserActionName>> = [
+export const docparserActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "ping",
     description: "Ping the Docparser API to verify that the provided API key is valid.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -93,7 +93,7 @@ const freeEmailOutputSchema = s.object(
 
 export type MailboxValidatorActionName = "validate_email" | "check_disposable_email" | "check_free_email";
 
-export const mailboxValidatorActions: ProviderActionDefinition<MailboxValidatorActionName>[] = [
+export const mailboxValidatorActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "validate_email",
     description: "Validate a single email address and return MailboxValidator deliverability signals.",

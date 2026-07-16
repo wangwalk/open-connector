@@ -40,7 +40,7 @@ const graphqlEnvelopeSchema = s.looseObject(
   { description: "The Bitquery GraphQL response envelope." },
 );
 
-export const bitqueryActions: Array<ActionDefinition & { name: BitqueryActionName }> = [
+export const bitqueryActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "run_query",
     description:

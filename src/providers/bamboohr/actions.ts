@@ -119,5 +119,3 @@ export const bamboohrActions: ActionDefinition[] = [
     }),
   }),
 ];
-
-export type BamboohrActionName = (typeof bamboohrActions)[number]["name"];

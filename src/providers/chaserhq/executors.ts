@@ -7,17 +7,17 @@ import type {
   ProviderProxyExecutor,
   ProxyExecutionResult,
 } from "../../core/types.ts";
-import type { ChaserhqActionName } from "./actions.ts";
 
 import { Buffer } from "node:buffer";
 import { compactObject, optionalNumber, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import { queryParams } from "../../core/request.ts";
 import {
+  createProviderFetch,
   createProviderProxyUrl,
   defineProviderExecutors,
   normalizeProviderProxyHeaders,
-  providerUserAgent,
   ProviderRequestError,
+  providerUserAgent,
   readProviderProxyErrorMessage,
   readProviderProxyResponse,
   requireApiKeyCredential,
@@ -27,6 +27,7 @@ import {
 const service = "chaserhq";
 const apiBaseUrl = "https://openapi.chaserhq.com";
 const apiVersionBaseUrl = "https://openapi.chaserhq.com/v1";
+const chaserhqFetch = createProviderFetch({ skipDnsValidation: true });
 
 interface ChaserContext {
   apiKey: string;
@@ -37,7 +38,7 @@ interface ChaserContext {
 
 type Handler = (input: Record<string, unknown>, context: ChaserContext) => Promise<unknown>;
 
-export const chaserhqActionHandlers: Record<ChaserhqActionName, Handler> = {
+export const chaserhqActionHandlers: Record<string, Handler> = {
   async get_status(_input, context) {
     return { ok: true, raw: await requestChaserJson(context, "/status/") };
   },
@@ -97,6 +98,7 @@ export const chaserhqActionHandlers: Record<ChaserhqActionName, Handler> = {
 export const executors: ProviderExecutors = defineProviderExecutors<ChaserContext>({
   service,
   handlers: chaserhqActionHandlers,
+  skipDnsValidation: true,
   async createContext(context: ExecutionContext, fetcher: typeof fetch): Promise<ChaserContext> {
     const credential = await requireApiKeyCredential(context, service);
     return {
@@ -125,7 +127,7 @@ export const proxy: ProviderProxyExecutor = async (input, context): Promise<Prox
     headers.set("authorization", `Basic ${Buffer.from(`${credential.apiKey}:${apiSecret}`).toString("base64")}`);
     headers.set("user-agent", providerUserAgent);
 
-    const response = await fetch(url, {
+    const response = await chaserhqFetch(url, {
       method: input.method,
       headers,
       body:

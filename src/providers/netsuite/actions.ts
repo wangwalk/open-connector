@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -30,7 +30,7 @@ const collectionSchema = s.looseRequiredObject("A NetSuite paged collection resp
   items: s.array("NetSuite records returned in this page.", looseRecordSchema),
 });
 
-export const netsuiteActions: ProviderActionDefinition<NetsuiteActionName>[] = [
+export const netsuiteActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "run_suiteql",
     description: "Execute a SuiteQL query through NetSuite REST Web Services.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -151,7 +151,7 @@ export type SendfoxActionName =
   | "add_contact_to_list"
   | "remove_contact_from_list";
 
-export const sendfoxActions: ProviderActionDefinition<SendfoxActionName>[] = [
+export const sendfoxActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_contacts",
     description: "List SendFox contacts with optional search, email, and unsubscribe filters.",

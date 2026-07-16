@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { GitlabActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -25,7 +24,7 @@ interface GitlabRequestOptions {
   body?: Record<string, unknown>;
 }
 
-export const gitlabActionHandlers: Record<GitlabActionName, GitlabActionHandler> = {
+export const gitlabActionHandlers: Record<string, GitlabActionHandler> = {
   get_current_user(_input, context) {
     return gitlabRequestJson("/user", context);
   },

@@ -1,5 +1,4 @@
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { TikHubActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -43,7 +42,7 @@ type TikHubEnvelope = {
   params?: Record<string, unknown> | null;
 };
 
-export const tikhubActionHandlers: Record<TikHubActionName, TikHubActionHandler> = {
+export const tikhubActionHandlers: Record<string, TikHubActionHandler> = {
   async get_user_daily_usage(_input, context) {
     const payload = await requestTikHubJson({
       path: "/api/v1/tikhub/user/get_user_daily_usage",
@@ -439,7 +438,7 @@ export const tikhubActionHandlers: Record<TikHubActionName, TikHubActionHandler>
       outputKey: "hotList",
     });
   },
-} satisfies Record<TikHubActionName, TikHubActionHandler>;
+} satisfies Record<string, TikHubActionHandler>;
 
 export async function validateTikHubCredential(
   input: Record<string, string>,

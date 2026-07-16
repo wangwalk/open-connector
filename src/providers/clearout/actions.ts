@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -88,7 +88,7 @@ const attributeVerifyOutputSchema = s.object("The Clearout attribute verificatio
   data: attributeVerifyDataSchema,
 });
 
-export const clearoutActions: ProviderActionDefinition<ClearoutActionName>[] = [
+export const clearoutActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_available_credits",
     description: "Get the current Clearout credit balance and daily verification limits.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -85,7 +85,7 @@ const profileRuleSchema = s.looseObject(
   { description: "A Control D custom DNS rule." },
 );
 
-export const controlDActions: Array<ProviderActionDefinition<ControlDActionName>> = [
+export const controlDActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_ip",
     description:

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -189,7 +189,7 @@ export type TerraformActionName =
   | "list_workspace_runs"
   | "get_run";
 
-export const terraformActions: ProviderActionDefinition<TerraformActionName>[] = [
+export const terraformActions: ActionDefinition[] = [
   getAccountDetailsAction,
   listOrganizationsAction,
   getOrganizationAction,

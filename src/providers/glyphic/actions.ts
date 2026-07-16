@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -138,7 +138,7 @@ const paginatedOutputFields = {
   pagination: paginationSchema,
 };
 
-export const glyphicActions: Array<ProviderActionDefinition<GlyphicActionName>> = [
+export const glyphicActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_calls",
     description: "List public Glyphic calls with optional participant, time, title, tag, and cursor filters.",

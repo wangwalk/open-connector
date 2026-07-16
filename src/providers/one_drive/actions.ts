@@ -6,8 +6,6 @@ import { oneDriveProviderScopes, oneDriveReadScopes, oneDriveWriteScopes } from 
 
 const service = "one_drive";
 
-export type OneDriveActionName = (typeof oneDriveActions)[number]["name"];
-
 interface OneDriveActionSource {
   name: string;
   description: string;

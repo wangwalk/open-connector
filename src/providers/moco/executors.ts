@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { MocoActionName } from "./actions.ts";
 
 import { compactObject, optionalBoolean, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -39,7 +38,7 @@ const service = "moco";
 const mocoValidationPath = "/session";
 const mocoCredentialHelpUrl = "https://everii-group.github.io/mocoapp-api-docs/authentication.html";
 
-export const mocoActionHandlers: Record<MocoActionName, MocoActionHandler> = {
+export const mocoActionHandlers: Record<string, MocoActionHandler> = {
   get_profile(_input, context) {
     return getProfile(context);
   },

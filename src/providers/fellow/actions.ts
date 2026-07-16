@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -155,7 +155,7 @@ const actionItemOutputSchema = s.object("Fellow action item response.", {
   action_item: upstreamRecordSchema,
 });
 
-export const fellowActions: Array<ProviderActionDefinition<FellowActionName>> = [
+export const fellowActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the Fellow user and workspace associated with the current API key.",

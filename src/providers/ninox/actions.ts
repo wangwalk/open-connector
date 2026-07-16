@@ -377,7 +377,7 @@ export const ninoxActions: ActionDefinition[] = [
       "The response returned when deleting multiple Ninox records.",
     ),
   }),
-] satisfies ActionDefinition[];
+];
 
 export type NinoxActionName =
   | "list_workspaces"

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -231,7 +231,7 @@ export type ButtondownActionName =
   | "update_tag"
   | "delete_tag";
 
-export const buttondownActions: ProviderActionDefinition<ButtondownActionName>[] = [
+export const buttondownActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account",
     description: "Get the account associated with the Buttondown API key.",

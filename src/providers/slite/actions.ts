@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -162,7 +162,7 @@ export type SliteActionName =
   | "search_groups"
   | "get_group";
 
-export const sliteActions: ProviderActionDefinition<SliteActionName>[] = [
+export const sliteActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_notes",
     description: "List Slite notes with optional owner, parent, ordering, and pagination filters.",

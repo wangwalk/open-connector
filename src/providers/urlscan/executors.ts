@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { UrlscanActionName } from "./actions.ts";
 
 import { compactObject, optionalInteger, optionalRecord, optionalString, requiredString } from "../../core/cast.ts";
 import {
@@ -16,7 +15,7 @@ const urlscanApiBaseUrl = "https://urlscan.io";
 type UrlscanPhase = "validate" | "execute";
 type UrlscanActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const urlscanActionHandlers: Record<UrlscanActionName, UrlscanActionHandler> = {
+export const urlscanActionHandlers: Record<string, UrlscanActionHandler> = {
   async submit_scan(input, context) {
     const payload = await requestUrlscanJson({
       context,

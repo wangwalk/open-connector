@@ -1,14 +1,30 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { apiKeyCredential } from "../provider-proxy-loader.test-helpers.ts";
-import { credentialValidators, executors } from "./executors.ts";
-import { dokployActionHandlers, normalizeDokployApiBaseUrl } from "./runtime.ts";
+import { setPrivateNetworkAccessAllowed } from "../../core/request.ts";
+import { dokployActions } from "./actions.ts";
+import { credentialValidators } from "./executors.ts";
+import { dokployOperations } from "./operations.ts";
+import {
+  createDokployContext,
+  executeDokployOperation,
+  normalizeDokployApiBaseUrl,
+  sanitizeDokployOutput,
+} from "./runtime.ts";
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  setPrivateNetworkAccessAllowed(false);
 });
 
-describe("Dokploy read-only provider", () => {
-  it("validates an API key using a GET request and x-api-key", async () => {
+describe("Dokploy merged provider", () => {
+  it("keeps the complete official operation catalog", () => {
+    expect(dokployActions).toHaveLength(dokployOperations.length);
+    expect(dokployActions.map((action) => action.name)).toEqual(
+      expect.arrayContaining(["application-one", "application-deploy", "project-search", "settings-reloadServer"]),
+    );
+  });
+
+  it("validates legacy apiBaseUrl credentials with the official x-api-key flow", async () => {
+    setPrivateNetworkAccessAllowed(true);
     const fetcher = vi.fn(
       async (_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> => jsonResponse([]),
     );
@@ -16,33 +32,41 @@ describe("Dokploy read-only provider", () => {
     const result = await credentialValidators.apiKey?.(
       {
         apiKey: "dokploy-key",
-        values: { apiKey: "dokploy-key", apiBaseUrl: "http://127.0.0.1:3000" },
+        values: { apiKey: "dokploy-key", apiBaseUrl: "http://10.0.0.5:3000/api" },
       },
       { fetcher },
     );
 
     expect(result).toMatchObject({
-      profile: { accountId: "127.0.0.1:3000" },
-      metadata: { apiBaseUrl: "http://127.0.0.1:3000/api", projectCount: 0 },
+      profile: { accountId: "dokploy:10.0.0.5:3000" },
+      metadata: { apiBaseUrl: "http://10.0.0.5:3000/api", validationEndpoint: "/project.search" },
     });
     const request = fetcher.mock.calls[0]!;
-    expect(String(request[0])).toBe("http://127.0.0.1:3000/api/project.all");
+    expect(String(request[0])).toBe("http://10.0.0.5:3000/api/project.search?limit=1&offset=0");
     expect(request[1]).toMatchObject({
       method: "GET",
       headers: expect.objectContaining({ "x-api-key": "dokploy-key" }),
     });
   });
 
-  it("returns allowlisted application data and drops all known secret-bearing fields", async () => {
+  it("reads legacy apiBaseUrl metadata when creating an action context", () => {
+    const context = createDokployContext({}, "dokploy-key", fetch, undefined, undefined, {
+      apiBaseUrl: "https://dokploy.example.com/api",
+    });
+
+    expect(context.apiBaseUrl).toBe("https://dokploy.example.com/api");
+  });
+
+  it("drops secret-bearing fields from official operation responses", async () => {
+    const operation = dokployOperations.find((candidate) => candidate.name === "application-one");
+    expect(operation).toBeDefined();
     const fetcher = vi.fn(
       async (_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> =>
         jsonResponse({
           applicationId: "app_1",
           name: "Web",
-          appName: "web-prod",
-          applicationStatus: "running",
           repository: "owner/repo",
-          branch: "main",
+          environmentId: "env_1",
           environment: "DATABASE_PASSWORD=must-not-leak",
           env: "TOKEN=must-not-leak",
           buildSecrets: { registryToken: "must-not-leak" },
@@ -50,51 +74,42 @@ describe("Dokploy read-only provider", () => {
           source: { repository: "owner/repo", accessToken: "must-not-leak" },
         }),
     );
-    vi.stubGlobal("fetch", fetcher);
 
-    const result = await executors["dokploy.get_application"]?.(
+    const result = await executeDokployOperation(
+      operation!,
       { applicationId: "app_1" },
       {
-        getCredential: async () => apiKeyCredential("dokploy-key", { apiBaseUrl: "http://127.0.0.1:3000/api" }),
+        apiBaseUrl: "https://dokploy.example.com/api",
+        apiKey: "dokploy-key",
+        fetcher,
       },
     );
 
-    expect(result).toMatchObject({
-      ok: true,
-      output: {
-        application: {
-          id: "app_1",
-          name: "Web",
-          appName: "web-prod",
-          status: "running",
-          repository: "owner/repo",
-          branch: "main",
-        },
-      },
+    expect(result).toEqual({
+      applicationId: "app_1",
+      name: "Web",
+      repository: "owner/repo",
+      environmentId: "env_1",
+      source: { repository: "owner/repo" },
     });
-    expect(JSON.stringify(result)).not.toMatch(/must-not-leak|buildSecrets|password|registryToken|accessToken/);
-    expect(fetcher.mock.calls[0]![1]).toMatchObject({ method: "GET" });
-  });
-
-  it("exposes only the approved read actions", () => {
-    expect(Object.keys(dokployActionHandlers).sort()).toEqual([
-      "get_application",
-      "get_application_status",
-      "get_deployments",
-      "get_project",
-      "list_applications",
-      "list_projects",
-      "list_services",
-    ]);
-    expect(Object.keys(dokployActionHandlers).join(" ")).not.toMatch(
-      /(^| )(deploy|redeploy|restart|start|stop|delete|update|save_environment)( |$)/,
+    expect(JSON.stringify(result)).not.toMatch(/must-not-leak|buildSecrets|password|registryToken|accessToken/u);
+    expect(String(fetcher.mock.calls[0]![0])).toBe(
+      "https://dokploy.example.com/api/application.one?applicationId=app_1",
     );
   });
 
-  it("normalizes the API suffix and rejects unsafe configured URLs", () => {
-    expect(normalizeDokployApiBaseUrl("http://127.0.0.1:3000")).toBe("http://127.0.0.1:3000/api");
+  it("sanitizes nested arrays without mutating safe fields", () => {
+    expect(
+      sanitizeDokployOutput({
+        projects: [{ id: "project_1", apiKey: "must-not-leak", settings: { cookie: "must-not-leak" } }],
+      }),
+    ).toEqual({ projects: [{ id: "project_1", settings: {} }] });
+  });
+
+  it("normalizes the API suffix and retains official unsafe-target checks", () => {
     expect(normalizeDokployApiBaseUrl("https://dokploy.example.com/api/")).toBe("https://dokploy.example.com/api");
-    expect(() => normalizeDokployApiBaseUrl("https://user:pass@dokploy.example.com")).toThrow("must not include");
+    expect(() => normalizeDokployApiBaseUrl("https://user:pass@dokploy.example.com")).toThrow("credentials");
+    expect(() => normalizeDokployApiBaseUrl("http://169.254.169.254")).toThrow();
   });
 });
 

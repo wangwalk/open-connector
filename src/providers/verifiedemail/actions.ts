@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -246,7 +246,7 @@ export type VerifiedemailActionName =
   | "list_downloads"
   | "get_download";
 
-export const verifiedemailActions: ProviderActionDefinition<VerifiedemailActionName>[] = [
+export const verifiedemailActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_entitlements",
     description: "Get VerifiedEmail verification credit entitlements for the account.",

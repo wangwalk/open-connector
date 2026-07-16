@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -83,7 +83,7 @@ function singleOutputSchema(description: string, dataDescription: string) {
   });
 }
 
-export const statsigActions: ProviderActionDefinition<StatsigActionName>[] = [
+export const statsigActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_project",
     description: "Retrieve the Statsig project information visible to the Console API key.",

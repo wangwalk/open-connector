@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -142,7 +142,7 @@ export type ScrapingantActionName =
   | "extract_data_with_ai"
   | "get_api_credits_usage";
 
-export const scrapingantActions: ProviderActionDefinition<ScrapingantActionName>[] = [
+export const scrapingantActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "scrape_with_extended_json_output",
     description:

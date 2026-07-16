@@ -1,5 +1,4 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
-import type { CeligoActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { ProviderRequestError, providerUserAgent } from "../provider-runtime.ts";
@@ -27,7 +26,7 @@ type JsonPayloadReadResult =
   | { kind: "json"; value: unknown }
   | { kind: "invalid_json"; raw: string };
 
-export const celigoActionHandlers: Record<CeligoActionName, CeligoActionHandler> = {
+export const celigoActionHandlers: Record<string, CeligoActionHandler> = {
   get_token_info(_input, context) {
     return getTokenInfo(context);
   },

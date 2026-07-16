@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -112,7 +112,7 @@ export type RoboflowActionName =
   | "get_server_info"
   | "get_server_metrics";
 
-export const roboflowActions: ProviderActionDefinition<RoboflowActionName>[] = [
+export const roboflowActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_projects",
     description: "List Roboflow projects visible to the API key workspace.",

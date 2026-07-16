@@ -288,4 +288,4 @@ export const accredibleCertificatesActions: readonly ActionDefinition[] = [
       credential: s.nullable(credentialSchema),
     }),
   }),
-] as const satisfies readonly ActionDefinition[];
+];

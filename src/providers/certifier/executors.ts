@@ -1,7 +1,6 @@
 import type { QueryValue } from "../../core/request.ts";
 import type { CredentialValidationResult, CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { CertifierActionName } from "./actions.ts";
 
 import { compactObject, optionalRecord, optionalString } from "../../core/cast.ts";
 import { compactJson, queryParams } from "../../core/request.ts";
@@ -13,7 +12,7 @@ const apiVersion = "2022-10-26";
 
 type CertifierActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const certifierActionHandlers: Record<CertifierActionName, CertifierActionHandler> = {
+export const certifierActionHandlers: Record<string, CertifierActionHandler> = {
   list_groups(input, context) {
     return listCollection("groups", "groups", input, context);
   },

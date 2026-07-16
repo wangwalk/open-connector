@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { BrevoActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -33,7 +32,7 @@ interface BrevoRequestOptions {
   body?: unknown;
 }
 
-export const brevoActionHandlers: Record<BrevoActionName, BrevoActionHandler> = {
+export const brevoActionHandlers: Record<string, BrevoActionHandler> = {
   get_account(_input, context) {
     return getAccount(context);
   },

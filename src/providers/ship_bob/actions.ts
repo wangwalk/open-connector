@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -60,7 +60,7 @@ export type ShipBobActionName =
   | "list_products"
   | "list_locations";
 
-export const shipBobActions: ProviderActionDefinition<ShipBobActionName>[] = [
+export const shipBobActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_channels",
     description: "List ShipBob channels available to the authenticated Personal Access Token.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -38,7 +38,7 @@ export type DatabarAiActionName =
   | "get_task_status"
   | "run_waterfall";
 
-export const databarAiActions: Array<ProviderActionDefinition<DatabarAiActionName>> = [
+export const databarAiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_user_info",
     description: "Get the current Databar account information for the API key.",

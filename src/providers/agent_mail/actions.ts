@@ -2211,6 +2211,4 @@ export const agentMailActions: ActionDefinition[] = actionDefinitions.map((defin
 
 export const agentMailOperationByActionName = Object.fromEntries(
   actionDefinitions.map((definition) => [definition.name, definition.operation] as const),
-) as Record<AgentMailActionName, AgentMailOperationDefinition>;
-
-export type AgentMailActionName = (typeof actionDefinitions)[number]["name"];
+) as Record<string, AgentMailOperationDefinition>;

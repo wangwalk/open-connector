@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -78,7 +77,7 @@ export type WorkpathActionName =
   | "list_teams"
   | "get_team";
 
-export const workpathActions: readonly ProviderActionDefinition<WorkpathActionName>[] = [
+export const workpathActions: readonly ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_goals",
     description: "List Workpath goals visible to the API client, optionally filtered by an overlapping date range.",

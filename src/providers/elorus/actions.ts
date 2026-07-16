@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -152,7 +151,7 @@ export type ElorusActionName =
   | "create_invoice"
   | "update_invoice";
 
-export const elorusActions: ProviderActionDefinition<ElorusActionName>[] = [
+export const elorusActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_contacts",
     description: "List Elorus contacts with optional search, filters, and pagination.",

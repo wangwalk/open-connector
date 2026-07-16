@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -112,7 +112,7 @@ const recentResultsOutputSchema = s.object("Recent ClassMarker results.", {
   ),
 });
 
-export const classmarkerActions: ProviderActionDefinition<ClassmarkerActionName>[] = [
+export const classmarkerActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_groups_links_and_tests",
     description: "List the ClassMarker groups, links, and assigned tests that the current API key can access.",

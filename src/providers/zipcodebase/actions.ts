@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -51,7 +51,7 @@ const distanceRecordSchema = s.looseObject("A distance result returned by Zipcod
   distance: s.number("The distance from the origin postal code."),
 });
 
-export const zipcodebaseActions: ProviderActionDefinition<ZipcodebaseActionName>[] = [
+export const zipcodebaseActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_status",
     description: "Return Zipcodebase account status and remaining request credits.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -138,7 +138,7 @@ export type LoyverseActionName =
   | "list_receipts"
   | "get_receipt";
 
-export const loyverseActions: ProviderActionDefinition<LoyverseActionName>[] = [
+export const loyverseActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_merchant",
     description: "Get merchant profile information for the connected Loyverse account.",

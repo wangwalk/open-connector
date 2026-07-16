@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { BouncerActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -26,7 +25,7 @@ const bouncerDefaultRequestTimeoutMs = 30_000;
 type BouncerRequestPhase = "validate" | "execute";
 type BouncerActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const bouncerActionHandlers: Record<BouncerActionName, BouncerActionHandler> = {
+export const bouncerActionHandlers: Record<string, BouncerActionHandler> = {
   get_credits(_input, context) {
     return requestBouncerCredits({
       apiKey: context.apiKey,

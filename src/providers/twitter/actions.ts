@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -14,7 +14,7 @@ function action(
   description: string,
   requiredScopes: string[],
   providerPermissions: string[],
-): ProviderActionDefinition<TwitterActionName> {
+): ActionDefinition {
   return defineProviderAction(service, {
     name,
     description,
@@ -98,7 +98,7 @@ export type TwitterActionName =
   | "get_compliance_job"
   | "get_compliance_jobs";
 
-export const twitterActions: ProviderActionDefinition<TwitterActionName>[] = [
+export const twitterActions: ActionDefinition[] = [
   action(
     "user_lookup_me",
     "Get the currently authenticated X user profile and optional expanded objects.",

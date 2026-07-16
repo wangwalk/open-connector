@@ -1,5 +1,3 @@
-import type { ExcelActionName } from "./actions.ts";
-
 import { compactObject } from "../../core/cast.ts";
 import { ProviderRequestError } from "../provider-runtime.ts";
 import { emptyWorkbookBytes, excelWorkbookMimeType } from "./workbook-template.ts";
@@ -27,7 +25,7 @@ type ExcelRuntimeDeps = {
 };
 
 export interface ExcelActionInvocation {
-  actionName: ExcelActionName;
+  actionName: string;
   input: Record<string, unknown>;
   accessToken: string;
 }
@@ -176,7 +174,7 @@ export const excelActionHandlers: Record<string, ExcelActionHandler> = {
 };
 
 export async function executeExcelAction(input: ExcelActionInvocation, fetcher: typeof fetch): Promise<unknown> {
-  const handler = excelActionHandlers[input.actionName as ExcelActionName];
+  const handler = excelActionHandlers[input.actionName as string];
   if (!handler) {
     throw new ExcelProviderRequestError("invalid_input", `unknown excel action: ${input.actionName}`, 400);
   }

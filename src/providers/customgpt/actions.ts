@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -74,7 +74,7 @@ export type CustomgptActionName =
   | "list_messages"
   | "list_documents";
 
-export const customgptActions: Array<ProviderActionDefinition<CustomgptActionName>> = [
+export const customgptActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_agents",
     description: "List CustomGPT agents in the authenticated account with optional pagination.",

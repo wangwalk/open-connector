@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { SunoApiActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -18,7 +17,7 @@ type SunoApiRequestPhase = "validate" | "execute";
 type SunoApiActionContext = Pick<ApiKeyProviderContext, "apiKey" | "fetcher" | "signal">;
 type SunoApiActionHandler = (input: Record<string, unknown>, context: SunoApiActionContext) => Promise<unknown>;
 
-export const sunoapiActionHandlers: Record<SunoApiActionName, SunoApiActionHandler> = {
+export const sunoapiActionHandlers: Record<string, SunoApiActionHandler> = {
   get_remaining_credits(_input, context) {
     return getRemainingCredits(context, "execute");
   },

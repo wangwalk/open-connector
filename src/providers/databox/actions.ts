@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -38,7 +38,7 @@ export type DataboxActionName =
   | "push_dataset_data"
   | "get_dataset_ingestion_status";
 
-export const databoxActions: Array<ProviderActionDefinition<DataboxActionName>> = [
+export const databoxActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_accounts",
     description: "List Databox accounts accessible to the API key.",

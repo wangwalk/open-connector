@@ -51,7 +51,7 @@ const googleMapsInputSchema = s.actionInput(
 
 export type SerpapiActionName = "google_search" | "google_news_search" | "google_maps_search";
 
-export const serpapiActions: Array<ActionDefinition & { name: SerpapiActionName }> = [
+export const serpapiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "google_search",
     description: "Run a Google web search through SerpApi.",

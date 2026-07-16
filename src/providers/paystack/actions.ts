@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -81,7 +81,7 @@ export type PaystackActionName =
   | "get_transaction"
   | "verify_transaction";
 
-export const paystackActions: Array<ProviderActionDefinition<PaystackActionName>> = [
+export const paystackActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "create_customer",
     description: "Create a customer in Paystack.",

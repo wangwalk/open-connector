@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -230,7 +229,7 @@ const scenarioUsageOutputSchema = s.object("Normalized Make scenario usage respo
   raw: looseMakeObject,
 });
 
-export const makeActions: ProviderActionDefinition<MakeActionName>[] = [
+export const makeActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the authenticated Make user profile.",

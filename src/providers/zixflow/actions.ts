@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -60,7 +60,7 @@ const dynamicRecordSchema = s.looseObject(
 
 const dynamicEntrySchema = s.looseObject("A dynamic Zixflow list entry with fields defined by the list attributes.");
 
-export const zixflowActions: ProviderActionDefinition<ZixflowActionName>[] = [
+export const zixflowActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_collections",
     description: "List system and custom collections in the Zixflow workspace.",

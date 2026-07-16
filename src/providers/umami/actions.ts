@@ -221,5 +221,3 @@ export const umamiActions: ProviderActionDefinition[] = [
     ),
   }),
 ];
-
-export type UmamiActionName = (typeof umamiActions)[number]["name"];

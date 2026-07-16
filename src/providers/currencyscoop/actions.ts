@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -68,7 +68,7 @@ export type CurrencyscoopActionName =
   | "get_timeseries_rates"
   | "convert_currency";
 
-export const currencyscoopActions: Array<ProviderActionDefinition<CurrencyscoopActionName>> = [
+export const currencyscoopActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_currencies",
     description: "Retrieve the supported currencies exposed by CurrencyBeacon.",

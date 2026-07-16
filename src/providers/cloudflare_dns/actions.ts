@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -207,7 +206,7 @@ export type CloudflareDnsActionName =
   | "update_dns_record"
   | "delete_dns_record";
 
-export const cloudflareDnsActions: ProviderActionDefinition<CloudflareDnsActionName>[] = [
+export const cloudflareDnsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_accounts",
     description: "List Cloudflare accounts visible to the current credential.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -74,7 +74,7 @@ const dataSourcePayloadSchema = s.looseObject(
   "The Grafana data source payload. Use official Grafana data source fields such as name, type, access, url, jsonData, and secureJsonData.",
 );
 
-export const grafanaActions: Array<ProviderActionDefinition<GrafanaActionName>> = [
+export const grafanaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_folders",
     description: "List Grafana folders in a namespace with optional pagination.",

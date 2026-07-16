@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -128,7 +127,7 @@ const tokenSelectorProperties = {
   tokenId: tokenIdSchema,
 } satisfies Record<string, JsonSchema>;
 
-export const owlProtocolActions: ProviderActionDefinition<OwlProtocolActionName>[] = [
+export const owlProtocolActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_project_info",
     description: "Read the connected Owl Protocol project's summary information.",

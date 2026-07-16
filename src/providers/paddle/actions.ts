@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -189,7 +189,7 @@ export type PaddleActionName =
   | "create_customer"
   | "update_customer";
 
-export const paddleActions: Array<ProviderActionDefinition<PaddleActionName>> = [
+export const paddleActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_products",
     description: "List Paddle products with optional filtering, pagination, and price inclusion.",

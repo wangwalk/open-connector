@@ -1,6 +1,5 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { V0ActionName } from "./actions.ts";
 import type { V0ActionInput } from "./runtime-client.ts";
 
 import { defineApiKeyProviderExecutors, ProviderRequestError } from "../provider-runtime.ts";
@@ -62,7 +61,7 @@ import {
 type V0ActionHandler = (input: V0ActionInput, fetcher: typeof fetch) => Promise<unknown>;
 type V0ExecutorHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const v0ActionHandlers: Record<V0ActionName, V0ActionHandler> = {
+export const v0ActionHandlers: Record<string, V0ActionHandler> = {
   get_user(input, fetcher) {
     return v0GetUser(input, fetcher);
   },
@@ -217,7 +216,7 @@ export const credentialValidators: CredentialValidators = {
 };
 
 export async function executeV0Action(input: V0ActionInput, fetcher: typeof fetch): Promise<unknown> {
-  const handler = v0ActionHandlers[input.actionName as V0ActionName];
+  const handler = v0ActionHandlers[input.actionName as string];
   if (!handler) {
     throw new ProviderRequestError(400, `unknown v0 action: ${input.actionName}`);
   }

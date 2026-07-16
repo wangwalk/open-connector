@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -144,7 +144,7 @@ const fieldSchema = s.looseObject("A Mopinion report or dataset field object.", 
   group_key: s.nullableString("The Mopinion field group key."),
 });
 
-export const mopinionActions: Array<ProviderActionDefinition<MopinionActionName>> = [
+export const mopinionActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account",
     description: "Fetch the current Mopinion account profile and available account limits.",

@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -222,7 +221,7 @@ export type LemonSqueezyActionName =
   | "update_webhook"
   | "delete_webhook";
 
-export const lemonSqueezyActions: Array<ProviderActionDefinition<LemonSqueezyActionName>> = [
+export const lemonSqueezyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "retrieve_authenticated_user",
     description: "Retrieve the currently authenticated Lemon Squeezy user.",

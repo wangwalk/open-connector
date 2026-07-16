@@ -201,6 +201,4 @@ export const supadataActions: ActionDefinition[] = [
     ),
     outputSchema: webMapSchema,
   }),
-] satisfies ActionDefinition[];
-
-export type SupadataActionName = (typeof supadataActions)[number]["name"];
+];

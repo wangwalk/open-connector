@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -274,7 +273,7 @@ export type WordpressActionName =
   | "update_comment"
   | "delete_comment";
 
-export const wordpressActions: Array<ProviderActionDefinition<WordpressActionName>> = [
+export const wordpressActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the authenticated WordPress user.",

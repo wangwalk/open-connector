@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -86,7 +86,7 @@ const spendRowSchema = s.looseObject("A Cursor team member spending row.", {
 
 export type CursorActionName = "list_team_members" | "list_audit_logs" | "get_daily_usage_data" | "get_team_spend";
 
-export const cursorActions: Array<ProviderActionDefinition<CursorActionName>> = [
+export const cursorActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_team_members",
     description: "List Cursor team members visible to the team API key.",

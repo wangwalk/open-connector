@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -252,7 +252,7 @@ const coachingFeedbackOutputSchema = s.object(
   { optional: ["metadata", "failed"] },
 );
 
-export const jiminnyActions: Array<ProviderActionDefinition<JiminnyActionName>> = [
+export const jiminnyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_organization",
     description: "Return the current authenticated Jiminny organization.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -35,7 +35,7 @@ const contentSchema = s.object(
   },
 );
 
-export const builderIoActions: ProviderActionDefinition<BuilderIoActionName>[] = [
+export const builderIoActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_content",
     description: "List Builder.io content entries for a model using the Content API.",

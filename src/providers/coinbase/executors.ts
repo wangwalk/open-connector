@@ -5,13 +5,13 @@ import type {
   ProviderProxyExecutor,
 } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { CoinbaseActionName } from "./actions.ts";
 
 import { Buffer } from "node:buffer";
 import { createPrivateKey, createSign, randomBytes } from "node:crypto";
 import { optionalInteger, optionalRecord, optionalString, requiredRecord, requiredString } from "../../core/cast.ts";
 import { queryParams } from "../../core/request.ts";
 import {
+  createProviderFetch,
   createProviderProxyUrl,
   defineProviderExecutors,
   normalizeProviderProxyHeaders,
@@ -26,6 +26,7 @@ import {
 const service = "coinbase";
 const coinbaseApiBaseUrl = "https://api.coinbase.com";
 const accountsPath = "/api/v3/brokerage/accounts";
+const coinbaseFetch = createProviderFetch({ skipDnsValidation: true });
 
 type CoinbaseRequestPhase = "validate" | "execute";
 type CoinbaseJwtBuilder = (input: { method: string; path: string }) => string;
@@ -34,7 +35,7 @@ interface CoinbaseActionContext extends ApiKeyProviderContext {
 }
 type CoinbaseActionHandler = (input: Record<string, unknown>, context: CoinbaseActionContext) => Promise<unknown>;
 
-export const coinbaseActionHandlers: Record<CoinbaseActionName, CoinbaseActionHandler> = {
+export const coinbaseActionHandlers: Record<string, CoinbaseActionHandler> = {
   list_accounts(input, context) {
     return coinbaseGetJson(
       accountsPath,
@@ -55,6 +56,7 @@ export const coinbaseActionHandlers: Record<CoinbaseActionName, CoinbaseActionHa
 export const executors: ProviderExecutors = defineProviderExecutors<CoinbaseActionContext>({
   service,
   handlers: coinbaseActionHandlers,
+  skipDnsValidation: true,
   async createContext(context, fetcher): Promise<CoinbaseActionContext> {
     return createCoinbaseContext(context, fetcher);
   },
@@ -86,7 +88,7 @@ export const proxy: ProviderProxyExecutor = async (input, context) => {
       }
     }
 
-    const response = await fetch(url, init);
+    const response = await coinbaseFetch(url, init);
     if (!response.ok) {
       const text = await readProviderProxyErrorMessage(response, "");
       throw new ProviderRequestError(response.status, text || `Coinbase request failed with HTTP ${response.status}`);

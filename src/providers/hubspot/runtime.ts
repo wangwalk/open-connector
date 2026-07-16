@@ -1,5 +1,3 @@
-import type { HubspotActionName } from "./actions.ts";
-
 import { UnauthorizedError } from "@modelcontextprotocol/sdk/client/auth.js";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport, StreamableHTTPError } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
@@ -53,7 +51,7 @@ interface HubspotActionContext {
 }
 
 interface ExecuteHubspotActionInput {
-  actionName: HubspotActionName;
+  actionName: string;
   input: Record<string, unknown>;
   accessToken: string;
 }

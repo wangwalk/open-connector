@@ -81,7 +81,7 @@ export type SendsparkActionName =
   | "add_prospect"
   | "get_prospect_by_email";
 
-export const sendsparkActions: Array<ActionDefinition & { name: SendsparkActionName }> = [
+export const sendsparkActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_dynamic_campaigns",
     description: "List Sendspark dynamic video campaigns in a workspace with optional pagination and search filters.",

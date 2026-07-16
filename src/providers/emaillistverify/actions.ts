@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -46,7 +46,7 @@ export type EmailListVerifyActionName =
   | "download_email_list"
   | "delete_email_list";
 
-export const emailListVerifyActions: ProviderActionDefinition<EmailListVerifyActionName>[] = [
+export const emailListVerifyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "verify_email",
     description: "Verify a single email address with EmailListVerify's real-time API.",

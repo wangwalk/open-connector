@@ -1,17 +1,19 @@
 import type { CatalogStore } from "../catalog-store.ts";
-import type { AssetsBinding } from "./cloudflare/cloudflare-bindings.ts";
+import type { AssetsBinding, KVNamespaceBinding, R2BucketBinding } from "./cloudflare/cloudflare-bindings.ts";
 import type { CloudflareEnv } from "./cloudflare/cloudflare-env.ts";
 import type { ConnectApp } from "./connect-app.ts";
 import type { Logger } from "./logger.ts";
 import type { ISecretCodec } from "./secrets/secret-codec-core.ts";
 
 import { ActionPolicyService, parseActionPolicyList } from "../core/action-policy.ts";
+import { parsePrivateNetworkAccessFlag, setPrivateNetworkAccessAllowed } from "../core/request.ts";
 import { ProviderLoader } from "../providers/provider-loader.ts";
-import { executableActionIds } from "../providers/registry.generated.ts";
+import { executableActionIds, executorModules } from "../providers/registry.cloudflare.generated.ts";
 import { isConsoleShellPath } from "./api/console-paths.ts";
 import { loadCatalogFromAssets } from "./cloudflare/catalog-assets.ts";
 import { readPositiveInteger, resolvePublicOrigin } from "./cloudflare/cloudflare-env.ts";
 import { createConnectApp } from "./connect-app.ts";
+import { KVTransitFileService } from "./files/kv-transit-files.ts";
 import { R2TransitFileService } from "./files/r2-transit-files.ts";
 import { createWorkerSecretCodec } from "./secrets/worker-secret-codec.ts";
 import { D1RuntimeDatabase } from "./storage/d1-runtime-store.ts";
@@ -27,6 +29,7 @@ let cachedApp: { key: string; app: Promise<ConnectApp> } | undefined;
 
 export default {
   async fetch(request: Request, env: CloudflareEnv, _ctx: CloudflareExecutionContext): Promise<Response> {
+    setPrivateNetworkAccessAllowed(parsePrivateNetworkAccessFlag(env.OOMOL_CONNECT_ALLOW_PRIVATE_NETWORK));
     const publicOrigin = resolvePublicOrigin(request, env);
     const cacheKey = createCacheKey(env, publicOrigin);
     if (!cachedApp || cachedApp.key !== cacheKey) {
@@ -48,18 +51,27 @@ async function createCloudflareApp(env: CloudflareEnv, publicOrigin: string): Pr
   if (!assets) {
     throw new Error("Cloudflare ASSETS binding is required to load the catalog");
   }
-
   const secretCodec = await createSecretCodec(env.OOMOL_CONNECT_ENCRYPTION_KEY);
   return await createConnectApp({
     catalog: await loadCatalogOnce(assets),
-    providerLoader: new ProviderLoader(),
+    providerLoader: new ProviderLoader(executorModules),
     runtimeDatabase: new D1RuntimeDatabase(env.DB, { secretCodec }),
-    transitFiles: new R2TransitFileService({
-      bucket: env.TRANSIT_FILES,
-      publicOrigin,
-      ttlSeconds: readPositiveInteger(env.OOMOL_CONNECT_TRANSIT_FILE_TTL_SECONDS, 86_400),
-      maxBytes: readPositiveInteger(env.OOMOL_CONNECT_TRANSIT_FILE_MAX_BYTES, 100 * 1024 * 1024),
-    }),
+    transitFiles: (() => {
+      const transitFileOptions = {
+        publicOrigin,
+        ttlSeconds: readPositiveInteger(env.OOMOL_CONNECT_TRANSIT_FILE_TTL_SECONDS, 86_400),
+        maxBytes: readPositiveInteger(env.OOMOL_CONNECT_TRANSIT_FILE_MAX_BYTES, 100 * 1024 * 1024),
+      };
+      return env.TRANSIT_FILES_BACKEND === "kv"
+        ? new KVTransitFileService({
+            namespace: env.TRANSIT_FILES as KVNamespaceBinding,
+            ...transitFileOptions,
+          })
+        : new R2TransitFileService({
+            bucket: env.TRANSIT_FILES as R2BucketBinding,
+            ...transitFileOptions,
+          });
+    })(),
     publicOrigin,
     secretCodec,
     adminToken: env.OOMOL_CONNECT_ADMIN_TOKEN,

@@ -7323,5 +7323,3 @@ const actionSources: GoogledriveActionSource[] = [
 export const googledriveActions: ActionDefinition[] = actionSources.map((action) =>
   defineProviderAction(service, action),
 );
-
-export type GoogledriveActionName = (typeof googledriveActions)[number]["name"];

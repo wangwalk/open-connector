@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -39,7 +38,7 @@ const singleOutputSchema = (description: string, fieldName: string, itemDescript
     raw: rawPayloadSchema,
   });
 
-export const breatheActions: ProviderActionDefinition<BreatheActionName>[] = [
+export const breatheActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_employees",
     description: "List employees from Breathe with optional pagination and role filters.",

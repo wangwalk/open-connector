@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -103,7 +103,7 @@ export type RunpodActionName =
   | "reset_pod"
   | "delete_pod";
 
-export const runpodActions: ProviderActionDefinition<RunpodActionName>[] = [
+export const runpodActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_pods",
     description: "List Runpod Pods with optional official filter parameters.",

@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -201,7 +200,7 @@ export type PartnerstackActionName =
   | "list_leads"
   | "list_deals";
 
-export const partnerstackActions: Array<ProviderActionDefinition<PartnerstackActionName>> = [
+export const partnerstackActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_customers",
     description: "List PartnerStack customers with pagination and common filters.",

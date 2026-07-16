@@ -1,16 +1,12 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
 import type { ApiKeyProviderContext } from "../provider-runtime.ts";
-import type { DeeplActionName } from "./actions.ts";
 
 import { defineApiKeyProviderExecutors } from "../provider-runtime.ts";
 import { executeDeeplAction, validateDeeplCredential } from "./runtime.ts";
 
 const service = "deepl";
 
-const handlers: Record<
-  DeeplActionName,
-  (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>
-> = {
+const handlers: Record<string, (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>> = {
   list_supported_languages(input, context) {
     return executeDeeplAction(
       { actionName: "list_supported_languages", input, apiKey: context.apiKey },

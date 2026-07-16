@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -110,7 +109,7 @@ listHourlySpendInputSchema.dependentRequired = {
   hour_start_iso_end: ["hour_start_iso_begin"],
 };
 
-export const northbeamActions: ProviderActionDefinition<NorthbeamActionName>[] = [
+export const northbeamActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_metrics",
     description: "List the metrics available for Northbeam data exports.",

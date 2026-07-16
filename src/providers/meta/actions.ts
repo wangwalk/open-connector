@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -164,7 +163,7 @@ const getInsightsInputSchema: JsonSchema = {
   },
 };
 
-export const metaActions: Array<ProviderActionDefinition<MetaActionName>> = [
+export const metaActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Retrieve the current Meta Graph API user for the connected access token.",

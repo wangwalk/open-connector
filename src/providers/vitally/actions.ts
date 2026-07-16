@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -26,7 +26,7 @@ const listAccountsOutputSchema = s.actionOutput({
   next: s.nullable(s.string("The cursor for the next page, or null when there are no more pages.")),
 });
 
-export const vitallyActions: ProviderActionDefinition<VitallyActionName>[] = [
+export const vitallyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_accounts",
     description: "List Vitally accounts with optional status and cursor pagination filters.",

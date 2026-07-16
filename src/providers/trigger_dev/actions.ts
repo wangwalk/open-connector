@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -130,7 +130,7 @@ export type TriggerDevActionName =
   | "cancel_run"
   | "replay_run";
 
-export const triggerDevActions: ProviderActionDefinition<TriggerDevActionName>[] = [
+export const triggerDevActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_runs",
     description: "List Trigger.dev runs with optional status, task, version, and time filters.",

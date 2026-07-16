@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -119,7 +118,7 @@ export type CloudconvertActionName =
   | "retry_task"
   | "delete_task";
 
-export const cloudconvertActions: ProviderActionDefinition<CloudconvertActionName>[] = [
+export const cloudconvertActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current CloudConvert user and remaining credits for the API token.",

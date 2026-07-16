@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -164,7 +163,7 @@ export type MailersendActionName =
   | "list_sender_identities"
   | "get_sender_identity";
 
-export const mailersendActions: ProviderActionDefinition<MailersendActionName>[] = [
+export const mailersendActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "send_email",
     description: "Send a transactional email through MailerSend.",

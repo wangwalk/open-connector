@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { VapiActionName } from "./actions.ts";
 
 import {
   base64Bytes,
@@ -113,7 +112,7 @@ const vapiEvalListAliasMap = {
   ...vapiTimestampAliasMap,
 };
 
-const vapiActionSpecs: Record<VapiActionName, VapiActionSpec> = {
+const vapiActionSpecs: Record<string, VapiActionSpec> = {
   list_assistants: { method: "GET", path: "/assistant", response: { type: "array", key: "assistants" } },
   create_assistant: { method: "POST", path: "/assistant", response: { type: "single", key: "assistant" } },
   get_assistant: {
@@ -226,13 +225,13 @@ const vapiActionSpecs: Record<VapiActionName, VapiActionSpec> = {
   test_code_tool_execution: { method: "POST", path: "/tool/test", response: { type: "tool_test" } },
 };
 
-export const vapiActionHandlers: Record<VapiActionName, VapiActionHandler> = Object.fromEntries(
+export const vapiActionHandlers: Record<string, VapiActionHandler> = Object.fromEntries(
   vapiActionNames.map((actionName) => [
     actionName,
     (input: Record<string, unknown>, context: ApiKeyProviderContext) =>
       executeVapiActionByName(actionName, input, context),
   ]),
-) as Record<VapiActionName, VapiActionHandler>;
+) as Record<string, VapiActionHandler>;
 
 export async function validateVapiCredential(
   apiKey: string,
@@ -266,7 +265,7 @@ export async function validateVapiCredential(
 }
 
 async function executeVapiActionByName(
-  actionName: VapiActionName,
+  actionName: string,
   input: Record<string, unknown>,
   context: ApiKeyProviderContext,
 ): Promise<unknown> {
@@ -301,7 +300,7 @@ async function executeVapiActionByName(
   return normalizeVapiResponse(payload, spec.response);
 }
 
-function normalizeVapiActionInput(actionName: VapiActionName, input: Record<string, unknown>): Record<string, unknown> {
+function normalizeVapiActionInput(actionName: string, input: Record<string, unknown>): Record<string, unknown> {
   switch (actionName) {
     case "update_assistant":
       return applyAliases(input, vapiAssistantAliasMap);

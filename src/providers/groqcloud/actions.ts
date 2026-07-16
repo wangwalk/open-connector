@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -120,7 +119,7 @@ const chatCompletionOutputSchema = s.looseObject("The response payload for a Gro
   system_fingerprint: s.string("The backend system fingerprint for the completion."),
 });
 
-export const groqcloudActions: ProviderActionDefinition<GroqcloudActionName>[] = [
+export const groqcloudActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_models",
     description: "List the GroqCloud models available to the current API key.",

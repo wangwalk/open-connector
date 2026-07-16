@@ -1,5 +1,4 @@
 import type { CredentialValidators, ExecutionContext, ProviderExecutors } from "../../core/types.ts";
-import type { ApiflashActionName } from "./actions.ts";
 
 import { optionalBoolean, optionalInteger, optionalRecord, optionalString, compactObject } from "../../core/cast.ts";
 import { assertPublicHttpUrl } from "../../core/request.ts";
@@ -26,7 +25,7 @@ interface ApiflashActionContext {
 
 type ApiflashActionHandler = (input: Record<string, unknown>, context: ApiflashActionContext) => Promise<unknown>;
 
-export const apiflashActionHandlers: Record<ApiflashActionName, ApiflashActionHandler> = {
+export const apiflashActionHandlers: Record<string, ApiflashActionHandler> = {
   capture_website_screenshot(input, context) {
     return captureApiflashWebsiteScreenshot(input, context);
   },

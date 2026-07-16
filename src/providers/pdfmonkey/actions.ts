@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -114,7 +114,7 @@ export type PdfmonkeyActionName =
   | "list_document_template_cards"
   | "get_document_template";
 
-export const pdfmonkeyActions: Array<ProviderActionDefinition<PdfmonkeyActionName>> = [
+export const pdfmonkeyActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the current PDFMonkey account resolved by the provided API key.",

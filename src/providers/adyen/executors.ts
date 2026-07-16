@@ -4,7 +4,6 @@ import type {
   ProviderExecutors,
   ProviderProxyExecutor,
 } from "../../core/types.ts";
-import type { AdyenActionName } from "./actions.ts";
 
 import { compactObject, nullableString, optionalInteger, optionalRecord, optionalString } from "../../core/cast.ts";
 import {
@@ -40,7 +39,7 @@ interface AdyenListPayload {
 
 type AdyenActionHandler = (input: Record<string, unknown>, context: AdyenActionContext) => Promise<unknown>;
 
-export const adyenActionHandlers: Record<AdyenActionName, AdyenActionHandler> = {
+export const adyenActionHandlers: Record<string, AdyenActionHandler> = {
   get_api_credential(_input, context) {
     return getApiCredential(context);
   },

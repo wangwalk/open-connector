@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -135,7 +135,7 @@ export type SevdeskActionName =
   | "update_contact"
   | "delete_contact";
 
-export const sevdeskActions: ProviderActionDefinition<SevdeskActionName>[] = [
+export const sevdeskActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_contacts",
     description: "List sevdesk contacts with optional customer number, pagination, and embed options.",

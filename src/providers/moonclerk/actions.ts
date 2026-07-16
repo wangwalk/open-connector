@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -301,7 +301,7 @@ const customerStatusSchema = s.stringEnum("The MoonClerk customer subscription s
 
 const paymentStatusSchema = s.stringEnum("The MoonClerk payment status filter.", ["successful", "refunded", "failed"]);
 
-export const moonclerkActions: Array<ProviderActionDefinition<MoonclerkActionName>> = [
+export const moonclerkActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_forms",
     description: "List MoonClerk payment forms with official pagination parameters.",

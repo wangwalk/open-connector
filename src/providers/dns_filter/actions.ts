@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -134,7 +134,7 @@ export type DnsFilterActionName =
   | "list_ip_addresses"
   | "get_my_ip";
 
-export const dnsFilterActions: Array<ProviderActionDefinition<DnsFilterActionName>> = [
+export const dnsFilterActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_current_user",
     description: "Get the DNSFilter user associated with the API key.",

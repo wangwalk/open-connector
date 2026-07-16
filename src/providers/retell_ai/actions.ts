@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -86,7 +86,7 @@ export type RetellAiActionName =
   | "list_calls"
   | "get_call";
 
-export const retellAiActions: ProviderActionDefinition<RetellAiActionName>[] = [
+export const retellAiActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_voices",
     description: "List all Retell AI voices available to the authenticated workspace.",

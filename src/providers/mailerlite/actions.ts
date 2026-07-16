@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -179,7 +179,7 @@ export type MailerliteActionName =
   | "remove_subscriber_from_group"
   | "list_fields";
 
-export const mailerliteActions: ProviderActionDefinition<MailerliteActionName>[] = [
+export const mailerliteActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_subscribers",
     description: "List subscribers available to the current MailerLite API key.",

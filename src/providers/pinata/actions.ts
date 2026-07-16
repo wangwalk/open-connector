@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -168,7 +168,7 @@ const groupFileInputSchema = s.object("Input parameters for changing Pinata grou
   fileId: idSchema,
 });
 
-export const pinataActions: readonly ProviderActionDefinition<PinataActionName>[] = [
+export const pinataActions: readonly ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_files",
     description: "List Pinata files from the public or private IPFS network with optional filters.",

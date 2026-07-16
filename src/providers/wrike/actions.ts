@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -284,7 +283,7 @@ export type WrikeActionName =
   | "get_tasks"
   | "create_task";
 
-export const wrikeActions: ProviderActionDefinition<WrikeActionName>[] = [
+export const wrikeActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_contacts",
     description: "List Wrike contacts in the current account with optional filters.",

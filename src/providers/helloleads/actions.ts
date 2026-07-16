@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -38,7 +38,7 @@ const webFormFieldSchema = s.requiredObject("One visible field exposed by a Hell
 
 export type HelloleadsActionName = "get_web_form_definition" | "submit_web_form";
 
-export const helloleadsActions: Array<ProviderActionDefinition<HelloleadsActionName>> = [
+export const helloleadsActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_web_form_definition",
     description:

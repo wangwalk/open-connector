@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -53,7 +53,7 @@ const getOutputSchema = (assetName: string, outputKey: string) =>
     raw: rawPayloadSchema,
   });
 
-export const klipfolioActions: Array<ProviderActionDefinition<KlipfolioActionName>> = [
+export const klipfolioActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_clients",
     description: "List Klipfolio client assets visible to the current API key.",

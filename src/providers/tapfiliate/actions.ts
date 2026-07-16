@@ -1,5 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
-import type { JsonSchema } from "../../core/types.ts";
+import type { ActionDefinition, JsonSchema } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -317,7 +316,7 @@ const createClickInputSchema = s.actionInput(
   "Fields for creating a Tapfiliate click.",
 );
 
-export const tapfiliateActions: Array<ProviderActionDefinition<TapfiliateActionName>> = [
+export const tapfiliateActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_affiliates",
     description: "List Tapfiliate affiliates with optional id, email, referral, and group filters.",

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -60,7 +60,7 @@ export type SafetycultureActionName =
   | "get_action"
   | "create_action";
 
-export const safetycultureActions: ProviderActionDefinition<SafetycultureActionName>[] = [
+export const safetycultureActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "search_inspections",
     description:

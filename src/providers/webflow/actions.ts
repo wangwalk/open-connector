@@ -281,5 +281,3 @@ export const webflowActions: ProviderActionDefinition[] = [
     ),
   }),
 ];
-
-export type WebflowActionName = (typeof webflowActions)[number]["name"];

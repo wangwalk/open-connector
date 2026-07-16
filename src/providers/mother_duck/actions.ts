@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -78,7 +78,7 @@ const ducklingConfigSchema = s.object("MotherDuck Duckling configuration for a u
   read_scaling: readScalingConfigSchema,
 });
 
-export const motherDuckActions: Array<ProviderActionDefinition<MotherDuckActionName>> = [
+export const motherDuckActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "list_active_accounts",
     description: "List active MotherDuck accounts and their active Ducklings in the organization.",

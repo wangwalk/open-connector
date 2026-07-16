@@ -104,7 +104,7 @@ export type SerpdogActionName =
   | "google_videos_search"
   | "google_autocomplete";
 
-export const serpdogActions: Array<ActionDefinition & { name: SerpdogActionName }> = [
+export const serpdogActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account_info",
     description: "Retrieve account details and quota usage for the connected Serpdog API key.",

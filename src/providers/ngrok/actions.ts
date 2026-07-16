@@ -247,7 +247,7 @@ export const ngrokActions: ActionDefinition[] = [
     ),
     outputSchema: reservedDomainSchema,
   }),
-] satisfies ActionDefinition[];
+];
 
 export type NgrokActionName =
   | "list_endpoints"

@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -383,7 +383,7 @@ const getByIdOnlyInputSchema = s.object("The input payload for reading one Kommo
   id: idSchema,
 });
 
-export const kommoActions: Array<ProviderActionDefinition<KommoActionName>> = [
+export const kommoActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_account",
     description: "Get Kommo account information for the connected account.",

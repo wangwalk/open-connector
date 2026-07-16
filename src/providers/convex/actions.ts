@@ -1,4 +1,4 @@
-import type { ProviderActionDefinition } from "../../core/provider-definition.ts";
+import type { ActionDefinition } from "../../core/types.ts";
 
 import { s } from "../../core/json-schema.ts";
 import { defineProviderAction } from "../../core/provider-definition.ts";
@@ -77,7 +77,7 @@ const functionCallProperties = {
   format: s.literal("json", { description: "Request JSON result format." }),
 };
 
-export const convexActions: Array<ProviderActionDefinition<ConvexActionName>> = [
+export const convexActions: ActionDefinition[] = [
   defineProviderAction(service, {
     name: "get_token_details",
     description: "Return the current Convex token details so you can discover the authorized team or project context.",
@@ -294,7 +294,7 @@ export const convexActions: Array<ProviderActionDefinition<ConvexActionName>> = 
   ...functionActions(),
 ];
 
-function functionActions(): Array<ProviderActionDefinition<ConvexActionName>> {
+function functionActions(): ActionDefinition[] {
   return [
     defineProviderAction(service, {
       name: "run_query",

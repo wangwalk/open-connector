@@ -1,6 +1,5 @@
 import type { CredentialValidationResult } from "../../core/types.ts";
 import type { ApiKeyProviderContext, ProviderFetch } from "../provider-runtime.ts";
-import type { AhrefsActionName } from "./actions.ts";
 
 import { compactObject, optionalNumber, optionalRecord, optionalString } from "../../core/cast.ts";
 import { providerUserAgent, ProviderRequestError } from "../provider-runtime.ts";
@@ -13,7 +12,7 @@ type AhrefsPhase = "validate" | "execute";
 type QueryValue = string | number | boolean | undefined;
 type AhrefsActionHandler = (input: Record<string, unknown>, context: ApiKeyProviderContext) => Promise<unknown>;
 
-export const ahrefsActionHandlers: Record<AhrefsActionName, AhrefsActionHandler> = {
+export const ahrefsActionHandlers: Record<string, AhrefsActionHandler> = {
   get_limits_and_usage(_input, context) {
     return requestAhrefs(limitsAndUsagePath, {}, context.apiKey, context.fetcher, context.signal, "execute");
   },

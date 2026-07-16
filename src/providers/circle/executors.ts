@@ -1,5 +1,4 @@
 import type { CredentialValidators, ProviderExecutors } from "../../core/types.ts";
-import type { CircleActionName } from "./actions.ts";
 
 import {
   compactObject,
@@ -24,7 +23,7 @@ interface CircleContext {
 
 type CircleHandler = (input: Record<string, unknown>, context: CircleContext) => Promise<unknown>;
 
-export const circleActionHandlers: Record<CircleActionName, CircleHandler> = {
+export const circleActionHandlers: Record<string, CircleHandler> = {
   async get_community(_input, context) {
     return {
       community: normalizeCommunity(await requestCircleJson({ context, path: "/community", phase: "execute" })),
