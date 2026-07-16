@@ -7,9 +7,11 @@ import { MemoryRouter, Route, Routes } from "react-router";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createAppI18n } from "./i18n";
 import {
+  connectionApiPath,
   connectionSubmitLabel,
   createOAuthPopupFeatures,
   isProviderLocallyAvailable,
+  isValidConnectionName,
   oauthClientActionLabel,
   oauthConfigForProvider,
   providerBrowserResetKey,
@@ -20,6 +22,7 @@ import {
   shouldShowDisconnectAction,
   shouldShowOAuthClientForm,
   startOAuthRefreshPolling,
+  suggestConnectionName,
 } from "./providers-page";
 
 afterEach(() => {
@@ -204,6 +207,40 @@ describe("ProvidersPage route shell", () => {
     expect(detailMarkup).not.toContain("Host");
   });
 
+  it("renders every named account and an add-account action", () => {
+    const markup = renderProvidersPage(
+      {
+        ...providerData,
+        connections: [
+          {
+            service: "gmail",
+            connectionName: "default",
+            authType: "oauth2",
+            default: true,
+            profile: { displayName: "Personal", accountId: "personal", grantedScopes: ["email"] },
+            metadata: {},
+          },
+          {
+            service: "gmail",
+            connectionName: "dollify",
+            authType: "oauth2",
+            default: false,
+            profile: { displayName: "Dollify", accountId: "dollify", grantedScopes: ["email"] },
+            metadata: {},
+          },
+        ],
+      },
+      "/providers/gmail",
+    );
+
+    expect(markup).toContain("Accounts");
+    expect(markup).toContain("Personal");
+    expect(markup).toContain("Dollify");
+    expect(markup).toContain("Add account");
+    expect(markup).toContain("default");
+    expect(markup).toContain("dollify");
+  });
+
   it("allows stale catalog-only connections to be removed", () => {
     const markup = renderProvidersPage(
       {
@@ -241,6 +278,29 @@ describe("ProvidersPage route shell", () => {
     expect(markup).toContain("Show more");
     expect(markup).toContain("Clock 47");
     expect(markup).not.toContain("Clock 48");
+  });
+});
+
+describe("named connection helpers", () => {
+  it("matches the backend connection-name constraints", () => {
+    expect(isValidConnectionName("dollify")).toBe(true);
+    expect(isValidConnectionName("product_account-2")).toBe(true);
+    expect(isValidConnectionName(" account")).toBe(true);
+    expect(isValidConnectionName("-account")).toBe(false);
+    expect(isValidConnectionName("product account")).toBe(false);
+    expect(isValidConnectionName("a".repeat(65))).toBe(false);
+  });
+
+  it("targets disconnects and suggests a free account name", () => {
+    expect(connectionApiPath("x service", "product/account")).toBe(
+      "/api/connections/x%20service?connectionName=product%2Faccount",
+    );
+    expect(
+      suggestConnectionName([
+        { service: "twitter", connectionName: "account-2", authType: "oauth2", metadata: {} },
+        { service: "twitter", connectionName: "account-3", authType: "oauth2", metadata: {} },
+      ]),
+    ).toBe("account-4");
   });
 });
 

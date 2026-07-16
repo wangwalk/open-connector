@@ -159,6 +159,13 @@
       "notUsed": "Не используется"
     },
     "connection": "Подключение",
+    "connections": "Аккаунты",
+    "connectionsDescription": "Настроено: {{count}}",
+    "connectionName": "Имя подключения",
+    "connectionNameHint": "Начните с буквы или цифры; используйте до 64 букв, цифр, символов подчёркивания или дефисов.",
+    "connectionNameInUse": "Это имя подключения уже используется.",
+    "defaultConnection": "По умолчанию",
+    "addAccountDescription": "Авторизовать другой аккаунт",
     "connectionMethod": "Способ подключения",
     "connectionDescriptions": {
       "noSetup": "Этот провайдер может работать без локальных учетных данных.",
@@ -201,6 +208,7 @@
       "configureOAuthClient": "Настроить OAuth Client",
       "editOAuthClient": "Изменить OAuth Client",
       "saveConnection": "Сохранить подключение",
+      "addAccount": "Добавить аккаунт",
       "connect": "Подключить",
       "details": "Детали",
       "manageConnection": "Управлять",

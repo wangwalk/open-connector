@@ -159,6 +159,13 @@
       "notUsed": "Non utilisé"
     },
     "connection": "Connexion",
+    "connections": "Comptes",
+    "connectionsDescription": "{{count}} configuré(s)",
+    "connectionName": "Nom de la connexion",
+    "connectionNameHint": "Commencez par une lettre ou un chiffre ; utilisez au maximum 64 lettres, chiffres, traits de soulignement ou tirets.",
+    "connectionNameInUse": "Ce nom de connexion est déjà utilisé.",
+    "defaultConnection": "Par défaut",
+    "addAccountDescription": "Autoriser un autre compte",
     "connectionMethod": "Méthode de connexion",
     "connectionDescriptions": {
       "noSetup": "Ce fournisseur peut s’exécuter sans identifiants locaux.",
@@ -201,6 +208,7 @@
       "configureOAuthClient": "Configurer le client OAuth",
       "editOAuthClient": "Modifier le client OAuth",
       "saveConnection": "Enregistrer la connexion",
+      "addAccount": "Ajouter un compte",
       "connect": "Connecter",
       "details": "Détails",
       "manageConnection": "Gérer",

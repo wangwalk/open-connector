@@ -9,6 +9,8 @@ import { gfm } from "micromark-extension-gfm";
 
 export type ActionMarkdownContext = {
   connection?: ConnectionSummary;
+  connections?: ConnectionSummary[];
+  selectedConnectionName?: string;
   providerPermissions?: string[];
 };
 
@@ -51,13 +53,18 @@ export function renderActionMarkdown(action: ActionDefinition, context: ActionMa
       ...describeStringList(action.requiredScopes, "No provider scopes are required."),
       heading(2, "Provider Permissions"),
       ...describeStringList(providerPermissions, "No provider permissions are declared."),
-      heading(2, "Current Connection"),
-      ...describeConnection(context.connection),
+      heading(2, "Available Connections"),
+      ...describeConnections(
+        context.connections ?? (context.connection ? [context.connection] : []),
+        context.selectedConnectionName,
+      ),
       heading(2, "Notes For Agents"),
       list([
         textParagraph("Use the local runtime endpoint above; do not call provider APIs directly unless the user asks."),
         paragraph(["Send JSON with a top-level ", inlineCode("input"), " object."]),
-        textParagraph("Check the current connection and provider scopes before choosing actions on the user's behalf."),
+        textParagraph(
+          "Check the selected connection and provider scopes before choosing actions on the user's behalf.",
+        ),
         textParagraph(
           "If execution fails with a credential error, ask the user to connect the app in the local console.",
         ),
@@ -72,26 +79,40 @@ export function renderActionMarkdown(action: ActionDefinition, context: ActionMa
   });
 }
 
-function describeConnection(connection: ConnectionSummary | undefined): BlockContent[] {
-  if (!connection) {
+function describeConnections(connections: ConnectionSummary[], selectedConnectionName?: string): BlockContent[] {
+  if (connections.length === 0) {
     return [textParagraph("This provider is not connected in the local runtime.")];
   }
 
-  const scopes: Array<string | PhrasingContent> =
-    connection.profile.grantedScopes.length > 0
-      ? joinPhrasing(
-          connection.profile.grantedScopes.map((scope) => inlineCode(scope)),
-          ", ",
-        )
-      : ["unknown or not provider-scoped"];
-
   return [
-    list([
-      paragraph(["Account: ", connection.profile.displayName]),
-      paragraph(["Account ID: ", inlineCode(connection.profile.accountId)]),
-      paragraph(["Auth type: ", inlineCode(connection.authType)]),
-      paragraph(["Granted scopes: ", ...scopes]),
-    ]),
+    list(
+      connections.map((connection) => {
+        const scopes: Array<string | PhrasingContent> =
+          connection.profile.grantedScopes.length > 0
+            ? joinPhrasing(
+                connection.profile.grantedScopes.map((scope) => inlineCode(scope)),
+                ", ",
+              )
+            : ["unknown or not provider-scoped"];
+        const markers = [
+          connection.default ? "default" : undefined,
+          connection.connectionName === selectedConnectionName ? "selected" : undefined,
+        ].filter(Boolean);
+        return paragraph([
+          "Connection ",
+          inlineCode(connection.connectionName),
+          ...(markers.length > 0 ? [` (${markers.join(", ")})`] : []),
+          ": ",
+          connection.profile.displayName,
+          " · Account ID ",
+          inlineCode(connection.profile.accountId),
+          " · Auth ",
+          inlineCode(connection.authType),
+          " · Scopes ",
+          ...scopes,
+        ]);
+      }),
+    ),
   ];
 }
 

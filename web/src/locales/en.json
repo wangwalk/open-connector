@@ -159,6 +159,13 @@
       "notUsed": "Not used"
     },
     "connection": "Connection",
+    "connections": "Accounts",
+    "connectionsDescription": "{{count}} configured",
+    "connectionName": "Connection name",
+    "connectionNameHint": "Start with a letter or digit; use up to 64 letters, digits, underscores, or hyphens.",
+    "connectionNameInUse": "This connection name is already in use.",
+    "defaultConnection": "Default",
+    "addAccountDescription": "Authorize another account",
     "connectionMethod": "Connection method",
     "connectionDescriptions": {
       "noSetup": "This provider can run without local credentials.",
@@ -201,6 +208,7 @@
       "configureOAuthClient": "Configure OAuth Client",
       "editOAuthClient": "Edit OAuth Client",
       "saveConnection": "Save Connection",
+      "addAccount": "Add account",
       "connect": "Connect",
       "details": "Details",
       "manageConnection": "Manage",

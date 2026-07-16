@@ -49,6 +49,24 @@ Preview MCP tool metadata:
 curl -s http://localhost:3000/mcp/tools
 ```
 
+`list_apps` returns both the compatibility `connection` field and a `connections` array with safe
+account identities. When a provider has multiple configured accounts, pass `connectionName` to
+`get_action_guide` and `execute_action`:
+
+```json
+{
+  "actionId": "twitter.creation_of_a_post",
+  "connectionName": "dollify",
+  "input": {
+    "text": "Hello from Dollify"
+  }
+}
+```
+
+MCP execution without `connectionName` remains compatible for zero or one configured account. When
+multiple credential connections exist, it returns `ambiguous_connection` instead of silently
+choosing an account.
+
 ## HTTP Runtime API
 
 Runtime clients should use `/v1`. Responses use a uniform JSON envelope:
@@ -140,7 +158,7 @@ exactly-once execution by the provider. This behavior applies to the HTTP Action
 ## Action Guides
 
 Each Action has a local markdown guide that includes the input schema, scopes, provider
-permissions, current connection identity, and request examples:
+permissions, available connection identities, and request examples:
 
 ```bash
 curl -s http://localhost:3000/api/actions/github.get_current_user/agent.md

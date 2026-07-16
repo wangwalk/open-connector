@@ -147,6 +147,7 @@ export interface ProviderConnectionStatus {
   connected: boolean;
   oauthClientRequired: boolean;
   connection?: ConnectionRecord;
+  connections: ConnectionRecord[];
 }
 
 const firstProviderService = "fusion-api";
@@ -234,13 +235,18 @@ export function resolveProviderConnectionStatus(
   oauthConfigs: OAuthConfig[],
 ): ProviderConnectionStatus {
   const noSetupRequired = isNoAuthOnlyProvider(provider);
-  const serviceConnections = connections.filter((connection) => connection.service === provider.service);
-  const connection = noSetupRequired ? undefined : pickUsableCredentialConnection(serviceConnections);
+  const serviceConnections = noSetupRequired
+    ? []
+    : connections
+        .filter((connection) => connection.service === provider.service && isUsableCredentialConnection(connection))
+        .sort(compareConnections);
+  const connection = serviceConnections[0];
   return {
     noSetupRequired,
     connected: connection != null,
     oauthClientRequired: providerHasOAuth(provider) && !oauthClientConfigured(provider.service, oauthConfigs),
     connection,
+    connections: serviceConnections,
   };
 }
 
@@ -249,9 +255,13 @@ export function isNoAuthOnlyProvider(provider: ProviderDefinition): boolean {
   return authTypes.length === 0 || authTypes.every((authType) => authType === "no_auth");
 }
 
-function pickUsableCredentialConnection(connections: ConnectionRecord[]): ConnectionRecord | undefined {
-  const usableConnections = connections.filter(isUsableCredentialConnection);
-  return usableConnections.find((connection) => connection.default) ?? usableConnections[0];
+function compareConnections(left: ConnectionRecord, right: ConnectionRecord): number {
+  if (left.default !== right.default) return left.default ? -1 : 1;
+  return connectionNameOf(left).localeCompare(connectionNameOf(right));
+}
+
+export function connectionNameOf(connection: ConnectionRecord): string {
+  return connection.connectionName?.trim() || "default";
 }
 
 function isUsableCredentialConnection(connection: ConnectionRecord | undefined): connection is ConnectionRecord {
