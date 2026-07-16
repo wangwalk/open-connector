@@ -87,6 +87,8 @@ type ProviderStatusFilter = "all" | "connected" | "not_connected" | "oauth_needs
 const providerPageSize = 48;
 const oauthRefreshPollingIntervalMs = 1_000;
 const oauthRefreshPollingMaxAttempts = 30;
+const oauthPopupFrameName = "oomol_connect_oauth";
+const freshOAuthPopupFrameName = "oomol_connect_oauth_fresh";
 const freshOAuthSessionHash = "oomol-connect-fresh-session";
 const compactNumberFormatter = Intl.NumberFormat(undefined, {
   notation: "compact",
@@ -767,6 +769,10 @@ export interface OAuthPopupPlacement {
   outerHeight: number;
 }
 
+export function createOAuthAuthorizationPopupFrameName(connected: boolean): string {
+  return connected ? oauthPopupFrameName : freshOAuthPopupFrameName;
+}
+
 export function createOAuthAuthorizationPopupUrl(authorizationUrl: string, connected: boolean): string {
   if (connected) return authorizationUrl;
   const url = new URL(authorizationUrl);
@@ -1026,7 +1032,7 @@ function ConnectionForm(props: ConnectionFormProps): ReactNode {
         if (result.authorizationUrl) {
           window.open(
             createOAuthAuthorizationPopupUrl(result.authorizationUrl, connected),
-            "oomol_connect_oauth",
+            createOAuthAuthorizationPopupFrameName(connected),
             createOAuthPopupFeatures({
               screenX: window.screenX,
               screenY: window.screenY,

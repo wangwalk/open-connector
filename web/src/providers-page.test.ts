@@ -9,6 +9,7 @@ import { createAppI18n } from "./i18n";
 import {
   connectionApiPath,
   connectionSubmitLabel,
+  createOAuthAuthorizationPopupFrameName,
   createOAuthAuthorizationPopupUrl,
   createOAuthPopupFeatures,
   isProviderLocallyAvailable,
@@ -331,6 +332,13 @@ describe("shouldClearOAuthClientStatus", () => {
 
   it("clears the reset status when the selected provider changes", () => {
     expect(shouldClearOAuthClientStatus({ providerChanged: true, skipNextConfigClear: true })).toBe(true);
+  });
+});
+
+describe("createOAuthAuthorizationPopupFrameName", () => {
+  it("uses a dedicated frame for new connections and the compatible frame for reauthorization", () => {
+    expect(createOAuthAuthorizationPopupFrameName(false)).toBe("oomol_connect_oauth_fresh");
+    expect(createOAuthAuthorizationPopupFrameName(true)).toBe("oomol_connect_oauth");
   });
 });
 
