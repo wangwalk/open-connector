@@ -104,8 +104,7 @@ export async function executeDokployOperation(
       : hasFields(body)
         ? body
         : undefined;
-  const response = await requestDokployJson(path, operation.method, query, requestBody, context, "execute");
-  return sanitizeDokployOutput(response);
+  return requestDokployJson(path, operation.method, query, requestBody, context, "execute");
 }
 
 async function requestDokployJson(
@@ -252,17 +251,6 @@ export function redactSensitive(value: unknown): unknown {
   return output;
 }
 
-/** Removes secret-bearing fields from successful Dokploy responses before they reach agents. */
-export function sanitizeDokployOutput(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(sanitizeDokployOutput);
-  if (!value || typeof value !== "object") return value;
-  const output: Record<string, unknown> = {};
-  for (const [key, child] of Object.entries(value)) {
-    if (!isSensitiveKey(key)) output[key] = sanitizeDokployOutput(child);
-  }
-  return output;
-}
-
 function isSensitiveKey(name: string): boolean {
   const normalized = name.toLowerCase().replaceAll(/[-_]/gu, "");
   return (
@@ -271,14 +259,9 @@ function isSensitiveKey(name: string): boolean {
     normalized.includes("token") ||
     normalized.includes("apikey") ||
     normalized.includes("privatekey") ||
-    normalized.includes("credential") ||
     normalized === "authorization" ||
     normalized === "cookie" ||
-    normalized === "setcookie" ||
-    normalized === "env" ||
-    normalized === "environment" ||
-    normalized === "environmentvariables" ||
-    normalized === "buildargs"
+    normalized === "setcookie"
   );
 }
 
