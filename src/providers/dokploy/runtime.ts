@@ -40,14 +40,8 @@ export function createDokployContext(
   fetcher: typeof fetch,
   signal?: AbortSignal,
   transitFiles?: TransitFileWriter,
-  metadata: Record<string, unknown> = {},
 ): DokployActionContext {
-  const baseUrl =
-    optionalString(values.baseUrl) ??
-    optionalString(values.apiBaseUrl) ??
-    optionalString(metadata.baseUrl) ??
-    optionalString(metadata.apiBaseUrl);
-  return { apiKey, apiBaseUrl: normalizeDokployApiBaseUrl(baseUrl), fetcher, signal, transitFiles };
+  return { apiKey, apiBaseUrl: normalizeDokployApiBaseUrl(values.baseUrl), fetcher, signal, transitFiles };
 }
 
 export async function validateDokployCredential(

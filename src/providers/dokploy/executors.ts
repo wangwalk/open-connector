@@ -30,14 +30,7 @@ export const executors: ProviderExecutors = defineProviderExecutors<DokployActio
   handlers: dokployActionHandlers,
   async createContext(context: ExecutionContext, fetcher: typeof fetch): Promise<DokployActionContext> {
     const credential = await requireApiKeyCredential(context, service);
-    return createDokployContext(
-      credential.values,
-      credential.apiKey,
-      fetcher,
-      context.signal,
-      context.transitFiles,
-      credential.metadata,
-    );
+    return createDokployContext(credential.values, credential.apiKey, fetcher, context.signal, context.transitFiles);
   },
   fallbackMessage: "Dokploy request failed",
   allowPrivateNetwork: isPrivateNetworkAccessAllowed,
@@ -48,10 +41,9 @@ export const proxy: ProviderProxyExecutor = defineProviderProxy({
   baseUrl: async (context) => {
     const credential = await requireApiKeyCredential(context, service);
     const value =
-      optionalString(credential.values.baseUrl) ??
-      optionalString(credential.values.apiBaseUrl) ??
+      optionalString(credential.metadata.apiBaseUrl) ??
       optionalString(credential.metadata.baseUrl) ??
-      optionalString(credential.metadata.apiBaseUrl);
+      optionalString(credential.values.baseUrl);
     if (!value) {
       throw new ProviderRequestError(500, "dokploy connection is missing baseUrl metadata");
     }
