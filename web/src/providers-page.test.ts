@@ -9,6 +9,7 @@ import { createAppI18n } from "./i18n";
 import {
   connectionApiPath,
   connectionSubmitLabel,
+  createOAuthAuthorizationPopupUrl,
   createOAuthPopupFeatures,
   isProviderLocallyAvailable,
   isValidConnectionName,
@@ -330,6 +331,20 @@ describe("shouldClearOAuthClientStatus", () => {
 
   it("clears the reset status when the selected provider changes", () => {
     expect(shouldClearOAuthClientStatus({ providerChanged: true, skipNextConfigClear: true })).toBe(true);
+  });
+});
+
+describe("createOAuthAuthorizationPopupUrl", () => {
+  it("marks new connections for a fresh local browser session", () => {
+    expect(createOAuthAuthorizationPopupUrl("https://x.com/i/oauth2/authorize?state=secret", false)).toBe(
+      "https://x.com/i/oauth2/authorize?state=secret#oomol-connect-fresh-session",
+    );
+  });
+
+  it("leaves existing connection reauthorization URLs unchanged", () => {
+    expect(createOAuthAuthorizationPopupUrl("https://x.com/i/oauth2/authorize?state=secret", true)).toBe(
+      "https://x.com/i/oauth2/authorize?state=secret",
+    );
   });
 });
 
