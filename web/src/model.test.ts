@@ -200,14 +200,13 @@ describe("resolveProviderConnectionStatus", () => {
     const status = resolveProviderConnectionStatus(
       oauthProvider("slack", "Slack"),
       [
-        { service: "slack", connectionName: "work", authType: "oauth2", metadata: {}, default: false },
-        { service: "slack", connectionName: "default", authType: "api_key", metadata: {}, default: true },
+        { service: "slack", authType: "oauth2", metadata: {}, default: false },
+        { service: "slack", authType: "api_key", metadata: {}, default: true },
       ],
       [{ service: "slack", configured: true, clientId: "slack-client-id" }],
     );
 
     expect(status.connection?.authType).toBe("api_key");
-    expect(status.connections.map((connection) => connection.connectionName)).toEqual(["default", "work"]);
   });
 });
 

@@ -159,13 +159,6 @@
       "notUsed": "未使用"
     },
     "connection": "接続",
-    "connections": "アカウント",
-    "connectionsDescription": "{{count}} 件を設定済み",
-    "connectionName": "接続名",
-    "connectionNameHint": "英数字で始め、英数字・アンダースコア・ハイフンを最大64文字まで使用できます。",
-    "connectionNameInUse": "この接続名は既に使用されています。",
-    "defaultConnection": "デフォルト",
-    "addAccountDescription": "別のアカウントを認証",
     "connectionMethod": "接続方式",
     "connectionDescriptions": {
       "noSetup": "このプロバイダーはローカル認証情報なしで実行できます。",
@@ -208,7 +201,6 @@
       "configureOAuthClient": "OAuth Client を設定",
       "editOAuthClient": "OAuth Client を編集",
       "saveConnection": "接続を保存",
-      "addAccount": "アカウントを追加",
       "connect": "接続",
       "details": "詳細",
       "manageConnection": "管理",

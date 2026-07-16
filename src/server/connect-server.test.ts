@@ -1155,7 +1155,7 @@ describe("ConnectServer", () => {
     });
   });
 
-  it("renders agent guides with available connections and provider permissions", async () => {
+  it("renders agent guides with current connection and provider permissions", async () => {
     const app = createTestServer(
       [
         {
@@ -1184,8 +1184,7 @@ describe("ConnectServer", () => {
 
     expect(response.status).toBe(200);
     const markdown = await response.text();
-    expect(markdown).toContain("## Available Connections");
-    expect(markdown).toContain("Connection `default` (default)");
+    expect(markdown).toContain("## Current Connection");
     expect(markdown).toContain("Example Account");
     expect(markdown).toContain("`example-account`");
     expect(markdown).toContain("`messages:read`");

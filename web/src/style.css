@@ -1724,8 +1724,6 @@ h3 {
   line-height: 1.45;
 }
 
-.provider-connection-card > .provider-connections,
-.provider-connection-card > .provider-new-connection-name,
 .provider-connection-card > .auth-method-control,
 .provider-connection-card > .connection-form,
 .provider-inline-oauth-settings,
@@ -1737,94 +1735,6 @@ h3 {
 
 .provider-connection-card > .auth-method-control {
   margin-bottom: 0;
-}
-
-.provider-connections {
-  display: grid;
-  gap: 10px;
-}
-
-.provider-connections-heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.provider-connections-heading strong {
-  font-size: 14px;
-}
-
-.provider-connections-heading span {
-  color: var(--muted-foreground);
-  font-size: 12px;
-}
-
-.provider-connection-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 8px;
-}
-
-.provider-connection-option {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--background);
-  color: var(--foreground);
-  text-align: left;
-  cursor: pointer;
-}
-
-.provider-connection-option:hover {
-  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
-  background: var(--muted);
-}
-
-.provider-connection-option-selected {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 1px var(--primary);
-}
-
-.provider-connection-option > span {
-  display: grid;
-  min-width: 0;
-  gap: 2px;
-}
-
-.provider-connection-option strong,
-.provider-connection-option small {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.provider-connection-option strong {
-  font-size: 13px;
-}
-
-.provider-connection-option small {
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
-  font-size: 11px;
-}
-
-.provider-add-connection {
-  justify-content: flex-start;
-  color: var(--muted-foreground);
-}
-
-.provider-add-connection svg {
-  flex: 0 0 auto;
-}
-
-.provider-new-connection-name {
-  max-width: 420px;
 }
 
 .provider-inline-oauth-settings {

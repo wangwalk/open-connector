@@ -7,13 +7,9 @@ import { MemoryRouter, Route, Routes } from "react-router";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createAppI18n } from "./i18n";
 import {
-  connectionApiPath,
   connectionSubmitLabel,
-  createOAuthAuthorizationPopupFrameName,
-  createOAuthAuthorizationPopupUrl,
   createOAuthPopupFeatures,
   isProviderLocallyAvailable,
-  isValidConnectionName,
   oauthClientActionLabel,
   oauthConfigForProvider,
   providerBrowserResetKey,
@@ -24,7 +20,6 @@ import {
   shouldShowDisconnectAction,
   shouldShowOAuthClientForm,
   startOAuthRefreshPolling,
-  suggestConnectionName,
 } from "./providers-page";
 
 afterEach(() => {
@@ -209,40 +204,6 @@ describe("ProvidersPage route shell", () => {
     expect(detailMarkup).not.toContain("Host");
   });
 
-  it("renders every named account and an add-account action", () => {
-    const markup = renderProvidersPage(
-      {
-        ...providerData,
-        connections: [
-          {
-            service: "gmail",
-            connectionName: "default",
-            authType: "oauth2",
-            default: true,
-            profile: { displayName: "Personal", accountId: "personal", grantedScopes: ["email"] },
-            metadata: {},
-          },
-          {
-            service: "gmail",
-            connectionName: "dollify",
-            authType: "oauth2",
-            default: false,
-            profile: { displayName: "Dollify", accountId: "dollify", grantedScopes: ["email"] },
-            metadata: {},
-          },
-        ],
-      },
-      "/providers/gmail",
-    );
-
-    expect(markup).toContain("Accounts");
-    expect(markup).toContain("Personal");
-    expect(markup).toContain("Dollify");
-    expect(markup).toContain("Add account");
-    expect(markup).toContain("default");
-    expect(markup).toContain("dollify");
-  });
-
   it("allows stale catalog-only connections to be removed", () => {
     const markup = renderProvidersPage(
       {
@@ -283,29 +244,6 @@ describe("ProvidersPage route shell", () => {
   });
 });
 
-describe("named connection helpers", () => {
-  it("matches the backend connection-name constraints", () => {
-    expect(isValidConnectionName("dollify")).toBe(true);
-    expect(isValidConnectionName("product_account-2")).toBe(true);
-    expect(isValidConnectionName(" account")).toBe(true);
-    expect(isValidConnectionName("-account")).toBe(false);
-    expect(isValidConnectionName("product account")).toBe(false);
-    expect(isValidConnectionName("a".repeat(65))).toBe(false);
-  });
-
-  it("targets disconnects and suggests a free account name", () => {
-    expect(connectionApiPath("x service", "product/account")).toBe(
-      "/api/connections/x%20service?connectionName=product%2Faccount",
-    );
-    expect(
-      suggestConnectionName([
-        { service: "twitter", connectionName: "account-2", authType: "oauth2", metadata: {} },
-        { service: "twitter", connectionName: "account-3", authType: "oauth2", metadata: {} },
-      ]),
-    ).toBe("account-4");
-  });
-});
-
 describe("isProviderLocallyAvailable", () => {
   it("distinguishes catalog-only providers from providers with local actions", () => {
     expect(isProviderLocallyAvailable(catalogOnlyProvider)).toBe(false);
@@ -332,27 +270,6 @@ describe("shouldClearOAuthClientStatus", () => {
 
   it("clears the reset status when the selected provider changes", () => {
     expect(shouldClearOAuthClientStatus({ providerChanged: true, skipNextConfigClear: true })).toBe(true);
-  });
-});
-
-describe("createOAuthAuthorizationPopupFrameName", () => {
-  it("uses a dedicated frame for new connections and the compatible frame for reauthorization", () => {
-    expect(createOAuthAuthorizationPopupFrameName(false)).toBe("oomol_connect_oauth_fresh");
-    expect(createOAuthAuthorizationPopupFrameName(true)).toBe("oomol_connect_oauth");
-  });
-});
-
-describe("createOAuthAuthorizationPopupUrl", () => {
-  it("marks new connections for a fresh local browser session", () => {
-    expect(createOAuthAuthorizationPopupUrl("https://x.com/i/oauth2/authorize?state=secret", false)).toBe(
-      "https://x.com/i/oauth2/authorize?state=secret#oomol-connect-fresh-session",
-    );
-  });
-
-  it("leaves existing connection reauthorization URLs unchanged", () => {
-    expect(createOAuthAuthorizationPopupUrl("https://x.com/i/oauth2/authorize?state=secret", true)).toBe(
-      "https://x.com/i/oauth2/authorize?state=secret",
-    );
   });
 });
 

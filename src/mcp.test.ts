@@ -38,21 +38,6 @@ const exampleProvider: ProviderDefinition = {
   actions: [echoAction],
 };
 
-const secureEchoAction: ActionDefinition = {
-  ...echoAction,
-  id: "secure.echo",
-  service: "secure",
-};
-
-const secureProvider: ProviderDefinition = {
-  service: "secure",
-  displayName: "Secure",
-  categories: ["Developer Tools"],
-  authTypes: ["api_key"],
-  auth: [{ type: "api_key" }],
-  actions: [secureEchoAction],
-};
-
 describe("MCP server", () => {
   it("lists the discovery tools through the MCP protocol", async () => {
     await withMcpClient(async (client) => {
@@ -143,99 +128,17 @@ describe("MCP server", () => {
       });
     });
   });
-
-  it("lists named accounts and routes execution through an explicit connection", async () => {
-    await withMcpClient(
-      async (client) => {
-        const apps = await client.callTool({ name: "list_apps", arguments: { query: "secure" } });
-        const guide = await client.callTool({
-          name: "get_action_guide",
-          arguments: { actionId: "secure.echo", connectionName: "dollify" },
-        });
-        const run = await client.callTool({
-          name: "execute_action",
-          arguments: { actionId: "secure.echo", connectionName: "dollify", input: { message: "hello" } },
-        });
-
-        expect(apps.structuredContent).toMatchObject({
-          ok: true,
-          data: [
-            {
-              service: "secure",
-              connectionCount: 2,
-              connection: { connectionName: "default" },
-              connections: [{ connectionName: "default" }, { connectionName: "dollify" }],
-            },
-          ],
-        });
-        expect(guide.structuredContent).toMatchObject({
-          ok: true,
-          data: {
-            capability: {
-              connection: { connectionName: "dollify" },
-              connections: [{ connectionName: "default" }, { connectionName: "dollify" }],
-            },
-            markdown: expect.stringContaining("Connection `dollify` (selected)"),
-          },
-        });
-        expect(run.structuredContent).toEqual({
-          ok: true,
-          data: { message: "hello", selectedAccount: "dollify-account" },
-        });
-      },
-      { providers: [secureProvider], storedConnections: secureConnections },
-    );
-  });
-
-  it("rejects ambiguous execution and unknown explicit connections", async () => {
-    await withMcpClient(
-      async (client) => {
-        const ambiguous = await client.callTool({
-          name: "execute_action",
-          arguments: { actionId: "secure.echo", input: { message: "hello" } },
-        });
-        const missing = await client.callTool({
-          name: "execute_action",
-          arguments: { actionId: "secure.echo", connectionName: "missing", input: { message: "hello" } },
-        });
-
-        expect(ambiguous.isError).toBe(true);
-        expect(ambiguous.structuredContent).toMatchObject({
-          ok: false,
-          error: {
-            code: "ambiguous_connection",
-            details: {
-              service: "secure",
-              connections: [{ connectionName: "default" }, { connectionName: "dollify" }],
-            },
-          },
-        });
-        expect(missing.isError).toBe(true);
-        expect(missing.structuredContent).toMatchObject({
-          ok: false,
-          error: { code: "connection_not_found" },
-        });
-      },
-      { providers: [secureProvider], storedConnections: secureConnections },
-    );
-  });
 });
 
-interface McpFixture {
-  providers?: ProviderDefinition[];
-  storedConnections?: StoredConnection[];
-}
-
-async function withMcpClient(run: (client: Client) => Promise<void>, fixture: McpFixture = {}): Promise<void> {
-  const providers = fixture.providers ?? [exampleProvider];
-  const catalog = createCatalogStore(providers, {
-    executableActionIds: providers.flatMap((provider) => provider.actions.map((action) => action.id)),
+async function withMcpClient(run: (client: Client) => Promise<void>): Promise<void> {
+  const catalog = createCatalogStore([exampleProvider], {
+    executableActionIds: ["example.echo"],
   });
   const providerLoader = new EchoProviderLoader();
   const connections = new ConnectionService({
     catalog,
     providerLoader,
-    store: new MemoryConnectionStore(fixture.storedConnections),
+    store: new MemoryConnectionStore(),
   });
   const actions = new ActionRunner({
     catalog,
@@ -262,15 +165,8 @@ async function withMcpClient(run: (client: Client) => Promise<void>, fixture: Mc
 }
 
 class EchoProviderLoader implements IProviderLoader {
-  async loadActionExecutor(service: string): Promise<ActionExecutor> {
-    return async (input, context) => {
-      const credential = await context.getCredential(service);
-      const selectedAccount = credential && "profile" in credential ? credential.profile.accountId : undefined;
-      return {
-        ok: true,
-        output: selectedAccount ? { ...(input as Record<string, unknown>), selectedAccount } : input,
-      };
-    };
+  async loadActionExecutor(): Promise<ActionExecutor> {
+    return async (input) => ({ ok: true, output: input });
   }
 
   async loadProxyExecutor(): Promise<undefined> {
@@ -283,56 +179,17 @@ class EchoProviderLoader implements IProviderLoader {
 }
 
 class MemoryConnectionStore implements IConnectionStore {
-  private readonly connections: StoredConnection[];
-
-  constructor(connections: StoredConnection[] = []) {
-    this.connections = connections;
+  async get(): Promise<ResolvedCredential | undefined> {
+    return undefined;
   }
 
-  async get(service: string, connectionName: string): Promise<ResolvedCredential | undefined> {
-    return this.connections.find(
-      (connection) => connection.service === service && connection.connectionName === connectionName,
-    )?.credential;
-  }
+  async set(): Promise<void> {}
 
-  async set(service: string, connectionName: string, credential: ResolvedCredential): Promise<void> {
-    const index = this.connections.findIndex(
-      (connection) => connection.service === service && connection.connectionName === connectionName,
-    );
-    const stored = { service, connectionName, credential };
-    if (index >= 0) this.connections[index] = stored;
-    else this.connections.push(stored);
-  }
-
-  async delete(service: string, connectionName: string): Promise<void> {
-    const index = this.connections.findIndex(
-      (connection) => connection.service === service && connection.connectionName === connectionName,
-    );
-    if (index >= 0) this.connections.splice(index, 1);
-  }
+  async delete(): Promise<void> {}
 
   async list(): Promise<StoredConnection[]> {
-    return this.connections;
+    return [];
   }
-}
-
-const secureConnections: StoredConnection[] = [
-  secureConnection("default", "personal-account", "Personal"),
-  secureConnection("dollify", "dollify-account", "Dollify"),
-];
-
-function secureConnection(connectionName: string, accountId: string, displayName: string): StoredConnection {
-  return {
-    service: "secure",
-    connectionName,
-    credential: {
-      authType: "api_key",
-      apiKey: `${connectionName}-secret`,
-      values: { apiKey: `${connectionName}-secret` },
-      profile: { accountId, displayName, grantedScopes: [] },
-      metadata: {},
-    },
-  };
 }
 
 class MemoryRunLogStore implements IRunLogStore {
